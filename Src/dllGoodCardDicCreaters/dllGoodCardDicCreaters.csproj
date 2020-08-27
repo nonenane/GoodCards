@@ -127,6 +127,10 @@
     <None Include="Resources\Trash.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dllGoodCardDicTypeSubject\dllGoodCardDicTypeSubject.csproj">
+      <Project>{e69f9edc-4de1-454d-9400-b053877abfef}</Project>
+      <Name>dllGoodCardDicTypeSubject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dllGoodCard\dllGoodCardDicTypeOwnership.csproj">
       <Project>{ced0afbd-2454-4a34-812c-14457c83ea93}</Project>
       <Name>dllGoodCardDicTypeOwnership</Name>

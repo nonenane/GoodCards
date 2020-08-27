@@ -155,6 +155,12 @@ namespace dllGoodCardDicCreaters
             this.DialogResult = DialogResult.OK;
         }
 
+        private void btDicSubject_Click(object sender, EventArgs e)
+        {
+            new dllGoodCardDicTypeSubject.frmList().ShowDialog();
+            init_combobox();
+        }
+
         private void tbName_TextChanged(object sender, EventArgs e)
         {
             isEditData = true;

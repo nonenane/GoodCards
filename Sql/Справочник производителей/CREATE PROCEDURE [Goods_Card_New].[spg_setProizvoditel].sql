@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника производителей
 -- =============================================
-ALTER PROCEDURE [Goods_Card_New].[spg_setProizvoditel]			 
+CREATE PROCEDURE [Goods_Card_New].[spg_setProizvoditel]			 
 	@id int,
 	@cName varchar(max),	
 	@inn varchar(max),

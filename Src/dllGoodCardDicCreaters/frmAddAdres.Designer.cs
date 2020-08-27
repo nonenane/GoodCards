@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btSave = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
+            this.btDicSubject = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbName
@@ -62,7 +63,7 @@
             this.cmbSubject.FormattingEnabled = true;
             this.cmbSubject.Location = new System.Drawing.Point(101, 8);
             this.cmbSubject.Name = "cmbSubject";
-            this.cmbSubject.Size = new System.Drawing.Size(377, 21);
+            this.cmbSubject.Size = new System.Drawing.Size(330, 21);
             this.cmbSubject.TabIndex = 9;
             // 
             // label2
@@ -96,11 +97,22 @@
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
+            // btDicSubject
+            // 
+            this.btDicSubject.Location = new System.Drawing.Point(440, 8);
+            this.btDicSubject.Name = "btDicSubject";
+            this.btDicSubject.Size = new System.Drawing.Size(38, 19);
+            this.btDicSubject.TabIndex = 11;
+            this.btDicSubject.Text = "...";
+            this.btDicSubject.UseVisualStyleBackColor = true;
+            this.btDicSubject.Click += new System.EventHandler(this.btDicSubject_Click);
+            // 
             // frmAddAdres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(490, 190);
+            this.Controls.Add(this.btDicSubject);
             this.Controls.Add(this.cmbSubject);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lName);
@@ -129,5 +141,6 @@
         private System.Windows.Forms.Label lName;
         private System.Windows.Forms.ComboBox cmbSubject;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btDicSubject;
     }
 }

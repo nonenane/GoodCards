@@ -179,6 +179,7 @@ namespace dllGoodCardDicCreaters
         private void btDicSubject_Click(object sender, EventArgs e)
         {
             new dllGoodCardDicTypeOwnership.frmList().ShowDialog();
+            init_combobox();
         }
 
         private void dgvAdress_SelectionChanged(object sender, EventArgs e)

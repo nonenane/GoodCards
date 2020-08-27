@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника форм собственности
 -- =============================================
-ALTER PROCEDURE [Goods_Card_New].[spg_setSubject]			 
+CREATE PROCEDURE [Goods_Card_New].[spg_setSubject]			 
 	@id int,
 	@cName varchar(max),	
 	@code varchar(150),
