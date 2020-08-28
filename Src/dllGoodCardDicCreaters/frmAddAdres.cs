@@ -80,7 +80,7 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
-            Task<DataTable> task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, (int)cmbSubject.SelectedValue, tbName.Text, true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, (int)cmbSubject.SelectedValue, tbName.Text, true, false, 0,false);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -104,31 +104,31 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
-
-            task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, (int)cmbSubject.SelectedValue, tbName.Text, true, false, 0);
+            id = (int)dtResult.Rows[0]["id"];
+            task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, (int)cmbSubject.SelectedValue, tbName.Text, true, false, 0,true);
             task.Wait();
 
-            dtResult = task.Result;
+            //dtResult = task.Result;
 
-            if (dtResult == null || dtResult.Rows.Count == 0)
-            {
-                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -1)
-            {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (dtResult == null || dtResult.Rows.Count == 0)
+            //{
+            //    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
 
-            if ((int)dtResult.Rows[0]["id"] == -9999)
-            {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if ((int)dtResult.Rows[0]["id"] == -1)
+            //{
+            //    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+
+            //if ((int)dtResult.Rows[0]["id"] == -9999)
+            //{
+            //    MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
 
 

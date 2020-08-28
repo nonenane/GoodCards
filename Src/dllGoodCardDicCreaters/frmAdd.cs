@@ -89,6 +89,13 @@ namespace dllGoodCardDicCreaters
         private void btSave_Click(object sender, EventArgs e)
         {
 
+            if (cmbTypeSubject.SelectedValue == null)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label2.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbTypeSubject.Focus();
+                return;
+            }
+
             if (tbName.Text.Trim().Length == 0)
             {
                 MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lName.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -96,7 +103,7 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
-            Task<DataTable> task = Config.hCntMain.setProizvoditel(id, tbName.Text,tbCode.Text,(int)cmbTypeSubject.SelectedValue, true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setProizvoditel(id, tbName.Text,tbCode.Text,(int)cmbTypeSubject.SelectedValue, true, false, 0,false);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -120,31 +127,32 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
+            id = (int)dtResult.Rows[0]["id"];
 
-            task = Config.hCntSecond.setProizvoditel(id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0);
+            task = Config.hCntSecond.setProizvoditel(id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0, true);
             task.Wait();
 
-            dtResult = task.Result;
+            //dtResult = task.Result;
 
-            if (dtResult == null || dtResult.Rows.Count == 0)
-            {
-                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -1)
-            {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (dtResult == null || dtResult.Rows.Count == 0)
+            //{
+            //    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
 
-            if ((int)dtResult.Rows[0]["id"] == -9999)
-            {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if ((int)dtResult.Rows[0]["id"] == -1)
+            //{
+            //    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+
+            //if ((int)dtResult.Rows[0]["id"] == -9999)
+            //{
+            //    MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
 
 
@@ -217,10 +225,10 @@ namespace dllGoodCardDicCreaters
                 int id = (int)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["id"];
                 int id_proizvoditel = (int)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["id_proizvoditel"];
                 int id_subject = (int)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["id_subject"];
-                bool isActive = (bool)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["isActive"];
+                bool isActive = true;// (bool)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["isActive"];
                 string cName = (string)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["street"];
 
-                Task<DataTable> task = Config.hCntMain.setAdresProizvod(id,id_proizvoditel,id_subject,cName, isActive, true, 0);
+                Task<DataTable> task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0, false);
                 task.Wait();
 
                 if (task.Result == null)
@@ -239,23 +247,23 @@ namespace dllGoodCardDicCreaters
                 }
 
 
-                task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0);
-                task.Wait();
+                //task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0);
+                //task.Wait();
 
-                if (task.Result == null)
-                {
-                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                //if (task.Result == null)
+                //{
+                //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
 
-                int _result = (int)task.Result.Rows[0]["id"];
+                //int _result = (int)task.Result.Rows[0]["id"];
 
-                if (_result == -1)
-                {
-                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    getAdresProizvod(id);
-                    return;
-                }
+                //if (_result == -1)
+                //{
+                //    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    getAdresProizvod(id);
+                //    return;
+                //}
 
 
 
@@ -265,7 +273,7 @@ namespace dllGoodCardDicCreaters
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         //setLog(id, 1542);
-                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0);
+                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -273,13 +281,13 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0);
+                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        //if (task.Result == null)
+                        //{
+                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
 
                         getAdresProizvod(id);
                         return;
@@ -291,7 +299,7 @@ namespace dllGoodCardDicCreaters
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         //setLog(id, 1566);
-                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1);
+                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1,false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -299,13 +307,13 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1);
+                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        //if (task.Result == null)
+                        //{
+                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         getAdresProizvod(id);
                         return;
                     }
@@ -315,7 +323,7 @@ namespace dllGoodCardDicCreaters
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         //setLog(id, 1543);
-                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0);
+                        task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -323,13 +331,13 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0);
+                        task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        //if (task.Result == null)
+                        //{
+                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         getAdresProizvod(id);
                         return;
                     }

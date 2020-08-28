@@ -31,7 +31,7 @@ namespace dllGoodCardDicCreaters
         /// <param name="result">Результирующая для проверки</param>
         /// <returns>Таблица с данными</returns>
         /// <param name="id">код созданной записи</param>
-        public async Task<DataTable> setProizvoditel(int id, string cName, string inn, int id_type_org, bool isActive, bool isDel, int result)
+        public async Task<DataTable> setProizvoditel(int id, string cName, string inn, int id_type_org, bool isActive, bool isDel, int result,bool isAutoIncriments)
         {
             ap.Clear();
             ap.Add(id);
@@ -42,10 +42,11 @@ namespace dllGoodCardDicCreaters
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(result);
             ap.Add(isDel);
+            ap.Add(isAutoIncriments);
 
             DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setProizvoditel]",
-                 new string[8] { "@id", "@cName", "@inn", "@id_type_org", "@isActive", "@id_user", "@result", "@isDel" },
-                 new DbType[8] { DbType.Int32, DbType.String, DbType.String, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+                 new string[9] { "@id", "@cName", "@inn", "@id_type_org", "@isActive", "@id_user", "@result", "@isDel","@isAutoIncriments" },
+                 new DbType[9] { DbType.Int32, DbType.String, DbType.String, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
 
             return dtResult;
         }
@@ -62,7 +63,7 @@ namespace dllGoodCardDicCreaters
         /// <param name="result">Результирующая для проверки</param>
         /// <returns>Таблица с данными</returns>
         /// <param name="id">код созданной записи</param>
-        public async Task<DataTable> setAdresProizvod(int id, int id_proizvoditel, int id_subject, string cName, bool isActive, bool isDel, int result)
+        public async Task<DataTable> setAdresProizvod(int id, int id_proizvoditel, int id_subject, string cName, bool isActive, bool isDel, int result,bool isAutoIncriments)
         {
             ap.Clear();
             ap.Add(id);
@@ -73,10 +74,11 @@ namespace dllGoodCardDicCreaters
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(result);
             ap.Add(isDel);
+            ap.Add(isAutoIncriments);
 
             DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setAdresProizvod]",
-                 new string[8] { "@id", "@id_proizvoditel", "@id_subject", "@cName", "@isActive", "@id_user", "@result", "@isDel" },
-                 new DbType[8] { DbType.Int32, DbType.Int32, DbType.Int32, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+                 new string[9] { "@id", "@id_proizvoditel", "@id_subject", "@cName", "@isActive", "@id_user", "@result", "@isDel","@isAutoIncriments" },
+                 new DbType[9] { DbType.Int32, DbType.Int32, DbType.Int32, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
 
             return dtResult;
         }

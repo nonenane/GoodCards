@@ -71,10 +71,13 @@ namespace dllGoodCardDicCreaters
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
                 bool isActive = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isActive"];
                 string cName = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"];
-                string code = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["inn"];
+                string code = "";
+                if (dtData.DefaultView[dgvData.CurrentRow.Index]["inn"] != DBNull.Value)
+                    code = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["inn"];
+
                 int id_type_org = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_type_org"];
 
-                Task<DataTable> task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, isActive, true, 0);
+                Task<DataTable> task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, isActive, true, 0, false);
                 task.Wait();
 
                 if (task.Result == null)
@@ -92,34 +95,12 @@ namespace dllGoodCardDicCreaters
                     return;
                 }
 
-
-                task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, isActive, true, 0);
-                task.Wait();
-
-                if (task.Result == null)
-                {
-                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                int _result = (int)task.Result.Rows[0]["id"];
-
-                if (_result == -1)
-                {
-                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    get_data();
-                    return;
-                }
-
-
-
-
                 if (result == -2 && isActive)
                 {
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1542);
-                        task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org,!isActive, false, 0);
+                        task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -127,7 +108,7 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org,!isActive, false, 0);
+                        task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -145,7 +126,7 @@ namespace dllGoodCardDicCreaters
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1566);
-                        task = Config.hCntMain.setProizvoditel(id, cName, code,id_type_org, isActive, true, 1);
+                        task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -153,7 +134,7 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setProizvoditel(id, cName, code,id_type_org, isActive, true, 1);
+                        task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, true);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -169,7 +150,7 @@ namespace dllGoodCardDicCreaters
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1543);
-                        task = Config.hCntMain.setProizvoditel(id, cName, code,id_type_org, !isActive, false, 0);
+                        task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -177,7 +158,7 @@ namespace dllGoodCardDicCreaters
                             return;
                         }
 
-                        task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0);
+                        task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
                         task.Wait();
                         if (task.Result == null)
                         {

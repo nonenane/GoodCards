@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника производителей
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_setAdresProizvod]			 
+ALTER PROCEDURE [Goods_Card_New].[spg_setAdresProizvod]			 
 	@id int,
 	@id_proizvoditel int,
 	@id_subject int,
@@ -15,7 +15,8 @@ CREATE PROCEDURE [Goods_Card_New].[spg_setAdresProizvod]
 	@isActive bit,
 	@id_user int,
 	@result int = 0,
-	@isDel int
+	@isDel int,
+	@isAutoIncriments bit = 0
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -23,7 +24,7 @@ BEGIN
 BEGIN TRY 
 	IF @isDel = 0
 		BEGIN		
-			IF EXISTS (select TOP(1) id from [dbo].[s_adress_proizvod] where id <>@id and id_proizvoditel = @id_proizvoditel and id_subject = @id_subject)
+			IF EXISTS (select TOP(1) id from [dbo].[s_adress_proizvod] where id <> @id and id_proizvoditel = @id_proizvoditel and id_subject = @id_subject) and @isAutoIncriments = 0 
 				BEGIN
 					SELECT -1 as id;
 					return;
@@ -39,17 +40,33 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-					UPDATE [dbo].[s_adress_proizvod] 
-					set		id_proizvoditel = @id_proizvoditel,
-							id_subject = @id_subject,
-							street = @cName,
-							isActive=@isActive,
-							id_Editor=@id_user,
-							DateEdit=GETDATE()
-					where id = @id
+
+					if @isAutoIncriments = 0
+						BEGIN
+							UPDATE [dbo].[s_adress_proizvod] 
+							set		id_proizvoditel = @id_proizvoditel,
+									id_subject = @id_subject,
+									street = @cName,
+									isActive=@isActive,
+									id_Editor=@id_user,
+									DateEdit=GETDATE()
+							where id = @id
 										
-					SELECT @id as id
-					return;
+							SELECT @id as id
+							return;
+						END
+					ELSE
+						BEGIN
+							set identity_insert dbo.[s_adress_proizvod] on;
+							
+							INSERT INTO [dbo].[s_adress_proizvod]  (id,id_proizvoditel,id_subject,street,id_district,id_city,house,isActive,id_Editor,DateEdit)
+							VALUES (@id,@id_proizvoditel,@id_subject,@cName,NULL,NULL,NULL,1,@id_user,GETDATE())
+							
+							set identity_insert dbo.[s_adress_proizvod] off;
+
+							SELECT @id as id
+							return;
+						END
 				END
 		END
 	ELSE
@@ -57,19 +74,19 @@ BEGIN TRY
 			IF @result = 0
 				BEGIN
 					
-					IF NOT EXISTS(select TOP(1) id from [dbo].[s_adress_proizvod] where id = @id)
+					IF NOT EXISTS(select TOP(1) id from [dbo].[s_adress_proizvod] where id = @id) and @isAutoIncriments = 0 
 						BEGIN
 							select -1 as id
 							return;
 						END
 					
-					IF EXISTS(select TOP(1) id from [dbo].s_Proizvodstvo where id_adress_proizvod  =  @id)
+					IF EXISTS(select TOP(1) id from [dbo].s_Proizvodstvo where id_adress_proizvod  =  @id)and @isAutoIncriments = 0 
 						BEGIN
 							select -2 as id
 							return;
 						END
 
-					IF EXISTS(select TOP(1) id from [dbo].s_sertification where id_adress_proizvod  =  @id)
+					IF EXISTS(select TOP(1) id from [dbo].s_sertification where id_adress_proizvod  =  @id)and @isAutoIncriments = 0 
 						BEGIN
 							select -2 as id
 							return;
