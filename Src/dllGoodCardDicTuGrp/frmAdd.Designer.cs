@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lName = new System.Windows.Forms.Label();
             this.btSave = new System.Windows.Forms.Button();
@@ -41,15 +41,17 @@
             this.chbIsCredit = new System.Windows.Forms.CheckBox();
             this.tbNaneGrp = new System.Windows.Forms.TextBox();
             this.dgvAdress = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             this.cV = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cNameGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbID = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdress)).BeginInit();
             this.SuspendLayout();
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(101, 12);
+            this.tbName.Location = new System.Drawing.Point(101, 35);
             this.tbName.MaxLength = 100;
             this.tbName.Name = "tbName";
             this.tbName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -60,7 +62,7 @@
             // lName
             // 
             this.lName.AutoSize = true;
-            this.lName.Location = new System.Drawing.Point(15, 16);
+            this.lName.Location = new System.Drawing.Point(15, 39);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(83, 13);
             this.lName.TabIndex = 6;
@@ -70,7 +72,7 @@
             // 
             this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btSave.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Save;
-            this.btSave.Location = new System.Drawing.Point(409, 455);
+            this.btSave.Location = new System.Drawing.Point(409, 491);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(32, 32);
             this.btSave.TabIndex = 2;
@@ -81,7 +83,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Exit;
-            this.btClose.Location = new System.Drawing.Point(447, 455);
+            this.btClose.Location = new System.Drawing.Point(447, 491);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 3;
@@ -91,7 +93,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 41);
+            this.label1.Location = new System.Drawing.Point(15, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 13;
@@ -101,7 +103,7 @@
             // 
             this.cmbDeps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDeps.FormattingEnabled = true;
-            this.cmbDeps.Location = new System.Drawing.Point(101, 37);
+            this.cmbDeps.Location = new System.Drawing.Point(101, 60);
             this.cmbDeps.Name = "cmbDeps";
             this.cmbDeps.Size = new System.Drawing.Size(377, 21);
             this.cmbDeps.TabIndex = 12;
@@ -111,7 +113,7 @@
             // 
             this.cmbNds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNds.FormattingEnabled = true;
-            this.cmbNds.Location = new System.Drawing.Point(101, 64);
+            this.cmbNds.Location = new System.Drawing.Point(101, 87);
             this.cmbNds.Name = "cmbNds";
             this.cmbNds.Size = new System.Drawing.Size(377, 21);
             this.cmbNds.TabIndex = 12;
@@ -119,7 +121,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 68);
+            this.label2.Location = new System.Drawing.Point(15, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 13);
             this.label2.TabIndex = 13;
@@ -127,7 +129,7 @@
             // 
             // chbWithSubGroups
             // 
-            this.chbWithSubGroups.Location = new System.Drawing.Point(15, 116);
+            this.chbWithSubGroups.Location = new System.Drawing.Point(15, 139);
             this.chbWithSubGroups.Name = "chbWithSubGroups";
             this.chbWithSubGroups.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chbWithSubGroups.Size = new System.Drawing.Size(463, 17);
@@ -138,7 +140,7 @@
             // 
             // chbIsCredit
             // 
-            this.chbIsCredit.Location = new System.Drawing.Point(15, 93);
+            this.chbIsCredit.Location = new System.Drawing.Point(15, 116);
             this.chbIsCredit.Name = "chbIsCredit";
             this.chbIsCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chbIsCredit.Size = new System.Drawing.Size(463, 17);
@@ -149,7 +151,7 @@
             // 
             // tbNaneGrp
             // 
-            this.tbNaneGrp.Location = new System.Drawing.Point(152, 176);
+            this.tbNaneGrp.Location = new System.Drawing.Point(153, 198);
             this.tbNaneGrp.Name = "tbNaneGrp";
             this.tbNaneGrp.Size = new System.Drawing.Size(326, 20);
             this.tbNaneGrp.TabIndex = 16;
@@ -164,35 +166,26 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAdress.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAdress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdress.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cV,
             this.cNameGrp});
-            this.dgvAdress.Location = new System.Drawing.Point(101, 202);
+            this.dgvAdress.Location = new System.Drawing.Point(101, 224);
             this.dgvAdress.MultiSelect = false;
             this.dgvAdress.Name = "dgvAdress";
             this.dgvAdress.RowHeadersVisible = false;
             this.dgvAdress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAdress.Size = new System.Drawing.Size(378, 247);
+            this.dgvAdress.Size = new System.Drawing.Size(378, 261);
             this.dgvAdress.TabIndex = 17;
             this.dgvAdress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvAdress_ColumnWidthChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 146);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(187, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Связь Т/У группы с инв. группами.";
             // 
             // cV
             // 
@@ -213,11 +206,40 @@
             this.cNameGrp.Name = "cNameGrp";
             this.cNameGrp.ReadOnly = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 169);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(187, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Связь Т/У группы с инв. группами.";
+            // 
+            // tbID
+            // 
+            this.tbID.Location = new System.Drawing.Point(101, 9);
+            this.tbID.MaxLength = 20;
+            this.tbID.Name = "tbID";
+            this.tbID.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbID.Size = new System.Drawing.Size(98, 20);
+            this.tbID.TabIndex = 0;
+            this.tbID.TextChanged += new System.EventHandler(this.tbName_TextChanged);
+            this.tbID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbID_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(18, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "ID";
+            // 
             // frmAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 499);
+            this.ClientSize = new System.Drawing.Size(491, 535);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvAdress);
             this.Controls.Add(this.tbNaneGrp);
@@ -227,7 +249,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbNds);
             this.Controls.Add(this.cmbDeps);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lName);
+            this.Controls.Add(this.tbID);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.btClose);
@@ -263,5 +287,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cV;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameGrp;
+        private System.Windows.Forms.TextBox tbID;
+        private System.Windows.Forms.Label label4;
     }
 }

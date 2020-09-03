@@ -140,22 +140,24 @@ namespace dllGoodCardDicTuGrp
 
         #region "Справочник Ту групп"
 
-        public async Task<DataTable> setProizvoditel(int id, string cName, string inn, int id_type_org, bool isActive, bool isDel, int result,bool isAutoIncriments)
+        public async Task<DataTable> setGrp1(int id, string cName, int id_otdel, int id_nds, int? ntypeorg,bool isCredit,bool isWithSubGroups, bool isActive, bool isDel, int result, bool isAutoIncriments)
         {
             ap.Clear();
             ap.Add(id);
             ap.Add(cName);
-            ap.Add(inn);
-            ap.Add(id_type_org);
+            ap.Add(id_otdel);
+            ap.Add(id_nds);
+            ap.Add(ntypeorg);
+            ap.Add(isCredit);
+            ap.Add(isWithSubGroups);
             ap.Add(isActive);
-            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(result);
             ap.Add(isDel);
             ap.Add(isAutoIncriments);
 
-            DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setProizvoditel]",
-                 new string[9] { "@id", "@cName", "@inn", "@id_type_org", "@isActive", "@id_user", "@result", "@isDel","@isAutoIncriments" },
-                 new DbType[9] { DbType.Int32, DbType.String, DbType.String, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setGrp1]",
+                 new string[11] { "@id", "@cName", "@id_otdel", "@id_nds", "@ntypeorg", "@isCredit", "@isWithSubGroups", "@isActive", "@result", "@isDel","@isAutoIncriments" },
+                 new DbType[11] { DbType.Int32, DbType.String, DbType.Int32, DbType.Int32, DbType.Int32, DbType.Boolean, DbType.Boolean, DbType.Boolean, DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
 
             return dtResult;
         }
@@ -198,6 +200,33 @@ namespace dllGoodCardDicTuGrp
             ap.Add(id_grp1);
 
             DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_getGrp1VsGrp2]",
+                 new string[1] { "@id_grp1" },
+                 new DbType[1] { DbType.Int32 }, ap);
+
+            return dtResult;
+        }
+
+        public async Task<DataTable> setGrp1VsGrp2(int id_grp1, int id_grp2, bool isDel,bool isAutoIncriments)
+        {
+            ap.Clear();
+            ap.Add(id_grp1);
+            ap.Add(id_grp2);
+            ap.Add(isDel);
+            ap.Add(isAutoIncriments);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setGrp1VsGrp2]",
+                 new string[4] { "@id_grp1","@id_grp2", "@isDel", "@isAutoIncriments" },
+                 new DbType[4] { DbType.Int32, DbType.Int32,DbType.Boolean, DbType.Boolean }, ap);
+
+            return dtResult;
+        }
+
+        public async Task<DataTable> getUserVsGrp1(int id_grp1)
+        {
+            ap.Clear();
+            ap.Add(id_grp1);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_getUserVsGrp1]",
                  new string[1] { "@id_grp1" },
                  new DbType[1] { DbType.Int32 }, ap);
 

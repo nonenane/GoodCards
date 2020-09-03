@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbName = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNds = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chbNotActive = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvAdress = new System.Windows.Forms.DataGridView();
+            this.cNameGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chbIsCredit = new System.Windows.Forms.CheckBox();
             this.chbWithSubGroups = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.tbNaneGrp = new System.Windows.Forms.TextBox();
+            this.cmbDeps = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbUL = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
-            this.tbNaneGrp = new System.Windows.Forms.TextBox();
-            this.cNameGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmbDeps = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbUL = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNds = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdress)).BeginInit();
             this.SuspendLayout();
@@ -74,14 +74,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cName,
@@ -100,6 +100,34 @@
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
+            // 
+            // cName
+            // 
+            this.cName.DataPropertyName = "cName";
+            this.cName.HeaderText = "Наименование";
+            this.cName.Name = "cName";
+            this.cName.ReadOnly = true;
+            // 
+            // cNds
+            // 
+            this.cNds.DataPropertyName = "nds";
+            this.cNds.HeaderText = "НДС";
+            this.cNds.Name = "cNds";
+            this.cNds.ReadOnly = true;
+            // 
+            // cDeps
+            // 
+            this.cDeps.DataPropertyName = "nameDeps";
+            this.cDeps.HeaderText = "Отдел";
+            this.cDeps.Name = "cDeps";
+            this.cDeps.ReadOnly = true;
+            // 
+            // cUL
+            // 
+            this.cUL.DataPropertyName = "Abbriviation";
+            this.cUL.HeaderText = "ЮЛ";
+            this.cUL.Name = "cUL";
+            this.cUL.ReadOnly = true;
             // 
             // chbNotActive
             // 
@@ -132,14 +160,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAdress.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAdress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdress.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cNameGrp});
@@ -152,6 +180,14 @@
             this.dgvAdress.Size = new System.Drawing.Size(146, 390);
             this.dgvAdress.TabIndex = 5;
             this.dgvAdress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvAdress_ColumnWidthChanged);
+            // 
+            // cNameGrp
+            // 
+            this.cNameGrp.DataPropertyName = "cName";
+            this.cNameGrp.HeaderText = "Связанные инв. группы";
+            this.cNameGrp.MinimumWidth = 20;
+            this.cNameGrp.Name = "cNameGrp";
+            this.cNameGrp.ReadOnly = true;
             // 
             // chbIsCredit
             // 
@@ -185,6 +221,52 @@
             this.button1.Size = new System.Drawing.Size(32, 32);
             this.button1.TabIndex = 7;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tbNaneGrp
+            // 
+            this.tbNaneGrp.Location = new System.Drawing.Point(649, 36);
+            this.tbNaneGrp.Name = "tbNaneGrp";
+            this.tbNaneGrp.Size = new System.Drawing.Size(146, 20);
+            this.tbNaneGrp.TabIndex = 9;
+            // 
+            // cmbDeps
+            // 
+            this.cmbDeps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDeps.FormattingEnabled = true;
+            this.cmbDeps.Location = new System.Drawing.Point(50, 5);
+            this.cmbDeps.Name = "cmbDeps";
+            this.cmbDeps.Size = new System.Drawing.Size(206, 21);
+            this.cmbDeps.TabIndex = 10;
+            this.cmbDeps.SelectionChangeCommitted += new System.EventHandler(this.cmbDeps_SelectionChangeCommitted);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Отдел";
+            // 
+            // cmbUL
+            // 
+            this.cmbUL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUL.FormattingEnabled = true;
+            this.cmbUL.Location = new System.Drawing.Point(307, 5);
+            this.cmbUL.Name = "cmbUL";
+            this.cmbUL.Size = new System.Drawing.Size(206, 21);
+            this.cmbUL.TabIndex = 10;
+            this.cmbUL.SelectionChangeCommitted += new System.EventHandler(this.cmbDeps_SelectionChangeCommitted);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(277, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(24, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "ЮЛ";
             // 
             // button2
             // 
@@ -239,87 +321,6 @@
             this.btClose.TabIndex = 4;
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // tbNaneGrp
-            // 
-            this.tbNaneGrp.Location = new System.Drawing.Point(649, 36);
-            this.tbNaneGrp.Name = "tbNaneGrp";
-            this.tbNaneGrp.Size = new System.Drawing.Size(146, 20);
-            this.tbNaneGrp.TabIndex = 9;
-            // 
-            // cNameGrp
-            // 
-            this.cNameGrp.DataPropertyName = "cName";
-            this.cNameGrp.HeaderText = "Связанные инв. группы";
-            this.cNameGrp.MinimumWidth = 20;
-            this.cNameGrp.Name = "cNameGrp";
-            this.cNameGrp.ReadOnly = true;
-            // 
-            // cmbDeps
-            // 
-            this.cmbDeps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDeps.FormattingEnabled = true;
-            this.cmbDeps.Location = new System.Drawing.Point(50, 5);
-            this.cmbDeps.Name = "cmbDeps";
-            this.cmbDeps.Size = new System.Drawing.Size(206, 21);
-            this.cmbDeps.TabIndex = 10;
-            this.cmbDeps.SelectionChangeCommitted += new System.EventHandler(this.cmbDeps_SelectionChangeCommitted);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Отдел";
-            // 
-            // cmbUL
-            // 
-            this.cmbUL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUL.FormattingEnabled = true;
-            this.cmbUL.Location = new System.Drawing.Point(307, 5);
-            this.cmbUL.Name = "cmbUL";
-            this.cmbUL.Size = new System.Drawing.Size(206, 21);
-            this.cmbUL.TabIndex = 10;
-            this.cmbUL.SelectionChangeCommitted += new System.EventHandler(this.cmbDeps_SelectionChangeCommitted);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(277, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "ЮЛ";
-            // 
-            // cName
-            // 
-            this.cName.DataPropertyName = "cName";
-            this.cName.HeaderText = "Наименование";
-            this.cName.Name = "cName";
-            this.cName.ReadOnly = true;
-            // 
-            // cNds
-            // 
-            this.cNds.DataPropertyName = "nds";
-            this.cNds.HeaderText = "НДС";
-            this.cNds.Name = "cNds";
-            this.cNds.ReadOnly = true;
-            // 
-            // cDeps
-            // 
-            this.cDeps.DataPropertyName = "nameDeps";
-            this.cDeps.HeaderText = "Отдел";
-            this.cDeps.Name = "cDeps";
-            this.cDeps.ReadOnly = true;
-            // 
-            // cUL
-            // 
-            this.cUL.DataPropertyName = "Abbriviation";
-            this.cUL.HeaderText = "ЮЛ";
-            this.cUL.Name = "cUL";
-            this.cUL.ReadOnly = true;
             // 
             // frmList
             // 

@@ -37,12 +37,19 @@ namespace dllGoodCardDicTuGrp
             if (row != null)
             {
                 id = (int)row["id"];
+                tbID.Text = id.ToString();
+                tbID.Enabled = false;
                 tbName.Text = (string)row["cName"];
                 oldName = tbName.Text.Trim();
                                                
                 cmbDeps.SelectedValue = row["id_otdel"];
                 cmbDeps.Enabled = false;
                 cmbNds.SelectedValue = row["id_nds"];
+
+                chbIsCredit.Checked = (bool)row["isCredit"];
+                chbWithSubGroups.Checked = (int)row["isWithSubGroups"] == 1;
+
+                getAdresProizvod((int)cmbDeps.SelectedValue);
 
                 if (dtGrp2 != null)
                 {
@@ -57,9 +64,16 @@ namespace dllGoodCardDicTuGrp
                             rowCollect.First()["isSelect"] = true;
                         }
                     }
+
+                    string _filter = dtGrp2.DefaultView.RowFilter;
+                    dtGrp2.DefaultView.RowFilter = "";
+                    dtGrp2.DefaultView.Sort = "isSelect desc, cName asc";
+                    dtGrp2 = dtGrp2.DefaultView.ToTable().Copy();
+                    dtGrp2.DefaultView.RowFilter = _filter;
+                    dgvAdress.DataSource = dtGrp2;
                 }
 
-                getAdresProizvod((int)cmbDeps.SelectedValue);
+                
             }
             else
             {                
@@ -80,13 +94,7 @@ namespace dllGoodCardDicTuGrp
             dtGrp2.DefaultView.RowFilter = filter;
             dtGrp2.DefaultView.Sort = "cName asc";
 
-            dgvAdress.DataSource = dtGrp2;
-
-            //Task <DataTable> task = Config.hCntMain.getGrp1VsGrp2(id_proizvoditel);
-            //task.Wait();
-            //dtAdress = task.Result;
-            //dgvAdress.DataSource = task.Result;
-            
+            dgvAdress.DataSource = dtGrp2;            
         }
 
         private void init_combobox()
@@ -138,17 +146,18 @@ namespace dllGoodCardDicTuGrp
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            if (cmbNds.SelectedValue == null)
-            {
-                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label2.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbNds.Focus();
-                return;
-            }
 
             if (cmbDeps.SelectedValue == null)
             {
                 MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label2.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbDeps.Focus();
+                return;
+            }
+
+            if (cmbNds.SelectedValue == null)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label2.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbNds.Focus();
                 return;
             }
 
@@ -159,16 +168,59 @@ namespace dllGoodCardDicTuGrp
                 return;
             }
 
+            if (tbID.Text.Trim().Length == 0)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label4.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbID.Focus();
+                return;
+            }
+
+            int _id;
+            if (!int.TryParse(tbID.Text.Trim(), out _id))
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label4.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbID.Focus();
+                return;
+            }
+
+            int lenDeps = cmbDeps.SelectedValue.ToString().Length;
+            if (tbID.Text.Length < lenDeps)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label4.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbID.Focus();
+                return;
+            }
+
+            if ((int)cmbDeps.SelectedValue!=int.Parse(tbID.Text.Trim().Substring(0,lenDeps)))
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label4.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbID.Focus();
+                return;
+            }
+            id = _id;
+
             EnumerableRowCollection<DataRow> rowCollect = dtGrp2.AsEnumerable().Where(r => r.Field<bool>("isSelect") && r.Field<int>("id_otdel") == (int)cmbDeps.SelectedValue);
             //if (rowCollect.Count() == 0)
             //{                
-                //return;
+            //return;
             //}
 
-            //Task<DataTable> task = Config.hCntMain.setProizvoditel(id, tbName.Text,tbCode.Text,(int)cmbTypeSubject.SelectedValue, true, false, 0,false);
-            //task.Wait();
 
-            DataTable dtResult = new DataTable();// task.Result;
+            string cName = tbName.Text.Trim();
+            int id_otdel = (int)cmbDeps.SelectedValue;
+            int id_nds = (int)cmbNds.SelectedValue;
+            int? ntypeorg = null;
+            bool isCredit = chbIsCredit.Checked;
+            bool isWithSubGroups = chbWithSubGroups.Checked;
+            bool isActive = true;
+            bool isDel = false;
+            int result = 0;
+            bool isAutoIncriments = false;
+
+            Task<DataTable> task = Config.hCntMain.setGrp1(id, cName, id_otdel, id_nds, ntypeorg, isCredit, isWithSubGroups, isActive, isDel, result, isAutoIncriments);
+            task.Wait();
+
+            DataTable dtResult = task.Result;
 
             if (dtResult == null || dtResult.Rows.Count == 0)
             {
@@ -189,10 +241,20 @@ namespace dllGoodCardDicTuGrp
                 return;
             }
 
+
+            foreach (DataRow row in rowCollect)
+            {
+                task = Config.hCntMain.setGrp1VsGrp2(id, (int)row["id"], false, false);                
+            }
+
+
+
+
             id = (int)dtResult.Rows[0]["id"];
 
-            //task = Config.hCntSecond.setProizvoditel(id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0, true);
-            //task.Wait();
+            isAutoIncriments = true;
+            task = Config.hCntSecond.setGrp1(id, cName, id_otdel, id_nds, ntypeorg, isCredit, isWithSubGroups, isActive, isDel, result, isAutoIncriments);
+            task.Wait();
 
             if (id == 0)
             {
@@ -225,6 +287,11 @@ namespace dllGoodCardDicTuGrp
         private void cmbDeps_SelectionChangeCommitted(object sender, EventArgs e)
         {
             getAdresProizvod((int)cmbDeps.SelectedValue);
+        }
+
+        private void tbID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
         }
 
         private void tbNaneGrp_TextChanged(object sender, EventArgs e)
