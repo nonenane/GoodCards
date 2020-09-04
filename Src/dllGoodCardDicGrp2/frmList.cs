@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dllGoodCardDicGrp3
+namespace dllGoodCardDicGrp2
 {
     public partial class frmList : Form
     {
@@ -39,11 +39,19 @@ namespace dllGoodCardDicGrp3
         {
             Task<DataTable> task = Config.hCntMain.getDepartments(true);
             task.Wait();
-            DataTable dtObjectLease = task.Result;
+            DataTable dtDeps = task.Result;
 
             cmbDeps.DisplayMember = "cName";
             cmbDeps.ValueMember = "id";
-            cmbDeps.DataSource = dtObjectLease;
+            cmbDeps.DataSource = dtDeps;
+
+            task = Config.hCntMain.getUniGrp(true);
+            task.Wait();
+            DataTable dtUniGrp = task.Result;
+
+            cmbUniGrp.DisplayMember = "cName";
+            cmbUniGrp.ValueMember = "id";
+            cmbUniGrp.DataSource = dtUniGrp;
 
             get_data();
         }
@@ -71,8 +79,23 @@ namespace dllGoodCardDicGrp3
                 if ((int)cmbDeps.SelectedValue != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_otdel = {cmbDeps.SelectedValue}";
 
+                if ((int)cmbUniGrp.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_unigrp = {cmbUniGrp.SelectedValue}";
+
+                if(rbNetto.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_unit = 1";
+
+                if (rbUnit.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_unit = 2";
+
                 if (!chbNotActive.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
+
+                if(chbReglam.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"specification = 1";
+
+                if (chbLimitTovar.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"skoroportovar = 1";
 
                 dtData.DefaultView.RowFilter = filter;
             }
@@ -139,7 +162,7 @@ namespace dllGoodCardDicGrp3
             {
                 Config.DoOnUIThread(() => { this.Enabled = false; }, this);
 
-                Task<DataTable> task = Config.hCntMain.getGrp3();
+                Task<DataTable> task = Config.hCntMain.getGrp2();
                 task.Wait();
                 dtData = task.Result;
 
@@ -211,12 +234,18 @@ namespace dllGoodCardDicGrp3
                 int id = (int)row["id"];
                 string cName = (string)row["cName"];
                 int id_otdel = (int)row["id_otdel"];
+                int id_unigrp = (int)row["id_unigrp"];
+                int id_unit = (int)row["id_unit"];
+                bool specification = (bool)row["specification"];
+                bool skoroportovar = (bool)row["skoroportovar"];
+                decimal NettoMax = (decimal)row["NettoMax"];
+                int DayMax = (int)row["DayMax"];
                 bool isActive = (bool)row["isActive"];
                 bool isDel = true;
                 int result = 0;
                 bool isAutoIncriments = false;
 
-                Task<DataTable> task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+                Task<DataTable> task = Config.hCntMain.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, isActive, isDel, result, isAutoIncriments);
                 task.Wait();
 
                 if (task.Result == null)
@@ -242,7 +271,7 @@ namespace dllGoodCardDicGrp3
                         //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
                         result = 1;
                         isDel = false;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntMain.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, !isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -254,7 +283,7 @@ namespace dllGoodCardDicGrp3
                         result = 1;
                         isDel = false;
                         isAutoIncriments = true;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntSecond.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, !isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -276,7 +305,7 @@ namespace dllGoodCardDicGrp3
                         //isAutoIncriments = true;
                         isDel = true;
                         result = 1;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntMain.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -288,7 +317,7 @@ namespace dllGoodCardDicGrp3
                         isAutoIncriments = true;
                         isDel = true;
                         result = 1;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel,  isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntSecond.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -308,7 +337,7 @@ namespace dllGoodCardDicGrp3
                         //isAutoIncriments = true;
                         result = 1;
                         isDel = false;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel,  !isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntMain.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, !isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -320,7 +349,7 @@ namespace dllGoodCardDicGrp3
                         isAutoIncriments = true;
                         result = 1;
                         isDel = false;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task = Config.hCntSecond.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, !isActive, isDel, result, isAutoIncriments);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -364,6 +393,12 @@ namespace dllGoodCardDicGrp3
                     maxColumns++;
                     if (col.Name.Equals("cName")) setWidthColumn(indexRow, maxColumns, 20, report);
                     if (col.Name.Equals("cDeps")) setWidthColumn(indexRow, maxColumns, 22, report);
+                    if (col.Name.Equals("cUniGrp")) setWidthColumn(indexRow, maxColumns, 22, report);
+                    if (col.Name.Equals("cReglam")) setWidthColumn(indexRow, maxColumns, 13, report);
+                    if (col.Name.Equals("cLimitTovar")) setWidthColumn(indexRow, maxColumns, 20, report);
+                    if (col.Name.Equals("cLimitInut")) setWidthColumn(indexRow, maxColumns, 18, report);
+                    if (col.Name.Equals("cLimitDay")) setWidthColumn(indexRow, maxColumns, 16, report);
+                    if (col.Name.Equals("cUnit")) setWidthColumn(indexRow, maxColumns, 10, report);
                 }
 
             #region "Head"
@@ -379,22 +414,20 @@ namespace dllGoodCardDicGrp3
             report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
             indexRow++;
 
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{label2.Text}: {cmbUniGrp.Text}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{gTypeGrp.Text}: {(rbAll.Checked ? rbAll.Text : rbNetto.Checked ? rbNetto.Text : rbUnit.Checked ? rbUnit.Text : "")}", indexRow, 1);
+            indexRow++;
+
             if (tbName.Text.Trim().Length > 0)
             {
                 report.Merge(indexRow, 1, indexRow, maxColumns);
                 report.AddSingleValue($"Фильтр: {tbName.Text}", indexRow, 1);
                 indexRow++;
             }
-
-            //if (tbAgreements.Text.Trim().Length > 0 || tbTenant.Text.Trim().Length > 0 || tbPlace.Text.Trim().Length > 0)
-            //{
-            //    report.Merge(indexRow, 1, indexRow, maxColumns);
-            //    report.AddSingleValue($"Фильтры: " +
-            //        $"{(tbTenant.Text.Trim().Length == 0 ? "" : "Арендатор: " + tbTenant.Text.Trim())} " +
-            //        $"{(tbPlace.Text.Trim().Length == 0 ? "" : "    Местоположение места аренды: " + tbPlace.Text.Trim())} " +
-            //        $"{(tbAgreements.Text.Trim().Length == 0 ? "" : "   Номер договора: " + tbAgreements.Text.Trim())}", indexRow, 1);
-            //    indexRow++;
-            //}
 
             report.Merge(indexRow, 1, indexRow, maxColumns);
             report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
@@ -415,7 +448,9 @@ namespace dllGoodCardDicGrp3
                 }
             report.SetFontBold(indexRow, 1, indexRow, maxColumns);
             report.SetBorders(indexRow, 1, indexRow, maxColumns);
+            report.SetWrapText(indexRow, 1, indexRow, maxColumns);
             report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+            report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
             indexRow++;
 
             foreach (DataRowView row in dtData.DefaultView)
@@ -428,6 +463,9 @@ namespace dllGoodCardDicGrp3
                     {
                         if (row[col.DataPropertyName] is DateTime)
                             report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                        else
+                         if (row[col.DataPropertyName] is bool)
+                            report.AddSingleValue((bool)row[col.DataPropertyName] ? "Да" : "Нет", indexRow, indexCol);
                         else
                            if (row[col.DataPropertyName] is decimal)
                         {
@@ -459,5 +497,9 @@ namespace dllGoodCardDicGrp3
             report.Show();
         }
 
+        private void rbAll_Click(object sender, EventArgs e)
+        {
+            setFilter();
+        }
     }
 }

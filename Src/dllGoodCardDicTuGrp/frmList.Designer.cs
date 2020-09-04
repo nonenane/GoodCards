@@ -48,7 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbUL = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btDelete = new System.Windows.Forms.Button();
@@ -94,7 +94,7 @@
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(588, 390);
+            this.dgvData.Size = new System.Drawing.Size(752, 390);
             this.dgvData.TabIndex = 1;
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
@@ -156,8 +156,7 @@
             this.dgvAdress.AllowUserToAddRows = false;
             this.dgvAdress.AllowUserToDeleteRows = false;
             this.dgvAdress.AllowUserToResizeRows = false;
-            this.dgvAdress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvAdress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAdress.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -171,13 +170,13 @@
             this.dgvAdress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdress.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cNameGrp});
-            this.dgvAdress.Location = new System.Drawing.Point(649, 62);
+            this.dgvAdress.Location = new System.Drawing.Point(789, 62);
             this.dgvAdress.MultiSelect = false;
             this.dgvAdress.Name = "dgvAdress";
             this.dgvAdress.ReadOnly = true;
             this.dgvAdress.RowHeadersVisible = false;
             this.dgvAdress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAdress.Size = new System.Drawing.Size(146, 390);
+            this.dgvAdress.Size = new System.Drawing.Size(322, 390);
             this.dgvAdress.TabIndex = 5;
             this.dgvAdress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvAdress_ColumnWidthChanged);
             // 
@@ -216,7 +215,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(530, 466);
+            this.button1.Location = new System.Drawing.Point(846, 466);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 32);
             this.button1.TabIndex = 7;
@@ -225,7 +224,7 @@
             // 
             // tbNaneGrp
             // 
-            this.tbNaneGrp.Location = new System.Drawing.Point(649, 36);
+            this.tbNaneGrp.Location = new System.Drawing.Point(789, 36);
             this.tbNaneGrp.Name = "tbNaneGrp";
             this.tbNaneGrp.Size = new System.Drawing.Size(146, 20);
             this.tbNaneGrp.TabIndex = 9;
@@ -268,21 +267,22 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "ЮЛ";
             // 
-            // button2
+            // btPrint
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::dllGoodCardDicTuGrp.Properties.Resources.klpq_2511;
-            this.button2.Location = new System.Drawing.Point(568, 466);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(32, 32);
-            this.button2.TabIndex = 8;
-            this.button2.UseVisualStyleBackColor = true;
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = global::dllGoodCardDicTuGrp.Properties.Resources.klpq_2511;
+            this.btPrint.Location = new System.Drawing.Point(884, 466);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 8;
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // btAdd
             // 
             this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAdd.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Add;
-            this.btAdd.Location = new System.Drawing.Point(649, 466);
+            this.btAdd.Location = new System.Drawing.Point(965, 466);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(32, 32);
             this.btAdd.TabIndex = 4;
@@ -293,7 +293,7 @@
             // 
             this.btEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btEdit.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Edit;
-            this.btEdit.Location = new System.Drawing.Point(687, 466);
+            this.btEdit.Location = new System.Drawing.Point(1003, 466);
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(32, 32);
             this.btEdit.TabIndex = 4;
@@ -304,7 +304,7 @@
             // 
             this.btDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btDelete.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Trash;
-            this.btDelete.Location = new System.Drawing.Point(725, 466);
+            this.btDelete.Location = new System.Drawing.Point(1041, 466);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(32, 32);
             this.btDelete.TabIndex = 4;
@@ -315,7 +315,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Exit;
-            this.btClose.Location = new System.Drawing.Point(763, 466);
+            this.btClose.Location = new System.Drawing.Point(1079, 466);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 4;
@@ -326,13 +326,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 509);
+            this.ClientSize = new System.Drawing.Size(1123, 509);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbUL);
             this.Controls.Add(this.cmbDeps);
             this.Controls.Add(this.tbNaneGrp);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btPrint);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chbWithSubGroups);
             this.Controls.Add(this.chbIsCredit);
@@ -351,7 +351,7 @@
             this.Name = "frmList";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Справочник производителей";
+            this.Text = "Справочник ТУ групп";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmList_FormClosing);
             this.Load += new System.EventHandler(this.frmList_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
@@ -375,7 +375,7 @@
         private System.Windows.Forms.CheckBox chbIsCredit;
         private System.Windows.Forms.CheckBox chbWithSubGroups;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btPrint;
         private System.Windows.Forms.TextBox tbNaneGrp;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameGrp;
         private System.Windows.Forms.ComboBox cmbDeps;

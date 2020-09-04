@@ -16,7 +16,7 @@ BEGIN
 select 
 	g.id,
 	ltrim(rtrim(g.cName)) as cName,
-	g.id_otdel,
+	cast(g.id_otdel as int) as id_otdel,
 	ltrim(rtrim(d.name)) as nameDeps,
 	g.ldeystv as isActive
 from 

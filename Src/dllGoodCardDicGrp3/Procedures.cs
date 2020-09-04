@@ -58,7 +58,7 @@ namespace dllGoodCardDicGrp3
             return dtResult;
         }
        
-        #region "Справочник Ту групп"
+        #region "Справочник под.групп"
 
         public async Task<DataTable> setGrp3(int id, string cName, int id_otdel, bool isActive, bool isDel, int result, bool isAutoIncriments)
         {

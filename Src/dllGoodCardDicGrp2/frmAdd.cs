@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dllGoodCardDicGrp3
+namespace dllGoodCardDicGrp2
 {
     public partial class frmAdd : Form
     {
@@ -33,6 +33,15 @@ namespace dllGoodCardDicGrp3
             cmbDeps.DataSource = dtObjectLease;
             cmbDeps.SelectedIndex = -1;
 
+            task = Config.hCntMain.getUniGrp(false);
+            task.Wait();
+            DataTable dtUniGrp = task.Result;
+
+            cmbUniGrp.DisplayMember = "cName";
+            cmbUniGrp.ValueMember = "id";
+            cmbUniGrp.DataSource = dtUniGrp;
+            cmbUniGrp.SelectedIndex = -1;
+
             if (row != null)
             {
                 id = (int)row["id"];
@@ -41,9 +50,18 @@ namespace dllGoodCardDicGrp3
 
                 cmbDeps.SelectedValue = row["id_otdel"];
                 cmbDeps.Enabled = false;
+
+                cmbUniGrp.SelectedValue = row["id_unigrp"];
+                chbLimitTovar.Checked = (bool)row["skoroportovar"];
+                chbReglam.Checked = (bool)row["specification"];
+
+                tbDays.Text = row["DayMax"].ToString();
+                tbUnit.Text = row["NettoMax"].ToString();
+                rbNetto.Checked = (int)row["id_unit"] == 1;
+                rbUnit.Checked = (int)row["id_unit"] == 2;
             }
 
-                isEditData = false;
+            isEditData = false;
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -55,8 +73,21 @@ namespace dllGoodCardDicGrp3
         {
             if (cmbDeps.SelectedValue == null)
             {
-                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label1.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lDeps.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbDeps.Focus();
+                return;
+            }
+
+            if (cmbUniGrp.SelectedValue == null)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lUniGrp.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbUniGrp.Focus();
+                return;
+            }
+
+            if (!rbNetto.Checked && !rbUnit.Checked)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lTypeUnit.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);                
                 return;
             }
 
@@ -67,14 +98,38 @@ namespace dllGoodCardDicGrp3
                 return;
             }
 
+            decimal unit;
+
+            if (tbUnit.Text.Trim().Length == 0 || !decimal.TryParse(tbUnit.Text, out unit))
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lNetto.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbUnit.Focus();
+                return;
+            }
+
+            int day;
+
+            if (tbDays.Text.Trim().Length == 0 || !int.TryParse(tbDays.Text, out day))
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lDay.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbDays.Focus();
+                return;
+            }
+
             string cName = tbName.Text.Trim();
             int id_otdel = (int)cmbDeps.SelectedValue;
+            int id_unigrp = (int)cmbUniGrp.SelectedValue;
+            int id_unit = rbNetto.Checked ? 1 : 2;
+            bool specification = chbReglam.Checked;
+            bool skoroportovar = chbLimitTovar.Checked;
+            decimal NettoMax = unit;
+            int DayMax = day;
             bool isActive = true;
             bool isDel = false;
             int result = 0;
             bool isAutoIncriments = false;
 
-            Task<DataTable> task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+            Task<DataTable> task = Config.hCntMain.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, isActive, isDel, result, isAutoIncriments);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -85,10 +140,9 @@ namespace dllGoodCardDicGrp3
                 return;
             }
 
-
             if ((int)dtResult.Rows[0]["id"] == -1)
             {
-                MessageBox.Show("В справочнике уже присутствует подгруппа с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("В справочнике уже присутствует инвентаризационная группа с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -101,7 +155,7 @@ namespace dllGoodCardDicGrp3
             id = (int)dtResult.Rows[0]["id"];
 
             isAutoIncriments = true;
-            task = Config.hCntSecond.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+            task = Config.hCntSecond.setGrp2(id, cName, id_otdel, id_unigrp, id_unit, specification, skoroportovar, NettoMax, DayMax, isActive, isDel, result, isAutoIncriments);
             task.Wait();
 
             if (id == 0)
@@ -135,6 +189,30 @@ namespace dllGoodCardDicGrp3
         private void cmbDeps_SelectionChangeCommitted(object sender, EventArgs e)
         {
             isEditData = true;
+        }
+
+        private void tbUnit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+            {
+                e.KeyChar = ',';
+            }
+
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.ToString().Contains(e.KeyChar) || (sender as TextBox).Text.ToString().Length == 0))
+            {
+                e.Handled = true;
+            }
+            else
+                if ((!Char.IsNumber(e.KeyChar) && (e.KeyChar != ',')))
+            {
+                if (e.KeyChar != '\b')
+                { e.Handled = true; }
+            }
+        }
+
+        private void tbDays_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
         }
 
         private void frmAdd_FormClosing(object sender, FormClosingEventArgs e)

@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Запись связи ТУ и инв групп
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_setGrp1VsGrp2]			 
+ALTER PROCEDURE [Goods_Card_New].[spg_setGrp1VsGrp2]			 
 	@id_grp1 int,
 	@id_grp2 int,
 	@isDel int,

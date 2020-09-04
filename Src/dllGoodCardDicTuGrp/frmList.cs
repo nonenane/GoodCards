@@ -66,7 +66,7 @@ namespace dllGoodCardDicTuGrp
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == new frmAdd() { Text = "Добавить производителя" }.ShowDialog())
+            if (DialogResult.OK == new frmAdd() { Text = "Добавить ТУ группу" }.ShowDialog())
                 get_data();
         }
 
@@ -75,7 +75,7 @@ namespace dllGoodCardDicTuGrp
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                if (DialogResult.OK == new frmAdd() { Text = "Редактировать производителя", row = row }.ShowDialog())
+                if (DialogResult.OK == new frmAdd() { Text = "Редактировать ТУ группу", row = row }.ShowDialog())
                     get_data();
             }
         }
@@ -415,6 +415,122 @@ namespace dllGoodCardDicTuGrp
                 DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
                 new frmViewMngTuGrp() { row = row }.ShowDialog();
             }
+        }
+
+        private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
+        {
+            report.SetColumnWidth(indexRow, indexCol, indexRow, indexCol, width);
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+
+            Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
+
+            int indexRow = 1;
+
+            int maxColumns = 0;
+
+            foreach (DataGridViewColumn col in dgvData.Columns)
+                if (col.Visible)
+                {
+                    maxColumns++;
+                    if (col.Name.Equals("cName")) setWidthColumn(indexRow, maxColumns, 20, report);
+                    if (col.Name.Equals("cNds")) setWidthColumn(indexRow, maxColumns, 22, report);
+                    if (col.Name.Equals("cDeps")) setWidthColumn(indexRow, maxColumns, 22, report);                    
+                    if (col.Name.Equals("cUL")) setWidthColumn(indexRow, maxColumns, 13, report);
+                }
+
+            #region "Head"
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Справочник ТУ групп", indexRow, 1);
+            report.SetFontBold(indexRow, 1, indexRow, 1);
+            report.SetFontSize(indexRow, 1, indexRow, 1, 16);
+            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, 1);
+            indexRow++;
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{label2.Text}: {cmbUL.Text}", indexRow, 1);
+            indexRow++;
+          
+            if (tbName.Text.Trim().Length > 0)
+            {
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue($"Фильтр: {tbName.Text}", indexRow, 1);
+                indexRow++;
+            }
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue("Дата выгрузки: " + DateTime.Now.ToString(), indexRow, 1);
+            indexRow++;
+            indexRow++;
+            #endregion
+
+            int indexCol = 0;
+            foreach (DataGridViewColumn col in dgvData.Columns)
+                if (col.Visible)
+                {
+                    indexCol++;
+                    report.AddSingleValue(col.HeaderText, indexRow, indexCol);
+                }
+            report.SetFontBold(indexRow, 1, indexRow, maxColumns);
+            report.SetBorders(indexRow, 1, indexRow, maxColumns);
+            report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+            report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+            indexRow++;
+
+            foreach (DataRowView row in dtData.DefaultView)
+            {
+                indexCol = 1;
+                report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (col.Visible)
+                    {
+                        if (row[col.DataPropertyName] is DateTime)
+                            report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                        else
+                         if (row[col.DataPropertyName] is bool)
+                            report.AddSingleValue((bool)row[col.DataPropertyName] ? "Да" : "Нет", indexRow, indexCol);
+                        else
+                           if (row[col.DataPropertyName] is decimal)
+                        {
+                            report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
+                            report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
+                        }
+                        else
+                            report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
+
+                        indexCol++;
+                    }
+                }
+
+                report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                if (!(bool)row["isActive"])
+                    report.SetCellColor(indexRow, 1, indexRow, maxColumns, panel1.BackColor);
+
+                indexRow++;
+            }
+
+            indexRow++;
+            report.SetCellColor(indexRow, 1, indexRow, 1, panel1.BackColor);
+            report.Merge(indexRow, 2, indexRow, maxColumns);
+            report.AddSingleValue($"{chbNotActive.Text}", indexRow, 2);
+
+
+            report.Show();
         }
     }
 }

@@ -12,31 +12,26 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
---create table #tmpMainOrg (nTypeOrg int,Abbriviation varchar(max))
-
---insert into #tmpMainOrg
---select nTypeOrg,Abbriviation from dbo.s_MainOrg where DateStart<=GETDATE() and GETDATE()<=DateEnd and isSeler = 1 order by nTypeOrg asc
-
 
 select 
 	g.id,
-	--g.id_nds,
 	g.id_otdel,
+	g.id_unigrp,
+	g.id_unit,
 	ltrim(rtrim(g.cname)) as cName,
-	--n.nds,
 	ltrim(rtrim(d.name)) as nameDeps,
-	--g.ntypeorg,
-	--t.Abbriviation,
+	ltrim(rtrim(u.uni_grp_name)) as nameUniGrp,
+	ltrim(rtrim(un.cunit)) as nameUnit,
+	g.specification,
+	g.skoroportovar,
+	g.NettoMax,
+	cast(g.DayMax as int) as DayMax,
 	g.ldeystv as isActive
-	--g.isCredit,
-	--g.isWithSubGroups
 from 
-	dbo.s_grp2 g
-		--left join dbo.s_nds n on n.id = g.id_nds
+	dbo.s_grp2 g		
 		left join dbo.departments d on  d.id = g.id_otdel
-		--left join #tmpMainOrg t on t.nTypeOrg = g.ntypeorg
-		
---DROP TABLE #tmpMainOrg
+		left join dbo.s_uni_grp u on u.id = g.id_unigrp
+		left join dbo.s_unit un on un.id = g.id_unit
 
 
 END

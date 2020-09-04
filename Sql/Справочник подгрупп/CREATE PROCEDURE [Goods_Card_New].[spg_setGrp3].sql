@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Запись под групп
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_setGrp3]			 
+ALTER PROCEDURE [Goods_Card_New].[spg_setGrp3]			 
 	@id int,
 	@cName varchar(max),	
 	@id_otdel int,
@@ -22,34 +22,46 @@ BEGIN
 BEGIN TRY 
 	IF @isDel = 0
 		BEGIN		
-			IF EXISTS (select TOP(1) id from [dbo].[s_grp3] where id <>@id and LTRIM(RTRIM(LOWER(cName))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel)
+			IF EXISTS (select TOP(1) id from [dbo].[s_grp3] where id <>@id and LTRIM(RTRIM(LOWER(cName))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel) and @isAutoIncriments = 0
 				BEGIN
 					SELECT -1 as id;
 					return;
 				END
 
-			IF @id = 0
-			--IF NOT exists(select TOP(1) id from dbo.[s_grp3] where id =@id)
+			IF @id = 0			
 				BEGIN
 					INSERT INTO [dbo].[s_grp3]  (cName,id_otdel,ldeystv)
 					VALUES (@cName,@id_otdel,@isActive)
 
-					SELECT  cast(SCOPE_IDENTITY() as int) as id
-					--SELECT @id as id
+					SELECT  cast(SCOPE_IDENTITY() as int) as id					
 					return;
 				END
 			ELSE
 				BEGIN
-					UPDATE [dbo].[s_grp3] 
-					set		
-						cName=@cName,
-						id_otdel=@id_otdel,
-						ldeystv=@isActive
-					where 
-						id = @id
+					
+				IF @isAutoIncriments = 1 AND NOT EXISTS (select id from [dbo].[s_grp3] where id = @id)
+					BEGIN
+
+						SET identity_insert [dbo].[s_grp3] ON;
+
+						INSERT INTO [dbo].[s_grp3]  (id,cName,id_otdel,ldeystv)
+						VALUES (@id,@cName,@id_otdel,@isActive)
+					
+						SET  identity_insert [dbo].[s_grp3] OFF;
+					END
+				ELSE
+					BEGIN
+						UPDATE [dbo].[s_grp3] 
+						set		
+							cName=@cName,
+							id_otdel=@id_otdel,
+							ldeystv=@isActive
+						where 
+							id = @id
 										
-					SELECT @id as id
-					return;
+						SELECT @id as id
+						return;
+					END
 				END
 		END
 	ELSE
@@ -64,18 +76,11 @@ BEGIN TRY
 						END
 
 					
-					--IF EXISTS(select TOP(1) id from [dbo].s_tovar where id_grp1 = @id)
-					--	BEGIN
-					--		select -2 as id
-					--		return;
-					--	END
-
-					--IF EXISTS(select TOP(1) id from [dbo].[users_vs_grp1] p where  p.id_grp1 = @id)
-					--	BEGIN
-					--		select -2 as id
-					--		return;
-					--	END
-
+					IF EXISTS(select TOP(1) id from [dbo].s_tovar where id_grp3 = @id)
+						BEGIN
+							select -2 as id
+							return;
+						END
 					
 					select 0 as id
 					return;
@@ -88,7 +93,7 @@ BEGIN TRY
 		END
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

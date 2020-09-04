@@ -26,19 +26,17 @@ BEGIN
 BEGIN TRY 
 	IF @isDel = 0
 		BEGIN		
-			IF EXISTS (select TOP(1) id from [dbo].[s_grp1] where id <>@id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel)
+			IF EXISTS (select TOP(1) id from [dbo].[s_grp1] where id <>@id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel)  and @isAutoIncriments = 0
 				BEGIN
 					SELECT -1 as id;
 					return;
 				END
 
-			--IF @id = 0
-			IF NOT exists(select TOP(1) id from dbo.s_grp1 where id =@id)
+			IF NOT exists(select TOP(1) id from [dbo].[s_grp1] where id =@id)
 				BEGIN
 					INSERT INTO [dbo].[s_grp1]  (id,cname,id_otdel,id_nds,isCredit,isWithSubGroups,ldeystv,ntypeorg)
 					VALUES (@id,@cName,@id_otdel,@id_nds,@isCredit,@isWithSubGroups,@isActive,@ntypeorg)
-
-					--SELECT  cast(SCOPE_IDENTITY() as int) as id
+					
 					SELECT @id as id
 					return;
 				END

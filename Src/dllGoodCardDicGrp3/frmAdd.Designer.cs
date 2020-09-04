@@ -77,7 +77,8 @@
             // btSave
             // 
             this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSave.Location = new System.Drawing.Point(397, 80);
+            this.btSave.Image = global::dllGoodCardDicGrp3.Properties.Resources.Save;
+            this.btSave.Location = new System.Drawing.Point(400, 72);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(32, 32);
             this.btSave.TabIndex = 18;
@@ -87,7 +88,8 @@
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Location = new System.Drawing.Point(435, 80);
+            this.btClose.Image = global::dllGoodCardDicGrp3.Properties.Resources.Exit;
+            this.btClose.Location = new System.Drawing.Point(438, 72);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 19;
@@ -98,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 120);
+            this.ClientSize = new System.Drawing.Size(482, 116);
             this.ControlBox = false;
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.btClose);
