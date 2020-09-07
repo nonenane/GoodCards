@@ -65,7 +65,7 @@ namespace dllGoodCardDicTypeSubject
                 return;
             }
 
-            Task<DataTable> task = Config.hCntMain.setSubject(id, tbName.Text,tbCode.Text, true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setSubject(id, tbName.Text,tbCode.Text, true, false, 0,false);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -90,32 +90,8 @@ namespace dllGoodCardDicTypeSubject
             }
 
 
-            task = Config.hCntSecond.setSubject(id, tbName.Text, tbCode.Text, true, false, 0);
+            task = Config.hCntSecond.setSubject(id, tbName.Text, tbCode.Text, true, false, 0, true);
             task.Wait();
-
-            dtResult = task.Result;
-
-            if (dtResult == null || dtResult.Rows.Count == 0)
-            {
-                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -1)
-            {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -9999)
-            {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
 
             if (id == 0)
             {

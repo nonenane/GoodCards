@@ -62,7 +62,7 @@ namespace dllGoodCardDicTypeOwnership
                 return;
             }
 
-            Task<DataTable> task = Config.hCntMain.setTypeOrg(id, tbName.Text, true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setTypeOrg(id, tbName.Text, true, false, 0,false);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -73,10 +73,9 @@ namespace dllGoodCardDicTypeOwnership
                 return;
             }
 
-
             if ((int)dtResult.Rows[0]["id"] == -1)
             {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("В справочнике уже присутствует запись с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -87,32 +86,8 @@ namespace dllGoodCardDicTypeOwnership
             }
 
 
-            task = Config.hCntSecond.setTypeOrg(id, tbName.Text, true, false, 0);
+            task = Config.hCntSecond.setTypeOrg(id, tbName.Text, true, false, 0,true);
             task.Wait();
-
-            dtResult = task.Result;
-
-            if (dtResult == null || dtResult.Rows.Count == 0)
-            {
-                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -1)
-            {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if ((int)dtResult.Rows[0]["id"] == -9999)
-            {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
 
             if (id == 0)
             {

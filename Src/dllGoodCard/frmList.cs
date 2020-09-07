@@ -71,7 +71,7 @@ namespace dllGoodCardDicTypeOwnership
                 bool isActive = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isActive"];
                 string cName = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"];
 
-                Task<DataTable> task = Config.hCntMain.setTypeOrg(id, cName, isActive, true, 0);
+                Task<DataTable> task = Config.hCntMain.setTypeOrg(id, cName, isActive, true, 0,false);
                 task.Wait();
 
                 if (task.Result == null)
@@ -90,33 +90,15 @@ namespace dllGoodCardDicTypeOwnership
                 }
 
 
-                task = Config.hCntSecond.setTypeOrg(id, cName, isActive, true, 0);
+                task = Config.hCntSecond.setTypeOrg(id, cName, isActive, true, 0,true);
                 task.Wait();
-
-                if (task.Result == null)
-                {
-                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                int _result = (int)task.Result.Rows[0]["id"];
-
-                if (_result == -1)
-                {
-                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    get_data();
-                    return;
-                }
-
-
-
 
                 if (result == -2 && isActive)
                 {
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1542);
-                        task = Config.hCntMain.setTypeOrg(id, cName, !isActive, false, 0);
+                        task = Config.hCntMain.setTypeOrg(id, cName, !isActive, false, 0,false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -124,13 +106,8 @@ namespace dllGoodCardDicTypeOwnership
                             return;
                         }
 
-                        task = Config.hCntSecond.setTypeOrg(id, cName, !isActive, false, 0);
+                        task = Config.hCntSecond.setTypeOrg(id, cName, !isActive, false, 0,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
 
                         get_data();
                         return;
@@ -142,7 +119,7 @@ namespace dllGoodCardDicTypeOwnership
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1566);
-                        task = Config.hCntMain.setTypeOrg(id, cName, isActive, true, 1);
+                        task = Config.hCntMain.setTypeOrg(id, cName, isActive, true, 1, false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -150,13 +127,8 @@ namespace dllGoodCardDicTypeOwnership
                             return;
                         }
 
-                        task = Config.hCntSecond.setTypeOrg(id, cName, isActive, true, 1);
+                        task = Config.hCntSecond.setTypeOrg(id, cName, isActive, true, 1,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
                         get_data();
                         return;
                     }
@@ -166,7 +138,7 @@ namespace dllGoodCardDicTypeOwnership
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
                         setLog(id, 1543);
-                        task = Config.hCntMain.setTypeOrg(id, cName, !isActive, false, 0);
+                        task = Config.hCntMain.setTypeOrg(id, cName, !isActive, false, 0, false);
                         task.Wait();
                         if (task.Result == null)
                         {
@@ -174,13 +146,8 @@ namespace dllGoodCardDicTypeOwnership
                             return;
                         }
 
-                        task = Config.hCntSecond.setTypeOrg(id, cName, !isActive, false, 0);
+                        task = Config.hCntSecond.setTypeOrg(id, cName, !isActive, false, 0,true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
                         get_data();
                         return;
                     }

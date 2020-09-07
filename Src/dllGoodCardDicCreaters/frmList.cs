@@ -110,11 +110,6 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
 
                         get_data();
                         return;
@@ -136,11 +131,6 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
                         get_data();
                         return;
                     }
@@ -160,11 +150,6 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
                         task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
                         get_data();
                         return;
                     }

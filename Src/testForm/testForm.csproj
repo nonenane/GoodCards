@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A4DAB96-97E8-4555-A272-D9F353630062}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>dllGoodCardDicCreaters</RootNamespace>
-    <AssemblyName>dllGoodCardDicCreaters</AssemblyName>
+    <ProjectGuid>{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>testForm</RootNamespace>
+    <AssemblyName>testForm</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
       <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\EPPlus.dll</HintPath>
@@ -54,36 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="frmAdd.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAdd.Designer.cs">
-      <DependentUpon>frmAdd.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddAdres.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAddAdres.Designer.cs">
-      <DependentUpon>frmAddAdres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmList.Designer.cs">
-      <DependentUpon>frmList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmAdd.resx">
-      <DependentUpon>frmAdd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAddAdres.resx">
-      <DependentUpon>frmAddAdres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmList.resx">
-      <DependentUpon>frmList.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -93,7 +70,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,27 +85,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\agt_action_fail_2870.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tick.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Trash.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\dllGoodCardDicCreaters\dllGoodCardDicCreaters.csproj">
+      <Project>{4a4dab96-97e8-4555-a272-d9f353630062}</Project>
+      <Name>dllGoodCardDicCreaters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dllGoodCardDicGrp2\dllGoodCardDicGrp2.csproj">
+      <Project>{ac05ee69-ace0-4fc6-9313-2aa6ae0ea725}</Project>
+      <Name>dllGoodCardDicGrp2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dllGoodCardDicGrp3\dllGoodCardDicGrp3.csproj">
+      <Project>{25ac51a1-f50e-4a7c-a050-3f383c3f969d}</Project>
+      <Name>dllGoodCardDicGrp3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dllGoodCardDicTuGrp\dllGoodCardDicTuGrp.csproj">
+      <Project>{ec25b38c-06dd-413c-9c6b-0ccbf4def1c2}</Project>
+      <Name>dllGoodCardDicTuGrp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dllGoodCardDicTypeSubject\dllGoodCardDicTypeSubject.csproj">
       <Project>{e69f9edc-4de1-454d-9400-b053877abfef}</Project>
       <Name>dllGoodCardDicTypeSubject</Name>

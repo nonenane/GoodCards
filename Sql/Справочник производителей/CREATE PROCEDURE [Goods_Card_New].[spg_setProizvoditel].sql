@@ -40,7 +40,7 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-					if @isAutoIncriments = 0
+					if EXISTS(select id from [dbo].[s_Proizvoditel] where id = @id )
 						BEGIN
 							UPDATE [dbo].[s_Proizvoditel] 
 							set		[name] = @cName,

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dllGoodCardDicGrp3", "dllGo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dllGoodCardDicGrp2", "dllGoodCardDicGrp2\dllGoodCardDicGrp2.csproj", "{AC05EE69-ACE0-4FC6-9313-2AA6AE0EA725}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testForm", "testForm\testForm.csproj", "{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{AC05EE69-ACE0-4FC6-9313-2AA6AE0EA725}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC05EE69-ACE0-4FC6-9313-2AA6AE0EA725}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC05EE69-ACE0-4FC6-9313-2AA6AE0EA725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE96E15-6740-4F6E-9C4B-3ADD94FE722A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

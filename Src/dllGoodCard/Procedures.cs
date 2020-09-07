@@ -31,7 +31,7 @@ namespace dllGoodCardDicTypeOwnership
         /// <param name="result">Результирующая для проверки</param>
         /// <returns>Таблица с данными</returns>
         /// <param name="id">код созданной записи</param>
-        public async Task<DataTable> setTypeOrg(int id, string cName, bool isActive, bool isDel, int result)
+        public async Task<DataTable> setTypeOrg(int id, string cName, bool isActive, bool isDel, int result,bool isAutoIncriments)
         {
             ap.Clear();
             ap.Add(id);
@@ -40,10 +40,11 @@ namespace dllGoodCardDicTypeOwnership
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(result);
             ap.Add(isDel);
+            ap.Add(isAutoIncriments);
 
             DataTable dtResult = executeProcedure("[Goods_Card_New].[spg_setTypeOrg]",
-                 new string[6] { "@id", "@cName", "@isActive", "@id_user", "@result", "@isDel" },
-                 new DbType[6] { DbType.Int32, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+                 new string[7] { "@id", "@cName", "@isActive", "@id_user", "@result", "@isDel","@isAutoIncriments" },
+                 new DbType[7] { DbType.Int32, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
 
             return dtResult;
         }

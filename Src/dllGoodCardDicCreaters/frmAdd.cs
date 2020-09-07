@@ -132,30 +132,6 @@ namespace dllGoodCardDicCreaters
             task = Config.hCntSecond.setProizvoditel(id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0, true);
             task.Wait();
 
-            //dtResult = task.Result;
-
-            //if (dtResult == null || dtResult.Rows.Count == 0)
-            //{
-            //    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-
-            //if ((int)dtResult.Rows[0]["id"] == -1)
-            //{
-            //    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-
-            //if ((int)dtResult.Rows[0]["id"] == -9999)
-            //{
-            //    MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
-
-
             if (id == 0)
             {
                 id = (int)dtResult.Rows[0]["id"];
@@ -246,27 +222,8 @@ namespace dllGoodCardDicCreaters
                     return;
                 }
 
-
-                //task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0);
+                //task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0, false);
                 //task.Wait();
-
-                //if (task.Result == null)
-                //{
-                //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-
-                //int _result = (int)task.Result.Rows[0]["id"];
-
-                //if (_result == -1)
-                //{
-                //    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    getAdresProizvod(id);
-                //    return;
-                //}
-
-
-
 
                 if (result == -2 && isActive)
                 {
@@ -283,12 +240,7 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
-                        //if (task.Result == null)
-                        //{
-                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    return;
-                        //}
-
+                        
                         getAdresProizvod(id);
                         return;
                     }
@@ -309,11 +261,6 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1,true);
                         task.Wait();
-                        //if (task.Result == null)
-                        //{
-                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    return;
-                        //}
                         getAdresProizvod(id);
                         return;
                     }
@@ -333,11 +280,6 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
-                        //if (task.Result == null)
-                        //{
-                        //    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    return;
-                        //}
                         getAdresProizvod(id);
                         return;
                     }

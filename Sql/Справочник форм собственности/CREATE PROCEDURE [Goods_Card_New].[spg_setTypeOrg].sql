@@ -7,13 +7,14 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника форм собственности
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_setTypeOrg]			 
+ALTER PROCEDURE [Goods_Card_New].[spg_setTypeOrg]			 
 	@id int,
 	@cName varchar(max),	
 	@isActive bit,
 	@id_user int,
 	@result int = 0,
-	@isDel int
+	@isDel int,
+	@isAutoIncriments bit = 0
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -22,7 +23,7 @@ BEGIN TRY
 	IF @isDel = 0
 		BEGIN
 
-			IF EXISTS (select TOP(1) id from [dbo].[s_type_org] where id <>@id and LTRIM(RTRIM(LOWER([name]))) = LTRIM(RTRIM(LOWER(@cName))))
+			IF EXISTS (select TOP(1) id from [dbo].[s_type_org] where id <>@id and LTRIM(RTRIM(LOWER([name]))) = LTRIM(RTRIM(LOWER(@cName)))) and @isAutoIncriments = 0
 				BEGIN
 					SELECT -1 as id;
 					return;
@@ -38,15 +39,28 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-					UPDATE [dbo].[s_type_org] 
-					set		[name] = @cName,
-							isActive=@isActive,
-							id_Editor=@id_user,
-							DateEdit=GETDATE()
-					where id = @id
+
+					IF NOT EXISTS (select id from [dbo].[s_type_org] where id  = @id)
+						BEGIN
+							set identity_insert dbo.[s_type_org] on;
+							INSERT INTO [dbo].[s_type_org]  (id,[name],isActive,id_Editor,DateEdit)
+							VALUES (@id,@cName,1,@id_user,GETDATE())
+							set identity_insert dbo.[s_type_org] off;
+							SELECT @id as id
+							return;
+						END
+					ELSE
+						BEGIN
+							UPDATE [dbo].[s_type_org] 
+							set		[name] = @cName,
+									isActive=@isActive,
+									id_Editor=@id_user,
+									DateEdit=GETDATE()
+							where id = @id
 										
-					SELECT @id as id
-					return;
+							SELECT @id as id
+							return;
+						END
 				END
 		END
 	ELSE

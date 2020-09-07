@@ -7,14 +7,15 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника форм собственности
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_setSubject]			 
+ALTER PROCEDURE [Goods_Card_New].[spg_setSubject]			 
 	@id int,
 	@cName varchar(max),	
 	@code varchar(150),
 	@isActive bit,
 	@id_user int,
 	@result int = 0,
-	@isDel int
+	@isDel int,
+	@isAutoIncriments bit = 0
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -25,7 +26,7 @@ BEGIN TRY
 			DECLARE @isRu bit  = 0
 				IF EXISTS (select top(1) id from dbo.prog_config where id_prog = 118 and value = @code and id_value = 'ciru') SET @isRu = 1
 
-			IF EXISTS (select TOP(1) id from [dbo].[s_Subjects] where id <>@id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName))))
+			IF EXISTS (select TOP(1) id from [dbo].[s_Subjects] where id <>@id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName)))) and @isAutoIncriments = 0
 				BEGIN
 					SELECT -1 as id;
 					return;
@@ -41,17 +42,31 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-					UPDATE [dbo].[s_Subjects] 
-					set		[cname] = @cName,
-							[kod_strany] = @code,
-							[russian] = @isRu,
-							isActive=@isActive,
-							id_Editor=@id_user,
-							DateEdit=GETDATE()
-					where id = @id
+					IF NOT EXISTS (select id from [dbo].[s_Subjects] where id  = @id)
+						BEGIN
+							set identity_insert dbo.[s_Subjects] on;
+						
+							INSERT INTO [dbo].[s_Subjects]  (id,[cname],[kod_strany],[isPersUniversam],[russian],isActive,id_Editor,DateEdit)
+								VALUES (@id,@cName,@code,0,@isRu,1,@id_user,GETDATE())
+
+							set identity_insert dbo.[s_Subjects] off;
+							SELECT @id as id
+							return;
+						END
+					ELSE
+						BEGIN
+							UPDATE [dbo].[s_Subjects] 
+							set		[cname] = @cName,
+									[kod_strany] = @code,
+									[russian] = @isRu,
+									isActive=@isActive,
+									id_Editor=@id_user,
+									DateEdit=GETDATE()
+							where id = @id
 										
-					SELECT @id as id
-					return;
+							SELECT @id as id
+							return;
+						END
 				END
 		END
 	ELSE
