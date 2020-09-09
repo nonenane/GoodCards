@@ -254,16 +254,17 @@ namespace dllGoodCardDicTuGrp
                 task = Config.hCntSecond.setGrp1VsGrp2(id, (int)row["id"], false, true);
             }
 
-            foreach (DataRow row in dtGrp_old.Rows)
-            {
-                rowCollect = dtGrp2.AsEnumerable().Where(r => r.Field<bool>("isSelect") && r.Field<int>("id_otdel") == (int)cmbDeps.SelectedValue && r.Field<int>("id")==(int)row["id"]);
-
-                if (rowCollect.Count() == 0)
+            if (dtGrp_old != null)
+                foreach (DataRow row in dtGrp_old.Rows)
                 {
-                    task = Config.hCntMain.setGrp1VsGrp2(id, (int)row["id"], true, false);
-                    task = Config.hCntSecond.setGrp1VsGrp2(id, (int)row["id"], true, true);
+                    rowCollect = dtGrp2.AsEnumerable().Where(r => r.Field<bool>("isSelect") && r.Field<int>("id_otdel") == (int)cmbDeps.SelectedValue && r.Field<int>("id") == (int)row["id"]);
+
+                    if (rowCollect.Count() == 0)
+                    {
+                        task = Config.hCntMain.setGrp1VsGrp2(id, (int)row["id"], true, false);
+                        task = Config.hCntSecond.setGrp1VsGrp2(id, (int)row["id"], true, true);
+                    }
                 }
-            }
 
 
            
