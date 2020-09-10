@@ -230,6 +230,41 @@ namespace dllGoodCardDicGrp2
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
         }
 
+        private void cmbUniGrp_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void chbReglam_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void chbLimitTovar_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void rbUnit_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void rbNetto_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void tbUnit_TextChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void tbDays_TextChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
         private void frmAdd_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = isEditData && DialogResult.No == MessageBox.Show("На форме есть не сохранённые данные.\nЗакрыть форму без сохранения данных?\n", "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);

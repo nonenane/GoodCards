@@ -94,7 +94,8 @@ namespace dllGoodCardDicTuGrp
             dtGrp2.DefaultView.RowFilter = filter;
             dtGrp2.DefaultView.Sort = "cName asc";
 
-            dgvAdress.DataSource = dtGrp2;            
+            dgvAdress.DataSource = dtGrp2;
+            isEditData = true;
         }
 
         private void init_combobox()
@@ -308,6 +309,26 @@ namespace dllGoodCardDicTuGrp
         private void tbID_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
+        }
+
+        private void cmbNds_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void chbIsCredit_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void chbWithSubGroups_CheckedChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
+        private void dgvAdress_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            isEditData = true;
         }
 
         private void tbNaneGrp_TextChanged(object sender, EventArgs e)

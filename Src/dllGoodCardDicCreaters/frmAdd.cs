@@ -287,6 +287,11 @@ namespace dllGoodCardDicCreaters
             }
         }
 
+        private void cmbTypeSubject_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
         private void tbCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';

@@ -65,6 +65,7 @@
             this.cmbSubject.Name = "cmbSubject";
             this.cmbSubject.Size = new System.Drawing.Size(330, 21);
             this.cmbSubject.TabIndex = 9;
+            this.cmbSubject.SelectionChangeCommitted += new System.EventHandler(this.cmbSubject_SelectionChangeCommitted);
             // 
             // label2
             // 

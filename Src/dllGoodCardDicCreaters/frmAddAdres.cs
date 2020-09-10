@@ -137,6 +137,11 @@ namespace dllGoodCardDicCreaters
             init_combobox();
         }
 
+        private void cmbSubject_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            isEditData = true;
+        }
+
         private void tbName_TextChanged(object sender, EventArgs e)
         {
             isEditData = true;

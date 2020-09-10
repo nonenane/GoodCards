@@ -124,6 +124,7 @@
             this.cmbUniGrp.Name = "cmbUniGrp";
             this.cmbUniGrp.Size = new System.Drawing.Size(186, 21);
             this.cmbUniGrp.TabIndex = 23;
+            this.cmbUniGrp.SelectionChangeCommitted += new System.EventHandler(this.cmbUniGrp_SelectionChangeCommitted);
             // 
             // chbLimitTovar
             // 
@@ -135,6 +136,7 @@
             this.chbLimitTovar.Text = "Скоропортящийся товар";
             this.chbLimitTovar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chbLimitTovar.UseVisualStyleBackColor = true;
+            this.chbLimitTovar.CheckedChanged += new System.EventHandler(this.chbLimitTovar_CheckedChanged);
             // 
             // chbReglam
             // 
@@ -146,6 +148,7 @@
             this.chbReglam.Text = "Соответствующий техническому регламенту";
             this.chbReglam.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chbReglam.UseVisualStyleBackColor = true;
+            this.chbReglam.CheckedChanged += new System.EventHandler(this.chbReglam_CheckedChanged);
             // 
             // lNetto
             // 
@@ -164,6 +167,7 @@
             this.tbUnit.Size = new System.Drawing.Size(100, 20);
             this.tbUnit.TabIndex = 28;
             this.tbUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbUnit.TextChanged += new System.EventHandler(this.tbUnit_TextChanged);
             this.tbUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUnit_KeyPress);
             // 
             // lDay
@@ -183,6 +187,7 @@
             this.tbDays.Size = new System.Drawing.Size(100, 20);
             this.tbDays.TabIndex = 28;
             this.tbDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbDays.TextChanged += new System.EventHandler(this.tbDays_TextChanged);
             this.tbDays.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDays_KeyPress);
             // 
             // rbNetto
@@ -194,6 +199,7 @@
             this.rbNetto.TabIndex = 29;
             this.rbNetto.Text = "Весовой";
             this.rbNetto.UseVisualStyleBackColor = true;
+            this.rbNetto.CheckedChanged += new System.EventHandler(this.rbNetto_CheckedChanged);
             // 
             // rbUnit
             // 
@@ -204,6 +210,7 @@
             this.rbUnit.TabIndex = 30;
             this.rbUnit.Text = "Штучный";
             this.rbUnit.UseVisualStyleBackColor = true;
+            this.rbUnit.CheckedChanged += new System.EventHandler(this.rbUnit_CheckedChanged);
             // 
             // lTypeUnit
             // 
@@ -218,7 +225,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 265);
+            this.ClientSize = new System.Drawing.Size(489, 261);
             this.ControlBox = false;
             this.Controls.Add(this.rbNetto);
             this.Controls.Add(this.rbUnit);
