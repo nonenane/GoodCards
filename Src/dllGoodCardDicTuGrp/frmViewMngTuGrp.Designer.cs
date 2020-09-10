@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbNaneGrp = new System.Windows.Forms.TextBox();
             this.dgvAdress = new System.Windows.Forms.DataGridView();
+            this.cNameGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btPrint = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.tbNameGrp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cNameGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdress)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,14 +56,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAdress.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAdress.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAdress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdress.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cNameGrp});
@@ -77,6 +77,14 @@
             this.dgvAdress.TabIndex = 11;
             this.dgvAdress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvAdress_ColumnWidthChanged);
             // 
+            // cNameGrp
+            // 
+            this.cNameGrp.DataPropertyName = "FIO";
+            this.cNameGrp.HeaderText = "ФИО менеджера";
+            this.cNameGrp.MinimumWidth = 20;
+            this.cNameGrp.Name = "cNameGrp";
+            this.cNameGrp.ReadOnly = true;
+            // 
             // btPrint
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -86,6 +94,7 @@
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 10;
             this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // btClose
             // 
@@ -115,19 +124,11 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Т/У группа:";
             // 
-            // cNameGrp
-            // 
-            this.cNameGrp.DataPropertyName = "FIO";
-            this.cNameGrp.HeaderText = "ФИО менеджера";
-            this.cNameGrp.MinimumWidth = 20;
-            this.cNameGrp.Name = "cNameGrp";
-            this.cNameGrp.ReadOnly = true;
-            // 
             // frmViewMngTuGrp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(579, 572);
+            this.ClientSize = new System.Drawing.Size(575, 568);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbNameGrp);

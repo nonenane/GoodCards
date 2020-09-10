@@ -290,11 +290,15 @@ namespace dllGoodCardDicTuGrp
             getAdresProizvod((int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"]);
         }
 
+        DataTable dtAdress;
+
         private void getAdresProizvod(int id_grp1)
         {
             Task<DataTable> task = Config.hCntMain.getGrp1VsGrp2(id_grp1);
-            task.Wait();            
-            dgvAdress.DataSource = task.Result;
+            task.Wait();
+            dtAdress = task.Result;
+            setFilter_dop();
+            dgvAdress.DataSource = dtAdress;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -531,6 +535,37 @@ namespace dllGoodCardDicTuGrp
 
 
             report.Show();
+        }
+
+        private void tbNaneGrp_TextChanged(object sender, EventArgs e)
+        {
+            setFilter_dop();
+        }
+
+        private void setFilter_dop()
+        {
+            if (dtAdress == null || dtAdress.Rows.Count == 0)
+            {                
+                return;
+            }
+
+            try
+            {
+                string filter = "";
+
+                if (tbNaneGrp.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"cName like '%{tbNaneGrp.Text.Trim()}%'";
+
+                dtAdress.DefaultView.RowFilter = filter;
+            }
+            catch
+            {
+                dtAdress.DefaultView.RowFilter = "id = -1";
+            }
+            finally
+            {
+              
+            }
         }
     }
 }

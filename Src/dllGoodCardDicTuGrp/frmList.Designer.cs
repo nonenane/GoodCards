@@ -228,6 +228,7 @@
             this.tbNaneGrp.Name = "tbNaneGrp";
             this.tbNaneGrp.Size = new System.Drawing.Size(146, 20);
             this.tbNaneGrp.TabIndex = 9;
+            this.tbNaneGrp.TextChanged += new System.EventHandler(this.tbNaneGrp_TextChanged);
             // 
             // cmbDeps
             // 
