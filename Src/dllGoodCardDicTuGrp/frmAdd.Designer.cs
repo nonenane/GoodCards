@@ -52,7 +52,7 @@
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(101, 35);
-            this.tbName.MaxLength = 100;
+            this.tbName.MaxLength = 12;
             this.tbName.Name = "tbName";
             this.tbName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbName.Size = new System.Drawing.Size(377, 20);
@@ -223,6 +223,7 @@
             this.tbID.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbID.Size = new System.Drawing.Size(98, 20);
             this.tbID.TabIndex = 0;
+            this.tbID.Visible = false;
             this.tbID.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             this.tbID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbID_KeyPress);
             // 
@@ -234,6 +235,7 @@
             this.label4.Size = new System.Drawing.Size(18, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "ID";
+            this.label4.Visible = false;
             // 
             // frmAdd
             // 

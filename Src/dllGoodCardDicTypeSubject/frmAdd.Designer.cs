@@ -39,7 +39,7 @@
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(14, 25);
-            this.tbName.MaxLength = 1024;
+            this.tbName.MaxLength = 45;
             this.tbName.Multiline = true;
             this.tbName.Name = "tbName";
             this.tbName.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -90,6 +90,7 @@
             // tbCode
             // 
             this.tbCode.Location = new System.Drawing.Point(346, 25);
+            this.tbCode.MaxLength = 3;
             this.tbCode.Name = "tbCode";
             this.tbCode.Size = new System.Drawing.Size(100, 20);
             this.tbCode.TabIndex = 8;

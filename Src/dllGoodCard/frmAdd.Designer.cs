@@ -37,7 +37,7 @@
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(14, 25);
-            this.tbName.MaxLength = 1024;
+            this.tbName.MaxLength = 10;
             this.tbName.Multiline = true;
             this.tbName.Name = "tbName";
             this.tbName.ScrollBars = System.Windows.Forms.ScrollBars.Both;

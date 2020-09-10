@@ -9,8 +9,8 @@ GO
 -- =============================================
 ALTER PROCEDURE [Goods_Card_New].[spg_setProizvoditel]			 
 	@id int,
-	@cName varchar(max),	
-	@inn varchar(max),
+	@cName varchar(100),	
+	@inn varchar(12),
 	@id_type_org int,
 	@isActive bit,
 	@id_user int,
@@ -99,7 +99,7 @@ BEGIN TRY
 		END
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id,ERROR_MESSAGE ( )   
+	SELECT -9999 as id,ERROR_MESSAGE () as msg
 	return;
 END CATCH
 	

@@ -9,7 +9,7 @@ GO
 -- =============================================
 ALTER PROCEDURE [Goods_Card_New].[spg_setGrp1]			 
 	@id int,
-	@cName varchar(max),	
+	@cName varchar(12),	
 	@id_otdel int,
 	@id_nds  int,
 	@ntypeorg int =null,
@@ -30,6 +30,11 @@ BEGIN TRY
 				BEGIN
 					SELECT -1 as id;
 					return;
+				END
+
+			IF @isAutoIncriments = 0 and @id = 0
+				BEGIN
+					select @id =  isnull(max(id),0)+1 from dbo.s_grp1 where id_otdel = @id_otdel
 				END
 
 			IF NOT exists(select TOP(1) id from [dbo].[s_grp1] where id =@id)
@@ -95,7 +100,7 @@ BEGIN TRY
 		END
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

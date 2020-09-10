@@ -168,13 +168,14 @@ namespace dllGoodCardDicTuGrp
                 return;
             }
 
+            /*
             if (tbID.Text.Trim().Length == 0)
             {
                 MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label4.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tbID.Focus();
                 return;
             }
-
+            
             int _id;
             if (!int.TryParse(tbID.Text.Trim(), out _id))
             {
@@ -198,6 +199,8 @@ namespace dllGoodCardDicTuGrp
                 return;
             }
             id = _id;
+            */
+
 
             EnumerableRowCollection<DataRow> rowCollect = dtGrp2.AsEnumerable().Where(r => r.Field<bool>("isSelect") && r.Field<int>("id_otdel") == (int)cmbDeps.SelectedValue);
             //if (rowCollect.Count() == 0)
@@ -237,7 +240,7 @@ namespace dllGoodCardDicTuGrp
 
             if ((int)dtResult.Rows[0]["id"] == -9999)
             {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Произошла ошибка:{dtResult.Rows[0]["msg"].ToString()} ", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -11,7 +11,7 @@ ALTER PROCEDURE [Goods_Card_New].[spg_setAdresProizvod]
 	@id int,
 	@id_proizvoditel int,
 	@id_subject int,
-	@cName varchar(max),	
+	@cName varchar(200),	
 	@isActive bit,
 	@id_user int,
 	@result int = 0,
@@ -102,7 +102,7 @@ BEGIN TRY
 		END
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

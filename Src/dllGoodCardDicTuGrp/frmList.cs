@@ -256,10 +256,10 @@ namespace dllGoodCardDicTuGrp
                     filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
 
                 if(chbIsCredit.Checked)
-                    filter += (filter.Length == 0 ? "" : " and ") + $"isCredit = 0";
+                    filter += (filter.Length == 0 ? "" : " and ") + $"isCredit = 1";
 
                 if (chbWithSubGroups.Checked)
-                    filter += (filter.Length == 0 ? "" : " and ") + $"isWithSubGroups = 0";
+                    filter += (filter.Length == 0 ? "" : " and ") + $"isWithSubGroups = 1";
 
                 dtData.DefaultView.RowFilter = filter;
             }

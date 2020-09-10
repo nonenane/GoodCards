@@ -9,7 +9,7 @@ GO
 -- =============================================
 ALTER PROCEDURE [Goods_Card_New].[spg_setGrp2]			 
 	@id int,
-	@cName varchar(max),	
+	@cName varchar(25),	
 	@id_otdel int,
 	@id_unigrp int,
 	@id_unit int,
