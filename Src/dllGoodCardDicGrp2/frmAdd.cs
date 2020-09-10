@@ -107,6 +107,14 @@ namespace dllGoodCardDicGrp2
                 return;
             }
 
+            if (rbUnit.Checked)
+            {
+                if (Math.Round(unit % (int)unit, 3) != 0) {
+                    MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lNetto.Text}\"\nбез дробной части.\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             int day;
 
             if (tbDays.Text.Trim().Length == 0 || !int.TryParse(tbDays.Text, out day))
@@ -193,20 +201,27 @@ namespace dllGoodCardDicGrp2
 
         private void tbUnit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '.')
+            if (rbUnit.Checked)
             {
-                e.KeyChar = ',';
-            }
-
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.ToString().Contains(e.KeyChar) || (sender as TextBox).Text.ToString().Length == 0))
-            {
-                e.Handled = true;
+                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
             }
             else
-                if ((!Char.IsNumber(e.KeyChar) && (e.KeyChar != ',')))
             {
-                if (e.KeyChar != '\b')
-                { e.Handled = true; }
+                if (e.KeyChar == '.')
+                {
+                    e.KeyChar = ',';
+                }
+
+                if ((e.KeyChar == ',') && ((sender as TextBox).Text.ToString().Contains(e.KeyChar) || (sender as TextBox).Text.ToString().Length == 0))
+                {
+                    e.Handled = true;
+                }
+                else
+                    if ((!Char.IsNumber(e.KeyChar) && (e.KeyChar != ',')))
+                {
+                    if (e.KeyChar != '\b')
+                    { e.Handled = true; }
+                }
             }
         }
 
