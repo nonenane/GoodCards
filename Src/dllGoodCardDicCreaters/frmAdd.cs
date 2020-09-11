@@ -37,11 +37,21 @@ namespace dllGoodCardDicCreaters
             if (row != null)
             {
                 id = (int)row["id"];
-                tbName.Text = (string)row["cName"];
+                tbName.Text = (string)row["nameForEdit"];
                 oldName = tbName.Text.Trim();
 
                 tbCode.Text = (string)row["inn"];
                 oldCode = tbName.Text.Trim();
+
+                EnumerableRowCollection<DataRow> rowCollect = dtTypeOrg.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id_type_org"]);
+                if (rowCollect.Count() == 0)
+                {
+                    DataRow newRow = dtTypeOrg.NewRow();
+                    newRow["id"] = (int)row["id_type_org"];
+                    newRow["cName"] = (string)row["nameType"];
+                    newRow["isActive"] = true;
+                    dtTypeOrg.Rows.Add(newRow);
+                }
 
                 cmbTypeSubject.SelectedValue = row["id_type_org"];
                 getAdresProizvod(id);
@@ -66,12 +76,13 @@ namespace dllGoodCardDicCreaters
             dgvAdress_SelectionChanged(null, null);
         }
 
+        DataTable dtTypeOrg;
         private void init_combobox()
         {
             Task<DataTable> task = Config.hCntMain.getTypeOrg();
             task.Wait();
-
-            cmbTypeSubject.DataSource = task.Result;
+            dtTypeOrg=task.Result;
+            cmbTypeSubject.DataSource = dtTypeOrg;
             cmbTypeSubject.DisplayMember = "cName";
             cmbTypeSubject.ValueMember = "id";
         }

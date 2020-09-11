@@ -91,6 +91,8 @@ namespace dllGoodCardDicTuGrp
             if (tbNaneGrp.Text.Trim().Length != 0)
                 filter += (filter.Length == 0 ? "" : " and ") + $"cName like '%{tbNaneGrp.Text.Trim()}%'";
 
+            filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
+
             dtGrp2.DefaultView.RowFilter = filter;
             dtGrp2.DefaultView.Sort = "cName asc";
 

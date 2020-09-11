@@ -18,7 +18,10 @@ select
 	p.inn,
 	isnull(ltrim(rtrim(t.name))+' ','')+ltrim(rtrim(p.name)) as cName,
 	p.isActive,
-	p.id_type_org
+	p.id_type_org,
+	ltrim(rtrim(p.name)) as nameForEdit,
+	isnull(ltrim(rtrim(t.name)),'') as nameType
+
 from 
 	dbo.s_Proizvoditel p 
 		left join dbo.s_type_org t  on t.id = p.id_type_org

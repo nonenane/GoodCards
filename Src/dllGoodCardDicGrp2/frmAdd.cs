@@ -54,11 +54,16 @@ namespace dllGoodCardDicGrp2
                 cmbUniGrp.SelectedValue = row["id_unigrp"];
                 chbLimitTovar.Checked = (bool)row["skoroportovar"];
                 chbReglam.Checked = (bool)row["specification"];
+                
+                rbNetto.Checked = (int)row["id_unit"] == 1;                
+                rbUnit.Checked = (int)row["id_unit"] == 2;
 
                 tbDays.Text = row["DayMax"].ToString();
                 tbUnit.Text = row["NettoMax"].ToString();
-                rbNetto.Checked = (int)row["id_unit"] == 1;
-                rbUnit.Checked = (int)row["id_unit"] == 2;
+                if ((int)row["id_unit"] == 2)
+                {
+                    tbUnit.Text = ((decimal)row["NettoMax"]).ToString("0");
+                }
             }
 
             isEditData = false;
@@ -109,7 +114,9 @@ namespace dllGoodCardDicGrp2
 
             if (rbUnit.Checked)
             {
-                if (Math.Round(unit % (int)unit, 3) != 0) {
+
+                if ((unit > 0 && unit < 1) || (unit != 0 && Math.Round(unit % (int)unit, 3) != 0))
+                {
                     MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lNetto.Text}\"\nбез дробной части.\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
