@@ -35,7 +35,7 @@ namespace dllGoodCardDicCreaters
             tp.SetToolTip(btEdit, "Редактировать");
             tp.SetToolTip(btDelete, "Удалить");
             tp.SetToolTip(btClose, "Выход");
-            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode);
+            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "ИНФ", "СОП" }.Contains(UserSettings.User.StatusCode);
         }
 
         private void frmList_Load(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace dllGoodCardDicCreaters
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == new frmAdd() { Text = "Добавить производителя" }.ShowDialog())
+            if (DialogResult.OK == new frmAdd() { Text = "Добавить адрес производителя" }.ShowDialog())
                 get_data();
         }
 
@@ -59,7 +59,7 @@ namespace dllGoodCardDicCreaters
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                if (DialogResult.OK == new frmAdd() { Text = "Редактировать производителя", row = row }.ShowDialog())
+                if (DialogResult.OK == new frmAdd() { Text = "Редактировать адрес производителя", row = row }.ShowDialog())
                     get_data();
             }
         }

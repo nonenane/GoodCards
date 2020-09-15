@@ -33,5 +33,6 @@ from
 		left join dbo.s_uni_grp u on u.id = g.id_unigrp
 		left join dbo.s_unit un on un.id = g.id_unit
 
-
+order by 
+	g.cname asc
 END

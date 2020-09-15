@@ -14,10 +14,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 select 
-	isnull(ltrim(rtrim(k.lastname))+' ','')+isnull(ltrim(rtrim(k.firstname))+' ','')+isnull(ltrim(rtrim(k.secondname)),'') as FIO 
+	--isnull(ltrim(rtrim(k.lastname))+' ','')+isnull(ltrim(rtrim(k.firstname))+' ','')+isnull(ltrim(rtrim(k.secondname)),'') as FIO 
+	ltrim(trim(l.FIO)) as FIO
 from 
 	dbo.users_vs_grp1  g
-	 inner join dbo.s_kadr k on k.id= g.id_users
+	 --inner join dbo.s_kadr k on k.id= g.id_users
+	 inner join dbo.ListUsers l on l.id = g.id_users and l.IsActive = 1
 where 
 	g.id_grp1 = @id_grp1
 

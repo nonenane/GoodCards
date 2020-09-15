@@ -19,7 +19,8 @@ select
 	isnull(g.isActive,1) as isActive
 from 
 	dbo.s_uni_grp	g
-		
+order by 
+	g.uni_grp_name asc
 
 
 END

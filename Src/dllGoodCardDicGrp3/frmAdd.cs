@@ -20,6 +20,9 @@ namespace dllGoodCardDicGrp3
         public frmAdd()
         {
             InitializeComponent();
+            ToolTip tp = new ToolTip();
+            tp.SetToolTip(btClose, "Выход");
+            tp.SetToolTip(btSave, "Сохранить");
         }
 
         private void frmAdd_Load(object sender, EventArgs e)
@@ -94,7 +97,7 @@ namespace dllGoodCardDicGrp3
 
             if ((int)dtResult.Rows[0]["id"] == -9999)
             {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{dtResult.Rows[0]["msg"]}", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -15,7 +15,16 @@ BEGIN
 create table #tmpMainOrg (nTypeOrg int,Abbriviation varchar(max))
 
 insert into #tmpMainOrg
-select nTypeOrg,Abbriviation from dbo.s_MainOrg where DateStart<=GETDATE() and GETDATE()<=DateEnd and isSeler = 1 order by nTypeOrg asc
+select 
+	m.nTypeOrg,
+	m.Abbriviation 
+from 
+	dbo.s_MainOrg m
+		inner join dbo.s_SelectedMainOrg o on o.nTypeOrg = m.nTypeOrg
+where 
+	m.DateStart<=GETDATE() and GETDATE()<=m.DateEnd and m.isSeler = 1 
+order by 
+	m.nTypeOrg asc
 
 
 select 
@@ -35,7 +44,9 @@ from
 		left join dbo.s_nds n on n.id = g.id_nds
 		left join dbo.departments d on  d.id = g.id_otdel
 		left join #tmpMainOrg t on t.nTypeOrg = g.ntypeorg
-		
+order by
+	g.cname asc
+
 DROP TABLE #tmpMainOrg
 
 

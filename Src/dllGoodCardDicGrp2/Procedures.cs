@@ -85,13 +85,13 @@ namespace dllGoodCardDicGrp2
                     row["isMain"] = 0;
                     dtResult.Rows.Add(row);
                     dtResult.AcceptChanges();
-                    dtResult.DefaultView.Sort = "isMain asc, id asc";
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
                     dtResult = dtResult.DefaultView.ToTable().Copy();
                 }
             }
             else
             {
-                dtResult.DefaultView.Sort = "id asc";
+                dtResult.DefaultView.Sort = "cName asc";
                 dtResult = dtResult.DefaultView.ToTable().Copy();
             }
 

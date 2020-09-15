@@ -79,13 +79,13 @@ namespace dllGoodCardDicTypeSubject
 
             if ((int)dtResult.Rows[0]["id"] == -1)
             {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("В справочнике уже присутствует запись с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if ((int)dtResult.Rows[0]["id"] == -9999)
             {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{dtResult.Rows[0]["id"]}", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

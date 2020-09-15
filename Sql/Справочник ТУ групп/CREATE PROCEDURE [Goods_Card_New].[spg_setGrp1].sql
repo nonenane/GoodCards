@@ -17,7 +17,7 @@ ALTER PROCEDURE [Goods_Card_New].[spg_setGrp1]
 	@isWithSubGroups bit,
 	@isActive bit,	
 	@result int = 0,
-	@isDel int,
+	@isDel bit,
 	@isAutoIncriments bit = 0
 AS
 BEGIN
@@ -26,7 +26,7 @@ BEGIN
 BEGIN TRY 
 	IF @isDel = 0
 		BEGIN		
-			IF EXISTS (select TOP(1) id from [dbo].[s_grp1] where id <>@id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel)  and @isAutoIncriments = 0
+			IF EXISTS (select TOP(1) id from [dbo].[s_grp1] where id <> @id and LTRIM(RTRIM(LOWER([cname]))) = LTRIM(RTRIM(LOWER(@cName))) and id_otdel = @id_otdel)  and @isAutoIncriments = 0
 				BEGIN
 					SELECT -1 as id;
 					return;

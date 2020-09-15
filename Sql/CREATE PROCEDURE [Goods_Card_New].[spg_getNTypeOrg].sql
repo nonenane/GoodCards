@@ -14,12 +14,13 @@ BEGIN
 
 
 select 
-	cast(nTypeOrg as int) as id ,ltrim(rtrim(Abbriviation)) as cName
+	cast(m.nTypeOrg as int) as id ,ltrim(rtrim(m.Abbriviation)) as cName
 from 
-	dbo.s_MainOrg 
+	dbo.s_MainOrg m
+		inner join dbo.s_SelectedMainOrg  o on o.nTypeOrg = m.nTypeOrg
 where 
-	DateStart<=GETDATE() and GETDATE()<=DateEnd and isSeler = 1
+	m.DateStart<=GETDATE() and GETDATE()<=m.DateEnd and m.isSeler = 1
 order by 
-	nTypeOrg asc
+	m.nTypeOrg asc
 
 END

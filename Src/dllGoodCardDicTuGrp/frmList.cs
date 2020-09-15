@@ -35,7 +35,10 @@ namespace dllGoodCardDicTuGrp
             tp.SetToolTip(btEdit, "Редактировать");
             tp.SetToolTip(btDelete, "Удалить");
             tp.SetToolTip(btClose, "Выход");
-            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode);
+            tp.SetToolTip(btPrint, "Печать");
+            tp.SetToolTip(button1, "Просмотр менеджеров ТУ группы");
+
+            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "ИНФ", "СОП" }.Contains(UserSettings.User.StatusCode);
         }
 
         private void frmList_Load(object sender, EventArgs e)
@@ -262,6 +265,7 @@ namespace dllGoodCardDicTuGrp
                     filter += (filter.Length == 0 ? "" : " and ") + $"isWithSubGroups = 1";
 
                 dtData.DefaultView.RowFilter = filter;
+                dtData.DefaultView.Sort = "id_otdel asc, cName asc";
             }
             catch
             {
@@ -567,5 +571,18 @@ namespace dllGoodCardDicTuGrp
               
             }
         }
+
+        private void dgvAdress_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex != -1 && dtAdress != null && dtAdress.DefaultView.Count != 0)
+            {
+                Color rColor = Color.White;
+
+                dgvAdress.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
+                dgvAdress.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
+                dgvAdress.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+            }
+        }
+
     }
 }

@@ -22,7 +22,8 @@ select
 from 
 	dbo.s_grp3 g
 		left join dbo.departments d on  d.id = g.id_otdel
-		
+order by
+	g.cName asc
 
 
 END

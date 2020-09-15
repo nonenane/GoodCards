@@ -73,7 +73,7 @@
             this.dgvAdress.ReadOnly = true;
             this.dgvAdress.RowHeadersVisible = false;
             this.dgvAdress.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAdress.Size = new System.Drawing.Size(555, 448);
+            this.dgvAdress.Size = new System.Drawing.Size(374, 448);
             this.dgvAdress.TabIndex = 11;
             this.dgvAdress.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvAdress_ColumnWidthChanged);
             // 
@@ -89,7 +89,7 @@
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btPrint.Image = global::dllGoodCardDicTuGrp.Properties.Resources.klpq_2511;
-            this.btPrint.Location = new System.Drawing.Point(497, 528);
+            this.btPrint.Location = new System.Drawing.Point(324, 528);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 10;
@@ -100,7 +100,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::dllGoodCardDicTuGrp.Properties.Resources.Exit;
-            this.btClose.Location = new System.Drawing.Point(535, 528);
+            this.btClose.Location = new System.Drawing.Point(362, 528);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 9;
@@ -112,7 +112,7 @@
             this.tbNameGrp.Enabled = false;
             this.tbNameGrp.Location = new System.Drawing.Point(85, 12);
             this.tbNameGrp.Name = "tbNameGrp";
-            this.tbNameGrp.Size = new System.Drawing.Size(482, 20);
+            this.tbNameGrp.Size = new System.Drawing.Size(309, 20);
             this.tbNameGrp.TabIndex = 13;
             // 
             // label1
@@ -128,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 568);
+            this.ClientSize = new System.Drawing.Size(398, 564);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbNameGrp);

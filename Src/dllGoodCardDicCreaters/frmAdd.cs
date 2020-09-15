@@ -40,7 +40,7 @@ namespace dllGoodCardDicCreaters
                 tbName.Text = (string)row["nameForEdit"];
                 oldName = tbName.Text.Trim();
 
-                tbCode.Text = (string)row["inn"];
+                tbCode.Text = ((string)row["inn"]).Trim();
                 oldCode = tbName.Text.Trim();
 
                 EnumerableRowCollection<DataRow> rowCollect = dtTypeOrg.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id_type_org"]);
@@ -48,7 +48,7 @@ namespace dllGoodCardDicCreaters
                 {
                     DataRow newRow = dtTypeOrg.NewRow();
                     newRow["id"] = (int)row["id_type_org"];
-                    newRow["cName"] = (string)row["nameType"];
+                    newRow["cName"] = ((string)row["nameType"]).Trim();
                     newRow["isActive"] = true;
                     dtTypeOrg.Rows.Add(newRow);
                 }
@@ -128,13 +128,13 @@ namespace dllGoodCardDicCreaters
 
             if ((int)dtResult.Rows[0]["id"] == -1)
             {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("В справочнике уже присутствует производитель с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if ((int)dtResult.Rows[0]["id"] == -9999)
             {
-                MessageBox.Show("Произошла неведомая ***.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{dtResult.Rows[0]["msg"]}", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
