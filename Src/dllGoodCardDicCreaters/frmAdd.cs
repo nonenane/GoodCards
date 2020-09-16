@@ -40,7 +40,7 @@ namespace dllGoodCardDicCreaters
                 tbName.Text = (string)row["nameForEdit"];
                 oldName = tbName.Text.Trim();
 
-                tbCode.Text = ((string)row["inn"]).Trim();
+                tbCode.Text = (row["inn"] == DBNull.Value ? "" : (string)row["inn"]).Trim();
                 oldCode = tbName.Text.Trim();
 
                 EnumerableRowCollection<DataRow> rowCollect = dtTypeOrg.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id_type_org"]);
@@ -48,7 +48,7 @@ namespace dllGoodCardDicCreaters
                 {
                     DataRow newRow = dtTypeOrg.NewRow();
                     newRow["id"] = (int)row["id_type_org"];
-                    newRow["cName"] = ((string)row["nameType"]).Trim();
+                    newRow["cName"] = (row["nameType"] == DBNull.Value ? "" : (string)row["nameType"]).Trim();
                     newRow["isActive"] = true;
                     dtTypeOrg.Rows.Add(newRow);
                 }
@@ -229,7 +229,7 @@ namespace dllGoodCardDicCreaters
                 if (result == -1)
                 {
                     MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    getAdresProizvod(id);
+                    getAdresProizvod(id_proizvoditel);
                     return;
                 }
 
@@ -252,7 +252,7 @@ namespace dllGoodCardDicCreaters
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
                         
-                        getAdresProizvod(id);
+                        getAdresProizvod(id_proizvoditel);
                         return;
                     }
                 }
@@ -272,7 +272,7 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 1,true);
                         task.Wait();
-                        getAdresProizvod(id);
+                        getAdresProizvod(id_proizvoditel);
                         return;
                     }
                 }
@@ -291,7 +291,7 @@ namespace dllGoodCardDicCreaters
 
                         task = Config.hCntSecond.setAdresProizvod(id, id_proizvoditel, id_subject, cName, !isActive, false, 0,true);
                         task.Wait();
-                        getAdresProizvod(id);
+                        getAdresProizvod(id_proizvoditel);
                         return;
                     }
                 }

@@ -65,6 +65,14 @@ namespace dllGoodCardDicTypeSubject
                 return;
             }
 
+            if (tbCode.Text.Trim().Length == 0)
+            {
+                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{label1.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbCode.Focus();
+                return;
+            }
+
+
             Task<DataTable> task = Config.hCntMain.setSubject(id, tbName.Text,tbCode.Text, true, false, 0,false);
             task.Wait();
 

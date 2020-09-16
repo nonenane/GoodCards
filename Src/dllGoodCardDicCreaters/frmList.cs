@@ -61,6 +61,21 @@ namespace dllGoodCardDicCreaters
                 DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
                 if (DialogResult.OK == new frmAdd() { Text = "Редактировать адрес производителя", row = row }.ShowDialog())
                     get_data();
+                else
+                {
+                    if (dgvData.CurrentRow == null || dgvData.CurrentRow.Index == -1 || dtData == null || dtData.DefaultView.Count == 0 || dgvData.CurrentRow.Index >= dtData.DefaultView.Count)
+                    {
+                        btDelete.Enabled = false;
+                        btEdit.Enabled = false;
+                        getAdresProizvod(0);
+                        return;
+                    }
+
+                    btDelete.Enabled = true;
+                    btEdit.Enabled = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isActive"];
+                    getAdresProizvod((int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"]);
+
+                }
             }
         }
 

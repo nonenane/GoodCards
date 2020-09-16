@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Получение списка производителей
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[spg_getAdressProizvodVsProizvod]		 	
+ALTER PROCEDURE [Goods_Card_New].[spg_getAdressProizvodVsProizvod]		 	
 	@id_proizvoditel int
 AS
 BEGIN
@@ -24,5 +24,5 @@ from
 	dbo.s_adress_proizvod a 		
 			left join dbo.s_Subjects s on s.id = a.id_subject
 where 
-	a.id_proizvoditel = @id_proizvoditel
+	a.id_proizvoditel = @id_proizvoditel and a.isActive = 1
 END
