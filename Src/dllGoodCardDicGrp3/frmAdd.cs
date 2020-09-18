@@ -1,4 +1,5 @@
 ﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,7 +46,10 @@ namespace dllGoodCardDicGrp3
                 cmbDeps.SelectedValue = row["id_otdel"];
                 cmbDeps.Enabled = false;
             }
-
+            else {
+                cmbDeps.SelectedValue = UserSettings.User.IdDepartment;
+                cmbDeps.Enabled = false;
+            }
                 isEditData = false;
         }
 

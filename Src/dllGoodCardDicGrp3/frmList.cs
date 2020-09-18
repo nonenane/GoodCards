@@ -15,6 +15,7 @@ namespace dllGoodCardDicGrp3
     public partial class frmList : Form
     {
         private DataTable dtData;
+        
         public frmList()
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace dllGoodCardDicGrp3
             
 
             ToolTip tp = new ToolTip();
+            
             tp.SetToolTip(btAdd, "Добавить");
             tp.SetToolTip(btEdit, "Редактировать");
             tp.SetToolTip(btDelete, "Удалить");
@@ -35,7 +37,7 @@ namespace dllGoodCardDicGrp3
             tp.SetToolTip(btPrint, "Печать");
 
 
-            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "ИНФ", "СОП" }.Contains(UserSettings.User.StatusCode);
+            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "РКВ", "МН" }.Contains(UserSettings.User.StatusCode);
         }
 
         private void frmList_Load(object sender, EventArgs e)
@@ -47,7 +49,11 @@ namespace dllGoodCardDicGrp3
             cmbDeps.DisplayMember = "cName";
             cmbDeps.ValueMember = "id";
             cmbDeps.DataSource = dtObjectLease;
-
+            if (new List<string> { "РКВ", "МН" }.Contains(UserSettings.User.StatusCode))
+            {
+                cmbDeps.SelectedValue = UserSettings.User.IdDepartment;
+                cmbDeps.Enabled = false;
+            }
             get_data();
         }
 
@@ -87,7 +93,7 @@ namespace dllGoodCardDicGrp3
             {
                 btPrint.Enabled = btEdit.Enabled = btDelete.Enabled =
                 dtData.DefaultView.Count != 0;
-                dgvData_SelectionChanged(null, null);
+                dgvData_SelectionChanged(null, null);                
             }
         }
 
@@ -461,6 +467,5 @@ namespace dllGoodCardDicGrp3
 
             report.Show();
         }
-
     }
 }

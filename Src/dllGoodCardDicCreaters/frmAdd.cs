@@ -58,9 +58,9 @@ namespace dllGoodCardDicCreaters
             }
             else
             {
-                btAdd.Visible = false;
                 btEdit.Visible = false;
-                btDelete.Visible = false;
+                btAdd.Visible =                
+                btDelete.Visible = true;
                 getAdresProizvod(id);
             }
 
@@ -69,11 +69,22 @@ namespace dllGoodCardDicCreaters
 
         private void getAdresProizvod(int id_proizvoditel)
         {
-            Task<DataTable> task = Config.hCntMain.getAdressProizvodVsProizvod(id_proizvoditel);
-            task.Wait();
-            dtAdress = task.Result;
-            dgvAdress.DataSource = task.Result;
-            dgvAdress_SelectionChanged(null, null);
+            if (id == 0 && dtAdress == null)
+            {
+                Task<DataTable> task = Config.hCntMain.getAdressProizvodVsProizvod(id_proizvoditel);
+                task.Wait();
+                dtAdress = task.Result.Clone();
+                dgvAdress.DataSource = dtAdress;
+                return;
+            }
+            else if (id != 0)
+            {
+                Task<DataTable> task = Config.hCntMain.getAdressProizvodVsProizvod(id_proizvoditel);
+                task.Wait();
+                dtAdress = task.Result;
+                dgvAdress.DataSource = dtAdress;
+                dgvAdress_SelectionChanged(null, null);
+            }
         }
 
         DataTable dtTypeOrg;
@@ -138,11 +149,12 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
-            id = (int)dtResult.Rows[0]["id"];
+            int _id = (int)dtResult.Rows[0]["id"];
 
-            task = Config.hCntSecond.setProizvoditel(id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0, true);
+            task = Config.hCntSecond.setProizvoditel(_id, tbName.Text, tbCode.Text, (int)cmbTypeSubject.SelectedValue, true, false, 0, true);
             task.Wait();
 
+            bool isCreate = true;
             if (id == 0)
             {
                 id = (int)dtResult.Rows[0]["id"];
@@ -154,11 +166,21 @@ namespace dllGoodCardDicCreaters
             }
             else
             {
+                isCreate = false;
                 Logging.StartFirstLevel(1565);
                 //Logging.Comment("Редактировать Тип документа");
                 Logging.Comment($"ID: {id}");
                 Logging.VariableChange("Наименование", tbName.Text.Trim(), oldName);
                 Logging.StopFirstLevel();
+            }
+
+            if (isCreate && dtAdress != null && dtAdress.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtAdress.Rows)
+                {
+                    task = Config.hCntMain.setAdresProizvod(0, id, (int)row["id_subject"], (string)row["cName"], true, false, 0, false);
+                    task.Wait();                 
+                }
             }
 
             isEditData = false;
@@ -201,7 +223,7 @@ namespace dllGoodCardDicCreaters
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == new frmAddAdres() { Text = "Добавить производителя",id_proizvoditel = id }.ShowDialog())
+            if (DialogResult.OK == new frmAddAdres() { Text = "Добавить производителя",id_proizvoditel = id,Owner=this }.ShowDialog())
                 getAdresProizvod(id);
         }
 
@@ -214,6 +236,15 @@ namespace dllGoodCardDicCreaters
                 int id_subject = (int)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["id_subject"];
                 bool isActive = true;// (bool)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["isActive"];
                 string cName = (string)dtAdress.DefaultView[dgvAdress.CurrentRow.Index]["street"];
+
+
+                if (id == 0)
+                {
+                    dtAdress.DefaultView[dgvAdress.CurrentRow.Index].Delete();
+                    dtAdress.AcceptChanges();
+                    return;
+                }
+
 
                 Task<DataTable> task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, id_subject, cName, isActive, true, 0, false);
                 task.Wait();
@@ -306,6 +337,25 @@ namespace dllGoodCardDicCreaters
         private void tbCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
+        }
+
+        public bool setRowInProizvoditel(int id_Subject,string name,string street)
+        {
+            if (dtAdress.AsEnumerable().Where(r => r.Field<int>("id_subject") == id_Subject).Count() > 0)
+            {
+                return false;
+            }
+
+            DataRow newRow = dtAdress.NewRow();
+
+            newRow["id"] = 0;
+            newRow["id_subject"] = id_Subject;
+            newRow["street"] = street;
+            newRow["cName"] = name;
+            newRow["id_proizvoditel"] = id;
+            dtAdress.Rows.Add(newRow);
+            dtAdress.AcceptChanges();
+            return true;
         }
     }
 }

@@ -214,7 +214,7 @@ namespace dllGoodCardDicGrp2
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == new frmAdd() { Text = "Добавить подгруппу" }.ShowDialog())
+            if (DialogResult.OK == new frmAdd() { Text = "Добавить инвентаризационную группу" }.ShowDialog())
                 get_data();
         }
 
@@ -223,7 +223,7 @@ namespace dllGoodCardDicGrp2
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                if (DialogResult.OK == new frmAdd() { Text = "Редактировать подгруппу", row = row }.ShowDialog())
+                if (DialogResult.OK == new frmAdd() { Text = "Редактировать инвентаризационную группу", row = row }.ShowDialog())
                     get_data();
             }
         }
@@ -236,7 +236,9 @@ namespace dllGoodCardDicGrp2
                 int id = (int)row["id"];
                 string cName = (string)row["cName"];
                 int id_otdel = (int)row["id_otdel"];
-                int id_unigrp = (int)row["id_unigrp"];
+                int? id_unigrp = null;
+                if (row["id_unigrp"] != DBNull.Value) id_unigrp = (int)row["id_unigrp"];
+
                 int id_unit = (int)row["id_unit"];
                 bool specification = (bool)row["specification"];
                 bool skoroportovar = (bool)row["skoroportovar"];
@@ -418,6 +420,14 @@ namespace dllGoodCardDicGrp2
 
             report.Merge(indexRow, 1, indexRow, maxColumns);
             report.AddSingleValue($"{label2.Text}: {cmbUniGrp.Text}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{chbReglam.Text.Replace("-","")}: {(chbReglam.Checked ? "Да" : "Нет")}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{chbLimitTovar.Text.Replace("-", "")}: {(chbLimitTovar.Checked?"Да":"Нет")}", indexRow, 1);
             indexRow++;
 
             report.Merge(indexRow, 1, indexRow, maxColumns);

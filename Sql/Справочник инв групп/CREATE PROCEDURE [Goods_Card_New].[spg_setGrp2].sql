@@ -11,7 +11,7 @@ ALTER PROCEDURE [Goods_Card_New].[spg_setGrp2]
 	@id int,
 	@cName varchar(25),	
 	@id_otdel int,
-	@id_unigrp int,
+	@id_unigrp int=null,
 	@id_unit int,
 	@specification bit,
 	@skoroportovar bit,
@@ -104,6 +104,12 @@ BEGIN TRY
 							return;
 						END
 					
+					IF EXISTS(select top(1) id from OnlineStore.s_PercentSettingsGroups where id_grp2 = @id)
+						BEGIN
+							select -2 as id
+							return;
+						END
+
 					select 0 as id
 					return;
 				END
@@ -115,7 +121,7 @@ BEGIN TRY
 		END
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

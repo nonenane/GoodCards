@@ -86,12 +86,12 @@ namespace dllGoodCardDicGrp2
                 return;
             }
 
-            if (cmbUniGrp.SelectedValue == null)
-            {
-                MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lUniGrp.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbUniGrp.Focus();
-                return;
-            }
+            //if (cmbUniGrp.SelectedValue == null)
+            //{
+            //    MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lUniGrp.Text}\"\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    cmbUniGrp.Focus();
+            //    return;
+            //}
 
             if (!rbNetto.Checked && !rbUnit.Checked)
             {
@@ -115,15 +115,15 @@ namespace dllGoodCardDicGrp2
                 return;
             }
 
-            if (rbUnit.Checked)
-            {
+            //if (rbUnit.Checked)
+            //{
 
-                if ((unit > 0 && unit < 1) || (unit != 0 && Math.Round(unit % (int)unit, 3) != 0))
-                {
-                    MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lNetto.Text}\"\nбез дробной части.\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
+            //    if ((unit > 0 && unit < 1) || (unit != 0 && Math.Round(unit % (int)unit, 3) != 0))
+            //    {
+            //        MessageBox.Show(Config.centralText($"Необходимо заполнить\n \"{lNetto.Text}\"\nбез дробной части.\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return;
+            //    }
+            //}
 
             int day;
 
@@ -133,10 +133,13 @@ namespace dllGoodCardDicGrp2
                 tbDays.Focus();
                 return;
             }
+            
 
             string cName = tbName.Text.Trim();
             int id_otdel = (int)cmbDeps.SelectedValue;
-            int id_unigrp = (int)cmbUniGrp.SelectedValue;
+            int? id_unigrp = null;
+            if (cmbUniGrp.SelectedValue != null) id_unigrp = (int)cmbUniGrp.SelectedValue;
+
             int id_unit = rbNetto.Checked ? 1 : 2;
             bool specification = chbReglam.Checked;
             bool skoroportovar = chbLimitTovar.Checked;

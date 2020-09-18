@@ -100,7 +100,7 @@ namespace dllGoodCardDicGrp2
 
         #region "Справочник под.групп"
 
-        public async Task<DataTable> setGrp2(int id, string cName, int id_otdel,int id_unigrp, int id_unit,bool specification,bool skoroportovar,decimal NettoMax,int DayMax, bool isActive, bool isDel, int result, bool isAutoIncriments)
+        public async Task<DataTable> setGrp2(int id, string cName, int id_otdel,int? id_unigrp, int id_unit,bool specification,bool skoroportovar,decimal NettoMax,int DayMax, bool isActive, bool isDel, int result, bool isAutoIncriments)
         {
             ap.Clear();
             ap.Add(id);

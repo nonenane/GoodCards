@@ -80,6 +80,19 @@ namespace dllGoodCardDicCreaters
                 return;
             }
 
+            if (id_proizvoditel == 0)
+            {
+                if (!((frmAdd)this.Owner).setRowInProizvoditel((int)cmbSubject.SelectedValue, tbName.Text, cmbSubject.Text))
+                {
+                    MessageBox.Show("В справочнике уже присутствует адрес с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                isEditData = false;
+                this.DialogResult = DialogResult.OK;
+                return;
+            }
+
+
             Task<DataTable> task = Config.hCntMain.setAdresProizvod(id, id_proizvoditel, (int)cmbSubject.SelectedValue, tbName.Text, true, false, 0,false);
             task.Wait();
 

@@ -89,7 +89,7 @@
             // 
             this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btSave.Image = global::dllGoodCardDicGrp2.Properties.Resources.Save;
-            this.btSave.Location = new System.Drawing.Point(411, 221);
+            this.btSave.Location = new System.Drawing.Point(412, 191);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(32, 32);
             this.btSave.TabIndex = 18;
@@ -100,7 +100,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::dllGoodCardDicGrp2.Properties.Resources.Exit;
-            this.btClose.Location = new System.Drawing.Point(449, 221);
+            this.btClose.Location = new System.Drawing.Point(450, 191);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 19;
@@ -153,27 +153,30 @@
             // lNetto
             // 
             this.lNetto.AutoSize = true;
-            this.lNetto.Location = new System.Drawing.Point(15, 148);
+            this.lNetto.Location = new System.Drawing.Point(12, 240);
             this.lNetto.Name = "lNetto";
             this.lNetto.Size = new System.Drawing.Size(260, 13);
             this.lNetto.TabIndex = 27;
             this.lNetto.Text = "Ограничение в штуках на группу  на заказ товара";
+            this.lNetto.Visible = false;
             // 
             // tbUnit
             // 
-            this.tbUnit.Location = new System.Drawing.Point(366, 144);
+            this.tbUnit.Location = new System.Drawing.Point(278, 240);
             this.tbUnit.MaxLength = 12;
             this.tbUnit.Name = "tbUnit";
             this.tbUnit.Size = new System.Drawing.Size(100, 20);
             this.tbUnit.TabIndex = 28;
+            this.tbUnit.Text = "0,00";
             this.tbUnit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbUnit.Visible = false;
             this.tbUnit.TextChanged += new System.EventHandler(this.tbUnit_TextChanged);
             this.tbUnit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUnit_KeyPress);
             // 
             // lDay
             // 
             this.lDay.AutoSize = true;
-            this.lDay.Location = new System.Drawing.Point(15, 174);
+            this.lDay.Location = new System.Drawing.Point(18, 146);
             this.lDay.Name = "lDay";
             this.lDay.Size = new System.Drawing.Size(245, 13);
             this.lDay.TabIndex = 27;
@@ -181,11 +184,13 @@
             // 
             // tbDays
             // 
-            this.tbDays.Location = new System.Drawing.Point(366, 170);
+            this.tbDays.Location = new System.Drawing.Point(369, 142);
             this.tbDays.MaxLength = 3;
             this.tbDays.Name = "tbDays";
+            this.tbDays.ReadOnly = true;
             this.tbDays.Size = new System.Drawing.Size(100, 20);
             this.tbDays.TabIndex = 28;
+            this.tbDays.Text = "0";
             this.tbDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbDays.TextChanged += new System.EventHandler(this.tbDays_TextChanged);
             this.tbDays.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDays_KeyPress);
@@ -193,7 +198,7 @@
             // rbNetto
             // 
             this.rbNetto.AutoSize = true;
-            this.rbNetto.Location = new System.Drawing.Point(398, 196);
+            this.rbNetto.Location = new System.Drawing.Point(401, 168);
             this.rbNetto.Name = "rbNetto";
             this.rbNetto.Size = new System.Drawing.Size(68, 17);
             this.rbNetto.TabIndex = 29;
@@ -204,7 +209,7 @@
             // rbUnit
             // 
             this.rbUnit.AutoSize = true;
-            this.rbUnit.Location = new System.Drawing.Point(323, 196);
+            this.rbUnit.Location = new System.Drawing.Point(326, 168);
             this.rbUnit.Name = "rbUnit";
             this.rbUnit.Size = new System.Drawing.Size(69, 17);
             this.rbUnit.TabIndex = 30;
@@ -215,17 +220,17 @@
             // lTypeUnit
             // 
             this.lTypeUnit.AutoSize = true;
-            this.lTypeUnit.Location = new System.Drawing.Point(15, 198);
+            this.lTypeUnit.Location = new System.Drawing.Point(18, 170);
             this.lTypeUnit.Name = "lTypeUnit";
-            this.lTypeUnit.Size = new System.Drawing.Size(64, 13);
+            this.lTypeUnit.Size = new System.Drawing.Size(65, 13);
             this.lTypeUnit.TabIndex = 27;
-            this.lTypeUnit.Text = "Вид товара";
+            this.lTypeUnit.Text = "Тип группы";
             // 
             // frmAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 261);
+            this.ClientSize = new System.Drawing.Size(490, 229);
             this.ControlBox = false;
             this.Controls.Add(this.rbNetto);
             this.Controls.Add(this.rbUnit);

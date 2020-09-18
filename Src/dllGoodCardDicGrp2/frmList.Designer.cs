@@ -42,8 +42,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.chbNotActive = new System.Windows.Forms.CheckBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cUniGrp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cReglam = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cLimitTovar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -178,8 +178,8 @@
             this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cName,
             this.cDeps,
+            this.cName,
             this.cUniGrp,
             this.cReglam,
             this.cLimitTovar,
@@ -207,6 +207,13 @@
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
             // 
+            // cDeps
+            // 
+            this.cDeps.DataPropertyName = "nameDeps";
+            this.cDeps.HeaderText = "Отдел";
+            this.cDeps.Name = "cDeps";
+            this.cDeps.ReadOnly = true;
+            // 
             // cName
             // 
             this.cName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -216,13 +223,6 @@
             this.cName.Name = "cName";
             this.cName.ReadOnly = true;
             this.cName.Width = 300;
-            // 
-            // cDeps
-            // 
-            this.cDeps.DataPropertyName = "nameDeps";
-            this.cDeps.HeaderText = "Отдел";
-            this.cDeps.Name = "cDeps";
-            this.cDeps.ReadOnly = true;
             // 
             // cUniGrp
             // 
@@ -305,6 +305,7 @@
             this.chbReglam.Size = new System.Drawing.Size(148, 17);
             this.chbReglam.TabIndex = 14;
             this.chbReglam.Text = "- соотв. тех. регламенту";
+            this.chbReglam.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chbReglam.UseVisualStyleBackColor = true;
             this.chbReglam.CheckedChanged += new System.EventHandler(this.chbNotActive_CheckedChanged);
             // 
@@ -441,8 +442,8 @@
         private System.Windows.Forms.RadioButton rbNetto;
         private System.Windows.Forms.RadioButton rbUnit;
         private System.Windows.Forms.RadioButton rbAll;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cName;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDeps;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cName;
         private System.Windows.Forms.DataGridViewTextBoxColumn cUniGrp;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cReglam;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cLimitTovar;
