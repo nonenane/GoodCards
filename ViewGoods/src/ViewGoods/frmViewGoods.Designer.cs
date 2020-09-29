@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btClose = new System.Windows.Forms.Button();
             this.btViewCartGoods = new System.Windows.Forms.Button();
             this.btPrint = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@
             this.tbEan = new System.Windows.Forms.TextBox();
             this.lFind = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.chbReserv = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,24 +58,23 @@
             this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chbReserv = new System.Windows.Forms.CheckBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Location = new System.Drawing.Point(1009, 599);
+            this.btClose.Location = new System.Drawing.Point(824, 617);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 0;
             this.btClose.UseVisualStyleBackColor = true;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // btViewCartGoods
             // 
             this.btViewCartGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btViewCartGoods.Location = new System.Drawing.Point(971, 599);
+            this.btViewCartGoods.Location = new System.Drawing.Point(786, 617);
             this.btViewCartGoods.Name = "btViewCartGoods";
             this.btViewCartGoods.Size = new System.Drawing.Size(32, 32);
             this.btViewCartGoods.TabIndex = 0;
@@ -81,11 +83,12 @@
             // btPrint
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Location = new System.Drawing.Point(933, 599);
+            this.btPrint.Location = new System.Drawing.Point(748, 617);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 0;
             this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // cmbShop
             // 
@@ -113,6 +116,7 @@
             this.cmbDeps.Name = "cmbDeps";
             this.cmbDeps.Size = new System.Drawing.Size(208, 21);
             this.cmbDeps.TabIndex = 1;
+            this.cmbDeps.SelectionChangeCommitted += new System.EventHandler(this.cmbDeps_SelectionChangeCommitted);
             // 
             // label2
             // 
@@ -131,6 +135,7 @@
             this.cmbGrp3.Name = "cmbGrp3";
             this.cmbGrp3.Size = new System.Drawing.Size(208, 21);
             this.cmbGrp3.TabIndex = 1;
+            this.cmbGrp3.SelectionChangeCommitted += new System.EventHandler(this.cmbGrp3_SelectionChangeCommitted);
             // 
             // label3
             // 
@@ -149,6 +154,7 @@
             this.cmbGrp1.Name = "cmbGrp1";
             this.cmbGrp1.Size = new System.Drawing.Size(270, 21);
             this.cmbGrp1.TabIndex = 1;
+            this.cmbGrp1.SelectionChangeCommitted += new System.EventHandler(this.cmbGrp1_SelectionChangeCommitted);
             // 
             // cmbGrp2
             // 
@@ -158,6 +164,7 @@
             this.cmbGrp2.Name = "cmbGrp2";
             this.cmbGrp2.Size = new System.Drawing.Size(270, 21);
             this.cmbGrp2.TabIndex = 1;
+            this.cmbGrp2.SelectionChangeCommitted += new System.EventHandler(this.cmbGrp2_SelectionChangeCommitted);
             // 
             // label4
             // 
@@ -186,6 +193,7 @@
             this.chbNewGoods.TabIndex = 3;
             this.chbNewGoods.Text = "Новые товары";
             this.chbNewGoods.UseVisualStyleBackColor = true;
+            this.chbNewGoods.Click += new System.EventHandler(this.chbNewGoods_Click);
             // 
             // btClear
             // 
@@ -194,6 +202,7 @@
             this.btClear.Size = new System.Drawing.Size(32, 32);
             this.btClear.TabIndex = 0;
             this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // tbName
             // 
@@ -201,6 +210,8 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(100, 20);
             this.tbName.TabIndex = 4;
+            this.tbName.TextChanged += new System.EventHandler(this.tbEan_TextChanged);
+            this.tbName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEan_KeyDown);
             // 
             // tbEan
             // 
@@ -208,6 +219,8 @@
             this.tbEan.Name = "tbEan";
             this.tbEan.Size = new System.Drawing.Size(100, 20);
             this.tbEan.TabIndex = 4;
+            this.tbEan.TextChanged += new System.EventHandler(this.tbEan_TextChanged);
+            this.tbEan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEan_KeyDown);
             // 
             // lFind
             // 
@@ -227,14 +240,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDeps,
@@ -250,76 +263,108 @@
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(1029, 456);
+            this.dgvData.Size = new System.Drawing.Size(844, 474);
             this.dgvData.TabIndex = 5;
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
+            this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
+            this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
+            // 
+            // chbReserv
+            // 
+            this.chbReserv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chbReserv.AutoSize = true;
+            this.chbReserv.Location = new System.Drawing.Point(38, 626);
+            this.chbReserv.Name = "chbReserv";
+            this.chbReserv.Size = new System.Drawing.Size(71, 17);
+            this.chbReserv.TabIndex = 3;
+            this.chbReserv.Text = "Резервы";
+            this.chbReserv.UseVisualStyleBackColor = true;
+            this.chbReserv.Click += new System.EventHandler(this.chbReserv_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel1.Location = new System.Drawing.Point(12, 626);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(17, 17);
+            this.panel1.TabIndex = 6;
             // 
             // cDeps
             // 
+            this.cDeps.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cDeps.DataPropertyName = "nameDep";
             this.cDeps.HeaderText = "Отдел";
+            this.cDeps.MinimumWidth = 90;
             this.cDeps.Name = "cDeps";
             this.cDeps.ReadOnly = true;
+            this.cDeps.Width = 90;
             // 
             // cGrp1
             // 
+            this.cGrp1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cGrp1.DataPropertyName = "nameGrp1";
             this.cGrp1.HeaderText = "Т/У группа";
+            this.cGrp1.MinimumWidth = 110;
             this.cGrp1.Name = "cGrp1";
             this.cGrp1.ReadOnly = true;
+            this.cGrp1.Width = 110;
             // 
             // cGrp2
             // 
+            this.cGrp2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cGrp2.DataPropertyName = "nameGrp2";
             this.cGrp2.HeaderText = "Инв. группа";
+            this.cGrp2.MinimumWidth = 110;
             this.cGrp2.Name = "cGrp2";
             this.cGrp2.ReadOnly = true;
+            this.cGrp2.Width = 110;
             // 
             // cEan
             // 
+            this.cEan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEan.DataPropertyName = "ean";
             this.cEan.HeaderText = "EAN";
+            this.cEan.MinimumWidth = 100;
             this.cEan.Name = "cEan";
             this.cEan.ReadOnly = true;
             // 
             // cName
             // 
+            this.cName.DataPropertyName = "cname";
             this.cName.HeaderText = "Наименование товара";
             this.cName.Name = "cName";
             this.cName.ReadOnly = true;
             // 
             // cPrice
             // 
+            this.cPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cPrice.DataPropertyName = "rcena";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N2";
+            dataGridViewCellStyle10.NullValue = null;
+            this.cPrice.DefaultCellStyle = dataGridViewCellStyle10;
             this.cPrice.HeaderText = "Цена продажи";
+            this.cPrice.MinimumWidth = 80;
             this.cPrice.Name = "cPrice";
             this.cPrice.ReadOnly = true;
+            this.cPrice.Width = 80;
             // 
             // cGrp3
             // 
+            this.cGrp3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cGrp3.DataPropertyName = "nameGrp3";
             this.cGrp3.HeaderText = "Подгруппа";
+            this.cGrp3.MinimumWidth = 110;
             this.cGrp3.Name = "cGrp3";
             this.cGrp3.ReadOnly = true;
-            // 
-            // chbReserv
-            // 
-            this.chbReserv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chbReserv.AutoSize = true;
-            this.chbReserv.Location = new System.Drawing.Point(38, 608);
-            this.chbReserv.Name = "chbReserv";
-            this.chbReserv.Size = new System.Drawing.Size(80, 17);
-            this.chbReserv.TabIndex = 3;
-            this.chbReserv.Text = "checkBox1";
-            this.chbReserv.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.Location = new System.Drawing.Point(12, 608);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(17, 17);
-            this.panel1.TabIndex = 6;
+            this.cGrp3.Width = 110;
             // 
             // frmViewGoods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 643);
+            this.ClientSize = new System.Drawing.Size(868, 661);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.tbEan);
@@ -341,8 +386,10 @@
             this.Controls.Add(this.btViewCartGoods);
             this.Controls.Add(this.btClear);
             this.Controls.Add(this.btClose);
+            this.MinimizeBox = false;
             this.Name = "frmViewGoods";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Поиск товара";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmViewGoods_FormClosing);
             this.Load += new System.EventHandler(this.frmViewGoods_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
