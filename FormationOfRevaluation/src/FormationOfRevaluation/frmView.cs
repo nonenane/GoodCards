@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using numTextBox = Nwuram.Framework.fromElement.numTextBox;
 using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 
 namespace FormationOfRevaluation
 {
@@ -27,10 +28,24 @@ namespace FormationOfRevaluation
         public frmView()
         {            
             InitializeComponent();
+            dgvData.AutoGenerateColumns = false;
+            if (Config.hCntMain == null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+            if (Config.hCntSecond == null)
+                Config.hCntSecond = new Procedures(ConnectionSettings.GetServer("3"), ConnectionSettings.GetDatabase("3"), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+            if (Config.hCntMainKassRealizz == null)
+                Config.hCntMainKassRealizz = new Procedures(ConnectionSettings.GetServer("2"), ConnectionSettings.GetDatabase("2"), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+            if (Config.hCntSecondKassRealizz == null)
+                Config.hCntSecondKassRealizz = new Procedures(ConnectionSettings.GetServer("4"), ConnectionSettings.GetDatabase("4"), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
         }
 
         private void frmView_Load(object sender, EventArgs e)
         {
+            getShop();
             GetDeps();
             GetTypRequest();
 
@@ -44,6 +59,8 @@ namespace FormationOfRevaluation
             grdReq_FiltersWidth();
             grdReqDetails_FiltersWidth();
             ButtonsEdit();
+
+            getRcenaFuture();
         }
 
         /// <summary>
@@ -65,8 +82,26 @@ namespace FormationOfRevaluation
                 cbDepartment.DataSource = dtDeps;
                 cbDepartment.DisplayMember = "name";
                 cbDepartment.ValueMember = "id";
-                cbDepartment.SelectedIndex = 0;                
+                cbDepartment.SelectedIndex = 0;
+
+                cmbDeps.DataSource = dtDeps.Copy();
+                cmbDeps.DisplayMember = "name";
+                cmbDeps.ValueMember = "id";
+                cmbDeps.SelectedIndex = 0;
             }
+        }
+
+        private void getShop()
+        {
+            DataTable dtShop = Config.hCntMain.getShop(false);
+
+            cmbShop.DataSource = dtShop;
+            cmbShop.DisplayMember = "cName";
+            cmbShop.ValueMember = "id";
+
+            cmbShopTab1.DataSource = dtShop.Copy();
+            cmbShopTab1.DisplayMember = "cName";
+            cmbShopTab1.ValueMember = "id";
         }
 
         private void GetTypRequest()
@@ -98,7 +133,11 @@ namespace FormationOfRevaluation
 
             try { int.TryParse(cbDepartment.SelectedValue.ToString(), out dep); }
             catch { }
-            try { int.TryParse(cbTypeRequest.SelectedValue.ToString(), out typeRequest); }
+            try
+            {
+                if (cbTypeRequest.SelectedValue != null)
+                    int.TryParse(cbTypeRequest.SelectedValue.ToString(), out typeRequest);
+            }
             catch { }
 
             dtReq = new DataTable();
@@ -1037,6 +1076,338 @@ namespace FormationOfRevaluation
                 bsReq.Filter = "";
 
 
+        }
+
+        private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            int width = 0;
+            foreach (DataGridViewColumn col in dgvData.Columns)
+            {
+                if (!col.Visible) continue;
+
+                if (col.Name.Equals(cEan.Name))
+                {
+                    tbEan.Location = new Point(dgvData.Location.X + 1 + width, tbEan.Location.Y);
+                    tbEan.Size = new Size(cEan.Width, tbEan.Size.Height);
+                }
+
+                if (col.Name.Equals(cNameTab2.Name))
+                {
+                    tbName.Location = new Point(dgvData.Location.X + 1 + width, tbEan.Location.Y);
+                    tbName.Size = new Size(cNameTab2.Width, tbEan.Size.Height);
+                }
+
+                width += col.Width;
+            }
+        }
+
+        private void cmbDeps_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void cmbShop_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            getRcenaFuture();
+        }
+
+        private void dtpDateTab2_CloseUp(object sender, EventArgs e)
+        {
+            getRcenaFuture();
+        }
+
+        private void dtpDateTab2_Leave(object sender, EventArgs e)
+        {
+            getRcenaFuture();
+        }
+
+        private void btCloseTab2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private DataTable dtRcenaFuture;
+        private void getRcenaFuture()
+        {
+            DateTime date = dtpDateTab2.Value.Date;
+
+            DateTime nowDate =  Config.hCntMain.getdate();
+
+            btSend.Visible =  date.Date == nowDate.Date;
+
+            btDel.Visible = date.Date != nowDate.Date;
+
+            if ((int)cmbShop.SelectedValue == 1)
+                dtRcenaFuture = Config.hCntMain.getRcenaFuture(date);
+            else
+                dtRcenaFuture = Config.hCntSecond.getRcenaFuture(date);
+            setFilter();
+            dgvData.DataSource = dtRcenaFuture;
+        }
+
+        private void tbEan_TextChanged(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void setFilter()
+        {
+            if (dtRcenaFuture == null || dtRcenaFuture.Rows.Count == 0)
+            {
+                //btEdit.Enabled = btDelete.Enabled = false;
+                btPrint.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                string filter = "";
+
+                if (tbEan.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"ean like '%{tbEan.Text.Trim()}%'";
+
+                if (tbName.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"cname like '%{tbName.Text.Trim()}%'";
+
+                if ((Int16)cmbDeps.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_otdel  = {cmbDeps.SelectedValue}";
+
+                dtRcenaFuture.DefaultView.RowFilter = filter;
+            }
+            catch
+            {
+                dtRcenaFuture.DefaultView.RowFilter = "id_tovar = -1";
+            }
+            finally
+            {
+                btPrint.Enabled =
+                dtRcenaFuture.DefaultView.Count != 0;
+                //dgvData_SelectionChanged(null, null);
+            }
+        }
+
+        private void dgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+
+            if (cV.Index == e.ColumnIndex)
+            {
+                dgvData.Rows[e.RowIndex].Cells[e.ColumnIndex].ReadOnly = new List<int>(new int[] { 1, 3 }).Contains((int)dtRcenaFuture.DefaultView[e.RowIndex]["ntypetovar"]) || dtRcenaFuture.DefaultView[e.RowIndex]["idPromo"] != DBNull.Value;
+            }
+        }
+
+        private void dgvData_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dtRcenaFuture == null || dtRcenaFuture.Rows.Count == 0) return;
+            if (e.ColumnIndex == cV.Index)
+            {
+                EnumerableRowCollection<DataRow> rowCollect = dtRcenaFuture.AsEnumerable()
+                        .Where(r => r.Field<bool>("isSelect"));
+
+                if (rowCollect.Count() > 0)
+                {
+                    foreach (DataRow row in rowCollect)
+                        row["isSelect"] = false;
+
+                    dtRcenaFuture.AcceptChanges();
+                }
+                else
+                {
+                    foreach (DataRow row in dtRcenaFuture.Rows)
+                    {
+                        if (new List<int>(new int[] { 1, 3 }).Contains((int)row["ntypetovar"])) continue;
+                        if (row["idPromo"] != DBNull.Value) continue;
+                        row["isSelect"] = true;
+                    }
+
+                    dtRcenaFuture.AcceptChanges();
+                }
+            }
+        }
+
+        private void btDropAll_Click(object sender, EventArgs e)
+        {
+            if (dtRcenaFuture == null || dtRcenaFuture.Rows.Count == 0) return;
+
+            EnumerableRowCollection<DataRow> rowCollect = dtRcenaFuture.AsEnumerable()
+                    .Where(r => r.Field<bool>("isSelect"));
+
+            if (rowCollect.Count() > 0)
+            {
+                foreach (DataRow row in rowCollect)
+                    row["isSelect"] = false;
+
+                dtRcenaFuture.AcceptChanges();
+            }
+        }
+
+
+        private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
+        {
+            report.SetColumnWidth(indexRow, indexCol, indexRow, indexCol, width);
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+
+            Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
+
+            int indexRow = 1;
+
+            int maxColumns = 0;
+
+            foreach (DataGridViewColumn col in dgvData.Columns)
+                if (col.Visible)
+                {
+                    maxColumns++;
+                    if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
+                    if (col.Name.Equals(cEan.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
+                    if (col.Name.Equals(cNameTab2.Name)) setWidthColumn(indexRow, maxColumns, 40, report);
+                    if (col.Name.Equals(cPrice.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
+                }
+
+
+            #region "Head"
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"{this.Text}", indexRow, 1);
+            report.SetFontBold(indexRow, 1, indexRow, 1);
+            report.SetFontSize(indexRow, 1, indexRow, 1, 16);
+            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, 1);
+            indexRow++;
+            indexRow++;
+
+
+            //report.Merge(indexRow, 1, indexRow, maxColumns);
+            //report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
+            //indexRow++;
+
+            //report.Merge(indexRow, 1, indexRow, maxColumns);
+            //report.AddSingleValue($"Должность: {cmbPost.Text}", indexRow, 1);
+            //indexRow++;
+
+            //report.Merge(indexRow, 1, indexRow, maxColumns);
+            //report.AddSingleValue($"Место работы: {(rbOffice.Checked ? rbOffice.Text : rbUni.Text)}", indexRow, 1);
+            //indexRow++;
+
+            //report.Merge(indexRow, 1, indexRow, maxColumns);
+            //report.AddSingleValue($"Статус сотрудника: {(rbWork.Checked ? rbWork.Text : rbUnemploy.Text)}", indexRow, 1);
+            //indexRow++;
+
+            //if (tbPostName.Text.Trim().Length != 0 || tbKadrName.Text.Trim().Length != 0)
+            //{
+            //    report.Merge(indexRow, 1, indexRow, maxColumns);
+            //    report.AddSingleValue($"Фильтр: {(tbPostName.Text.Trim().Length != 0 ? $"Должность:{tbPostName.Text.Trim()} | " : "")} {(tbKadrName.Text.Trim().Length != 0 ? $"ФИО:{tbKadrName.Text.Trim()}" : "")}", indexRow, 1);
+            //    indexRow++;
+            //}
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue("Дата выгрузки: " + DateTime.Now.ToString(), indexRow, 1);
+            indexRow++;
+            indexRow++;
+            #endregion
+
+            int indexCol = 0;
+            foreach (DataGridViewColumn col in dgvData.Columns)
+                if (col.Visible)
+                {
+                    indexCol++;
+                    report.AddSingleValue(col.HeaderText, indexRow, indexCol);
+                }
+            report.SetFontBold(indexRow, 1, indexRow, maxColumns);
+            report.SetBorders(indexRow, 1, indexRow, maxColumns);
+            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+            report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+            report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+            indexRow++;
+
+            foreach (DataRowView row in dtRcenaFuture.DefaultView)
+            {
+                indexCol = 1;
+                report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (col.Visible)
+                    {
+                        if (row[col.DataPropertyName] is DateTime)
+                            report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                        else
+                           if (row[col.DataPropertyName] is decimal || row[col.DataPropertyName] is double)
+                        {
+                            report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
+                            report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
+                        }
+                        else
+                            report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
+
+                        indexCol++;
+                    }
+                }
+             
+                report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+
+                indexRow++;
+            }           
+
+            report.Show();
+        }
+
+        private void btSend_Click(object sender, EventArgs e)
+        {
+            if (dtRcenaFuture == null || dtRcenaFuture.Rows.Count == 0) return;
+
+            EnumerableRowCollection<DataRow> rowCollect = dtRcenaFuture.AsEnumerable()
+                    .Where(r => r.Field<bool>("isSelect"));
+
+            if (rowCollect.Count() > 0)
+            {
+                DateTime date = dtpDateTab2.Value.Date;
+
+                foreach (DataRow row in rowCollect)
+                {
+                    decimal tmpDec = ((decimal)row["rcena"] * 100);
+                    int newPrice = decimal.ToInt32(tmpDec);
+
+                    if ((int)cmbShop.SelectedValue == 1)
+                    {
+                        Config.hCntMain.setRcenaFuture((int)row["id_tovar"], date, (decimal)row["rcena"], false);
+                        Config.hCntMainKassRealizz.setGoodsUpdate((int)row["id_otdel"], (int)row["nds"], (int)row["id_grp1"], (int)row["ntypeorg"], newPrice, (string)row["cname"], (string)row["ean"]);
+                    }
+                    else
+                    {
+                        Config.hCntSecond.setRcenaFuture((int)row["id_tovar"], date, (decimal)row["rcena"], false);
+                        Config.hCntSecondKassRealizz.setGoodsUpdate((int)row["id_otdel"], (int)row["nds"], (int)row["id_grp1"], (int)row["ntypeorg"], newPrice, (string)row["cname"], (string)row["ean"]);
+                    }
+                }
+
+                getRcenaFuture();
+            }
+            //
+        }
+
+        private void btDel_Click(object sender, EventArgs e)
+        {
+            if (dtRcenaFuture == null || dtRcenaFuture.Rows.Count == 0) return;
+
+            EnumerableRowCollection<DataRow> rowCollect = dtRcenaFuture.AsEnumerable()
+                    .Where(r => !r.Field<bool>("isSelect"));
+
+            if (rowCollect.Count() > 0)
+            {
+                DateTime date = dtpDateTab2.Value.Date;
+
+                foreach (DataRow row in rowCollect)
+                {
+                    Config.hCntMain.setRcenaFuture((int)row["id_tovar"], date, (decimal)row["rcena"], true);
+                }
+
+                getRcenaFuture();
+            }
         }
     }
 }

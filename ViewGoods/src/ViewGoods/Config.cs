@@ -6,7 +6,11 @@ namespace ViewGoods
     class Config
     {
         public static Procedures hCntMain { get; set; } //осн. коннект
+        public static Procedures hCntMainKassRealizz { get; set; } //доп. коннект
+
         public static Procedures hCntSecond { get; set; } //доп. коннект
+
+        public static Procedures hCntSecondKassRealizz { get; set; } //доп. коннект
 
         public static string centralText(string str)
         {

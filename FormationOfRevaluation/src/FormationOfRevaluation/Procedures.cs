@@ -7,6 +7,7 @@ using Nwuram.Framework.Data;
 using Nwuram.Framework.Settings.User;
 using Nwuram.Framework.Settings.Connection;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace FormationOfRevaluation
 {
@@ -353,5 +354,120 @@ namespace FormationOfRevaluation
             else return 0;
         }
 
+        public DataTable getShop(bool withAllDeps = false)
+        {
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[getShop]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (dtResult == null) return null;
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все магазины";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();
+                    dtResult.DefaultView.Sort = "isMain asc, id asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+            else
+            {
+                dtResult.DefaultView.Sort = "id asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
+            }
+
+            return dtResult;
+        }
+
+        public DataTable getRcenaFuture(DateTime date)
+        {
+            ap.Clear();
+            ap.Add(date);
+
+            return executeProcedure("[Goods_Card_New].[getRcenaFuture]",
+                 new string[1] {
+                     "@date" },
+                 new DbType[1] {
+                     DbType.Date}, ap);
+        }
+
+        public DataTable setRcenaFuture(int id_tovar, DateTime date,decimal rcena,bool isDel)
+        {
+            ap.Clear();
+            ap.Add(id_tovar);
+            ap.Add(date);
+            ap.Add(rcena);
+            ap.Add(UserSettings.User.Id);
+            ap.Add(isDel);
+
+            return executeProcedure("[Goods_Card_New].[setRcenaFuture]",
+                 new string[5] {
+                     "@id_tovar",
+                     "@date",
+                     "@rcena",
+                     "@id_user",
+                     "@isDel"},
+                 new DbType[5] {
+                     DbType.Int32,
+                     DbType.Date,
+                     DbType.Decimal,
+                     DbType.Int32,
+                     DbType.Boolean},
+                 ap);
+        }
+
+        public DataTable setGoodsUpdate(int id_departments, int tax, int grp, int dpt, int price, string name, string ean)
+        {
+            ap.Clear();
+            ap.Add(id_departments);
+            ap.Add(UserSettings.User.Id);
+            ap.Add(tax);
+            ap.Add(grp);
+            ap.Add(dpt);
+            ap.Add(price);
+            ap.Add(name);
+            ap.Add(ean);
+
+
+
+
+            return executeProcedure("[Goods_Card_New].[setGoodsUpdate]",
+                 new string[8] {
+                     "@id_departments",
+                     "@sender",
+                     "@tax",
+                     "@grp",
+                     "@dpt",
+                     "@price",
+                     "@name",
+                     "@ean"},
+                 new DbType[8] {
+                     DbType.Int32,
+                     DbType.String,
+                     DbType.Int16,
+                     DbType.Int32,
+                     DbType.Int32,
+                     DbType.Int32,
+                     DbType.String,
+                     DbType.String},
+                 ap);
+        }
     }
 }

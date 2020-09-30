@@ -12,7 +12,11 @@ namespace FormationOfRevaluation
     class Config
     {
         public static Procedures hCntMain { get; set; } //осн. коннект
-        public static Procedures hCntAdd { get; set; } //доп. коннект
+        public static Procedures hCntMainKassRealizz { get; set; } //доп. коннект
+
+        public static Procedures hCntSecond { get; set; } //доп. коннект
+        public static Procedures hCntSecondKassRealizz { get; set; } //доп. коннект
+
         public static DateTime CurDate { get; set; }
         public static string StatusCode { get; set; }
         public static string TTN { get; set; }

@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btClose = new System.Windows.Forms.Button();
-            this.btViewCartGoods = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btPrint = new System.Windows.Forms.Button();
             this.cmbShop = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,13 +42,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.chbNewGoods = new System.Windows.Forms.CheckBox();
-            this.btClear = new System.Windows.Forms.Button();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbEan = new System.Windows.Forms.TextBox();
             this.lFind = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.chbReserv = new System.Windows.Forms.CheckBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,31 +53,18 @@
             this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cGrp3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chbReserv = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btViewCartGoods = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
+            this.btClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btClose
-            // 
-            this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Location = new System.Drawing.Point(824, 617);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(32, 32);
-            this.btClose.TabIndex = 0;
-            this.btClose.UseVisualStyleBackColor = true;
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // btViewCartGoods
-            // 
-            this.btViewCartGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btViewCartGoods.Location = new System.Drawing.Point(786, 617);
-            this.btViewCartGoods.Name = "btViewCartGoods";
-            this.btViewCartGoods.Size = new System.Drawing.Size(32, 32);
-            this.btViewCartGoods.TabIndex = 0;
-            this.btViewCartGoods.UseVisualStyleBackColor = true;
             // 
             // btPrint
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = global::ViewGoods.Properties.Resources.EXCEL1;
             this.btPrint.Location = new System.Drawing.Point(748, 617);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(32, 32);
@@ -98,6 +80,7 @@
             this.cmbShop.Name = "cmbShop";
             this.cmbShop.Size = new System.Drawing.Size(208, 21);
             this.cmbShop.TabIndex = 1;
+            this.cmbShop.SelectionChangeCommitted += new System.EventHandler(this.cmbShop_SelectionChangeCommitted);
             // 
             // label1
             // 
@@ -195,15 +178,6 @@
             this.chbNewGoods.UseVisualStyleBackColor = true;
             this.chbNewGoods.Click += new System.EventHandler(this.chbNewGoods_Click);
             // 
-            // btClear
-            // 
-            this.btClear.Location = new System.Drawing.Point(560, 99);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(32, 32);
-            this.btClear.TabIndex = 0;
-            this.btClear.UseVisualStyleBackColor = true;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
             // tbName
             // 
             this.tbName.Location = new System.Drawing.Point(450, 105);
@@ -240,14 +214,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDeps,
@@ -268,27 +242,6 @@
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
-            // 
-            // chbReserv
-            // 
-            this.chbReserv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chbReserv.AutoSize = true;
-            this.chbReserv.Location = new System.Drawing.Point(38, 626);
-            this.chbReserv.Name = "chbReserv";
-            this.chbReserv.Size = new System.Drawing.Size(71, 17);
-            this.chbReserv.TabIndex = 3;
-            this.chbReserv.Text = "Резервы";
-            this.chbReserv.UseVisualStyleBackColor = true;
-            this.chbReserv.Click += new System.EventHandler(this.chbReserv_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.panel1.Location = new System.Drawing.Point(12, 626);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(17, 17);
-            this.panel1.TabIndex = 6;
             // 
             // cDeps
             // 
@@ -340,10 +293,10 @@
             // 
             this.cPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.cPrice.DataPropertyName = "rcena";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = null;
-            this.cPrice.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.cPrice.DefaultCellStyle = dataGridViewCellStyle2;
             this.cPrice.HeaderText = "Цена продажи";
             this.cPrice.MinimumWidth = 80;
             this.cPrice.Name = "cPrice";
@@ -359,6 +312,59 @@
             this.cGrp3.Name = "cGrp3";
             this.cGrp3.ReadOnly = true;
             this.cGrp3.Width = 110;
+            // 
+            // chbReserv
+            // 
+            this.chbReserv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chbReserv.AutoSize = true;
+            this.chbReserv.Location = new System.Drawing.Point(38, 626);
+            this.chbReserv.Name = "chbReserv";
+            this.chbReserv.Size = new System.Drawing.Size(71, 17);
+            this.chbReserv.TabIndex = 3;
+            this.chbReserv.Text = "Резервы";
+            this.chbReserv.UseVisualStyleBackColor = true;
+            this.chbReserv.Click += new System.EventHandler(this.chbReserv_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel1.Location = new System.Drawing.Point(12, 626);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(17, 17);
+            this.panel1.TabIndex = 6;
+            // 
+            // btViewCartGoods
+            // 
+            this.btViewCartGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btViewCartGoods.Image = global::ViewGoods.Properties.Resources.old_edit_find;
+            this.btViewCartGoods.Location = new System.Drawing.Point(786, 617);
+            this.btViewCartGoods.Name = "btViewCartGoods";
+            this.btViewCartGoods.Size = new System.Drawing.Size(32, 32);
+            this.btViewCartGoods.TabIndex = 0;
+            this.btViewCartGoods.UseVisualStyleBackColor = true;
+            this.btViewCartGoods.Click += new System.EventHandler(this.btViewCartGoods_Click);
+            // 
+            // btClear
+            // 
+            this.btClear.Image = global::ViewGoods.Properties.Resources.remove_ticket1_;
+            this.btClear.Location = new System.Drawing.Point(560, 99);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(32, 32);
+            this.btClear.TabIndex = 0;
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // btClose
+            // 
+            this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClose.Image = global::ViewGoods.Properties.Resources.door_out;
+            this.btClose.Location = new System.Drawing.Point(824, 617);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(32, 32);
+            this.btClose.TabIndex = 0;
+            this.btClose.UseVisualStyleBackColor = true;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // frmViewGoods
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nwuram.Framework.Settings.Connection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -116,7 +117,19 @@ namespace ViewGoods
         public frmViewGoods()
         {
             InitializeComponent();
+
+            if (Config.hCntMain==null)
+            Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+            if (Config.hCntSecond == null)
+                Config.hCntSecond = new Procedures(ConnectionSettings.GetServer("3"), ConnectionSettings.GetDatabase("3"), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
             dgvData.AutoGenerateColumns = false;
+            ToolTip tp = new ToolTip();
+            tp.SetToolTip(btClose,"Выход");
+            tp.SetToolTip(btPrint, "Печать");
+            tp.SetToolTip(btViewCartGoods, "Просмотр карточки товара");
+            tp.SetToolTip(btClear, "Сброс фильтра");
         }
 
         private void chbNewGoods_Click(object sender, EventArgs e)
@@ -160,13 +173,16 @@ namespace ViewGoods
                 if (col.Visible)
                 {
                     maxColumns++;
-                    /*if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 18, report);
-                    if (col.Name.Equals(cPost.Name)) setWidthColumn(indexRow, maxColumns, 18, report);
-                    if (col.Name.Equals(cFIO.Name)) setWidthColumn(indexRow, maxColumns, 20, report);
-                    if (col.Name.Equals(cPass.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
-                    if (col.Name.Equals(cDatePrintPass.Name)) setWidthColumn(indexRow, maxColumns, 17, report);
-                    if (col.Name.Equals(cPhone.Name)) setWidthColumn(indexRow, maxColumns, 17, report);*/
+                    if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
+                    if (col.Name.Equals(cGrp1.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
+                    if (col.Name.Equals(cGrp2.Name)) setWidthColumn(indexRow, maxColumns, 14, report);
+                    if (col.Name.Equals(cEan.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
+                    if (col.Name.Equals(cName.Name)) setWidthColumn(indexRow, maxColumns, 40, report);
+                    if (col.Name.Equals(cPrice.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
+                    if (col.Name.Equals(cGrp3.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
+
                 }
+
 
             #region "Head"
             report.Merge(indexRow, 1, indexRow, maxColumns);
@@ -248,19 +264,39 @@ namespace ViewGoods
                     }
                 }
 
+                if (chbReserv.Checked && new List<int>(new int[] { 1, 3 }).Contains((int)row["ntypetovar"]))
+                    report.SetCellColor(indexRow, 1, indexRow, maxColumns, panel1.BackColor);
+
                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
 
                 indexRow++;
             }
-            report.SetColumnAutoSize(6, 1, indexRow, maxColumns);
+
+            if (chbReserv.Checked)
+            {
+                report.SetCellColor(indexRow, 1, indexRow, 1, panel1.BackColor);
+                report.Merge(indexRow, 2, indexRow, maxColumns);
+                report.AddSingleValue($"{chbReserv.Text}", indexRow, 2);
+            }
+
             report.Show();
         }
 
         private void btClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void cmbShop_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            getData();
+        }
+
+        private void btViewCartGoods_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Пока не работает","oooops",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void frmViewGoods_Load(object sender, EventArgs e)
@@ -334,7 +370,11 @@ namespace ViewGoods
         {            
             string ean = tbEan.Text.Trim().Length == 0 ? null : tbEan.Text.Trim().ToLower();
             string cName = tbName.Text.Trim().Length == 0 ? null : tbName.Text.Trim().ToLower();
-            Task<DataTable> task = Config.hCntMain.getFindTovar(ean, cName, chbNewGoods.Checked);
+            Task<DataTable> task;
+            if ((int)cmbShop.SelectedValue == 1)
+                task = Config.hCntMain.getFindTovar(ean, cName, chbNewGoods.Checked);
+            else
+                task = Config.hCntSecond.getFindTovar(ean, cName, chbNewGoods.Checked);
             task.Wait();
             dtData = task.Result;
             setFilter();
