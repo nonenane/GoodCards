@@ -359,7 +359,8 @@ namespace FormationOfRevaluation
             }
             else
             {
-                grdReq.CurrentCell = grdReq.Rows.Cast<DataGridViewRow>().Where(x => (int)x.Cells["id"].Value == idCurTrequest).First().Cells[0];                
+                grdReq.CurrentCell = grdReq.Rows.Cast<DataGridViewRow>().Where(x => (int)x.Cells["id"].Value == idCurTrequest).First().Cells[0];
+                GetReqDetails();
             }
 
 

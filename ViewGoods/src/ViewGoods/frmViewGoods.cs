@@ -14,6 +14,9 @@ namespace ViewGoods
     public partial class frmViewGoods : Form
     {
         private DataTable dtDeps,dtShop,dtGrp1, dtGrp2, dtGrp3,dtData;
+        private Nwuram.Framework.UI.Service.EnableControlsServiceInProg blockers = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        private Nwuram.Framework.ToExcelNew.ExcelUnLoad report = null;
+
 
         private void cmbDeps_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -155,133 +158,174 @@ namespace ViewGoods
             getData();
         }
 
-
         private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
         {
             report.SetColumnWidth(indexRow, indexCol, indexRow, indexCol, width);
         }
 
-        private void btPrint_Click(object sender, EventArgs e)
+        private async void btPrint_Click(object sender, EventArgs e)
         {
-            Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
+            report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
 
             int indexRow = 1;
-
             int maxColumns = 0;
-
-            foreach (DataGridViewColumn col in dgvData.Columns)
-                if (col.Visible)
-                {
-                    maxColumns++;
-                    if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
-                    if (col.Name.Equals(cGrp1.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
-                    if (col.Name.Equals(cGrp2.Name)) setWidthColumn(indexRow, maxColumns, 14, report);
-                    if (col.Name.Equals(cEan.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
-                    if (col.Name.Equals(cName.Name)) setWidthColumn(indexRow, maxColumns, 40, report);
-                    if (col.Name.Equals(cPrice.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
-                    if (col.Name.Equals(cGrp3.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
-
-                }
-
-
-            #region "Head"
-            report.Merge(indexRow, 1, indexRow, maxColumns);
-            report.AddSingleValue($"{this.Text}", indexRow, 1);
-            report.SetFontBold(indexRow, 1, indexRow, 1);
-            report.SetFontSize(indexRow, 1, indexRow, 1, 16);
-            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, 1);
-            indexRow++;
-            indexRow++;
-
-
-            //report.Merge(indexRow, 1, indexRow, maxColumns);
-            //report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
-            //indexRow++;
-
-            //report.Merge(indexRow, 1, indexRow, maxColumns);
-            //report.AddSingleValue($"Должность: {cmbPost.Text}", indexRow, 1);
-            //indexRow++;
-
-            //report.Merge(indexRow, 1, indexRow, maxColumns);
-            //report.AddSingleValue($"Место работы: {(rbOffice.Checked ? rbOffice.Text : rbUni.Text)}", indexRow, 1);
-            //indexRow++;
-
-            //report.Merge(indexRow, 1, indexRow, maxColumns);
-            //report.AddSingleValue($"Статус сотрудника: {(rbWork.Checked ? rbWork.Text : rbUnemploy.Text)}", indexRow, 1);
-            //indexRow++;
-
-            //if (tbPostName.Text.Trim().Length != 0 || tbKadrName.Text.Trim().Length != 0)
-            //{
-            //    report.Merge(indexRow, 1, indexRow, maxColumns);
-            //    report.AddSingleValue($"Фильтр: {(tbPostName.Text.Trim().Length != 0 ? $"Должность:{tbPostName.Text.Trim()} | " : "")} {(tbKadrName.Text.Trim().Length != 0 ? $"ФИО:{tbKadrName.Text.Trim()}" : "")}", indexRow, 1);
-            //    indexRow++;
-            //}
-
-            report.Merge(indexRow, 1, indexRow, maxColumns);
-            report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
-            indexRow++;
-
-            report.Merge(indexRow, 1, indexRow, maxColumns);
-            report.AddSingleValue("Дата выгрузки: " + DateTime.Now.ToString(), indexRow, 1);
-            indexRow++;
-            indexRow++;
-            #endregion
-
-            int indexCol = 0;
-            foreach (DataGridViewColumn col in dgvData.Columns)
-                if (col.Visible)
-                {
-                    indexCol++;
-                    report.AddSingleValue(col.HeaderText, indexRow, indexCol);
-                }
-            report.SetFontBold(indexRow, 1, indexRow, maxColumns);
-            report.SetBorders(indexRow, 1, indexRow, maxColumns);
-            report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
-            report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
-            report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-            indexRow++;
-
-            foreach (DataRowView row in dtData.DefaultView)
+            blockers.SaveControlsEnabledState(this);
+            blockers.SetControlsEnabled(this, false);
+            progressBar1.Visible = true;
+            var result = await Task<bool>.Factory.StartNew(() =>
             {
-                indexCol = 1;
-                report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+
                 foreach (DataGridViewColumn col in dgvData.Columns)
-                {
                     if (col.Visible)
                     {
-                        if (row[col.DataPropertyName] is DateTime)
-                            report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
-                        else
-                           if (row[col.DataPropertyName] is decimal || row[col.DataPropertyName] is double)
-                        {
-                            report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
-                            report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
-                        }
-                        else
-                            report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
+                        maxColumns++;
+                        if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
+                        if (col.Name.Equals(cGrp1.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
+                        if (col.Name.Equals(cGrp2.Name)) setWidthColumn(indexRow, maxColumns, 14, report);
+                        if (col.Name.Equals(cEan.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
+                        if (col.Name.Equals(cName.Name)) setWidthColumn(indexRow, maxColumns, 40, report);
+                        if (col.Name.Equals(cPrice.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
+                        if (col.Name.Equals(cGrp3.Name)) setWidthColumn(indexRow, maxColumns, 11, report);
 
-                        indexCol++;
                     }
-                }
 
-                if (chbReserv.Checked && new List<int>(new int[] { 1, 3 }).Contains((int)row["ntypetovar"]))
-                    report.SetCellColor(indexRow, 1, indexRow, maxColumns, panel1.BackColor);
 
+                #region "Head"
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue($"{this.Text}", indexRow, 1);
+                report.SetFontBold(indexRow, 1, indexRow, 1);
+                report.SetFontSize(indexRow, 1, indexRow, 1, 16);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, 1);
+                indexRow++;
+                indexRow++;
+
+                Config.DoOnUIThread(() =>
+                {
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Магазин: {cmbShop.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Т/У группа: {cmbGrp1.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Инв. группа: {cmbGrp2.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Подгруппы: {cmbGrp3.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Новый товар: {(chbNewGoods.Checked ? "Да":"Нет")}", indexRow, 1);
+                    indexRow++;
+
+                    if (tbEan.Text.Trim().Length != 0 || tbName.Text.Trim().Length != 0)
+                    {
+                        report.Merge(indexRow, 1, indexRow, maxColumns);
+                        report.AddSingleValue($"Фильтр: {(tbEan.Text.Trim().Length != 0 ? $"EAN:{tbEan.Text.Trim()} | " : "")} {(tbName.Text.Trim().Length != 0 ? $"Наименование:{tbName.Text.Trim()}" : "")}", indexRow, 1);
+                        indexRow++;
+                    }
+
+                }, this);
+                //report.Merge(indexRow, 1, indexRow, maxColumns);
+                //report.AddSingleValue($"Должность: {cmbPost.Text}", indexRow, 1);
+                //indexRow++;
+
+                //report.Merge(indexRow, 1, indexRow, maxColumns);
+                //report.AddSingleValue($"Место работы: {(rbOffice.Checked ? rbOffice.Text : rbUni.Text)}", indexRow, 1);
+                //indexRow++;
+
+                //report.Merge(indexRow, 1, indexRow, maxColumns);
+                //report.AddSingleValue($"Статус сотрудника: {(rbWork.Checked ? rbWork.Text : rbUnemploy.Text)}", indexRow, 1);
+                //indexRow++;
+
+                //if (tbPostName.Text.Trim().Length != 0 || tbKadrName.Text.Trim().Length != 0)
+                //{
+                //    report.Merge(indexRow, 1, indexRow, maxColumns);
+                //    report.AddSingleValue($"Фильтр: {(tbPostName.Text.Trim().Length != 0 ? $"Должность:{tbPostName.Text.Trim()} | " : "")} {(tbKadrName.Text.Trim().Length != 0 ? $"ФИО:{tbKadrName.Text.Trim()}" : "")}", indexRow, 1);
+                //    indexRow++;
+                //}
+
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
+                indexRow++;
+
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue("Дата выгрузки: " + DateTime.Now.ToString(), indexRow, 1);
+                indexRow++;
+                indexRow++;
+                #endregion
+
+                int indexCol = 0;
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                    if (col.Visible)
+                    {
+                        indexCol++;
+                        report.AddSingleValue(col.HeaderText, indexRow, indexCol);
+                    }
+                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
-
+                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                 indexRow++;
-            }
 
-            if (chbReserv.Checked)
-            {
-                report.SetCellColor(indexRow, 1, indexRow, 1, panel1.BackColor);
-                report.Merge(indexRow, 2, indexRow, maxColumns);
-                report.AddSingleValue($"{chbReserv.Text}", indexRow, 2);
-            }
+                foreach (DataRowView row in dtData.DefaultView)
+                {
+                    indexCol = 1;
+                    report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+                    foreach (DataGridViewColumn col in dgvData.Columns)
+                    {
+                        if (col.Visible)
+                        {
+                            if (row[col.DataPropertyName] is DateTime)
+                                report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                            else
+                               if (row[col.DataPropertyName] is decimal || row[col.DataPropertyName] is double)
+                            {
+                                report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
+                                report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
+                            }
+                            else
+                                report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
 
-            report.Show();
+                            indexCol++;
+                        }
+                    }
+
+                    if (chbReserv.Checked && new List<int>(new int[] { 1, 3 }).Contains((int)row["ntypetovar"]))
+                        report.SetCellColor(indexRow, 1, indexRow, maxColumns, panel1.BackColor);
+
+                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+
+                    indexRow++;
+                }
+
+                if (chbReserv.Checked)
+                {
+                    indexRow++;
+                    report.SetCellColor(indexRow, 1, indexRow, 1, panel1.BackColor);
+                    report.Merge(indexRow, 2, indexRow, maxColumns);
+                    report.AddSingleValue($"{chbReserv.Text}", indexRow, 2);
+                }
+
+                Config.DoOnUIThread(() =>
+                {
+                    blockers.RestoreControlEnabledState(this);
+                    progressBar1.Visible = false;
+                }, this);
+
+                report.Show();
+                return true;
+            });
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -366,20 +410,35 @@ namespace ViewGoods
                 
         }
  
-        private void getData()
+        private async void getData()
         {            
             string ean = tbEan.Text.Trim().Length == 0 ? null : tbEan.Text.Trim().ToLower();
             string cName = tbName.Text.Trim().Length == 0 ? null : tbName.Text.Trim().ToLower();
-            Task<DataTable> task;
-            if ((int)cmbShop.SelectedValue == 1)
-                task = Config.hCntMain.getFindTovar(ean, cName, chbNewGoods.Checked);
-            else
-                task = Config.hCntSecond.getFindTovar(ean, cName, chbNewGoods.Checked);
-            task.Wait();
-            dtData = task.Result;
-            setFilter();
-            dgvData.DataSource = dtData;
+            int id_Shop = (int)cmbShop.SelectedValue;
+            bool isNewGoods = chbNewGoods.Checked;
 
+            blockers.SaveControlsEnabledState(this);
+            blockers.SetControlsEnabled(this, false);
+            progressBar1.Visible = true;
+            var result = await Task<bool>.Factory.StartNew(() =>
+            {
+                Task<DataTable> task;
+                if (id_Shop == 1)
+                    task = Config.hCntMain.getFindTovar(ean, cName, isNewGoods);
+                else
+                    task = Config.hCntSecond.getFindTovar(ean, cName, isNewGoods);
+                task.Wait();
+                dtData = task.Result;
+                Config.DoOnUIThread(() =>
+                {
+                    blockers.RestoreControlEnabledState(this);
+                    setFilter();
+                    dgvData.DataSource = dtData;
+                    progressBar1.Visible = false;
+                }, this);
+
+                return true;
+            });          
         }
 
         private void setFilter()

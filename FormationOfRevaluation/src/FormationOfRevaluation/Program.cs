@@ -47,6 +47,8 @@ namespace FormationOfRevaluation
 
                 Application.Run(new frmView());
 
+                Nwuram.Framework.Project.Project.clearBufferFiles();
+
                 //Logging.StartFirstLevel(2);
                 //Logging.Comment("Пользователь закрыл программу");
                 //Logging.StopFirstLevel();                
