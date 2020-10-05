@@ -57,6 +57,159 @@ namespace dllGoodCardDicGrp3
             get_data();
         }
 
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == new frmAdd() { Text = "Добавить подгруппу" }.ShowDialog())
+                get_data();
+        }
+
+        private void btEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
+                if (DialogResult.OK == new frmAdd() { Text = "Редактировать подгруппу", row = row }.ShowDialog())
+                    get_data();
+            }
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
+                int id = (int)row["id"];
+                string cName = (string)row["cName"];
+                int id_otdel = (int)row["id_otdel"];
+                bool isActive = (bool)row["isActive"];
+                bool isDel = true;
+                int result = 0;
+                bool isAutoIncriments = false;
+
+                Task<DataTable> task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+                task.Wait();
+
+                if (task.Result == null)
+                {
+                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                result = (int)task.Result.Rows[0]["id"];
+
+                if (result == -1)
+                {
+                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    get_data();
+                    return;
+                }
+
+                if (result == -2 && isActive)
+                {
+                    if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        //setLog(id, 1542);
+                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
+                        result = 1;
+                        isDel = false;
+                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
+                        result = 1;
+                        isDel = false;
+                        isAutoIncriments = true;
+                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        get_data();
+                        return;
+                    }
+                }
+                else
+                if (result == 0 && isActive)
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        // setLog(id, 1566);
+                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, false);                        
+                        //isAutoIncriments = true;
+                        isDel = true;
+                        result = 1;
+                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, true);
+                        isAutoIncriments = true;
+                        isDel = true;
+                        result = 1;
+                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        get_data();
+                        return;
+                    }
+                }
+                else if (!isActive)
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        //setLog(id, 1543);
+                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
+                        //isAutoIncriments = true;
+                        result = 1;
+                        isDel = false;
+                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
+                        isAutoIncriments = true;
+                        result = 1;
+                        isDel = false;
+                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        get_data();
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+
         private void tbName_TextChanged(object sender, EventArgs e)
         {
             setFilter();
@@ -196,157 +349,7 @@ namespace dllGoodCardDicGrp3
             setFilter();
         }
 
-        private void btAdd_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.OK == new frmAdd() { Text = "Добавить подгруппу" }.ShowDialog())
-                get_data();
-        }
-
-        private void btEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
-            {
-                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                if (DialogResult.OK == new frmAdd() { Text = "Редактировать подгруппу", row = row }.ShowDialog())
-                    get_data();
-            }
-        }
-
-        private void btDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
-            {
-                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                int id = (int)row["id"];
-                string cName = (string)row["cName"];
-                int id_otdel = (int)row["id_otdel"];
-                bool isActive = (bool)row["isActive"];
-                bool isDel = true;
-                int result = 0;
-                bool isAutoIncriments = false;
-
-                Task<DataTable> task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
-                task.Wait();
-
-                if (task.Result == null)
-                {
-                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                result = (int)task.Result.Rows[0]["id"];
-
-                if (result == -1)
-                {
-                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    get_data();
-                    return;
-                }
-
-                if (result == -2 && isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                        //setLog(id, 1542);
-                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
-                        result = 1;
-                        isDel = false;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
-                        result = 1;
-                        isDel = false;
-                        isAutoIncriments = true;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        get_data();
-                        return;
-                    }
-                }
-                else
-                if (result == 0 && isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                       // setLog(id, 1566);
-                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, false);                        
-                        //isAutoIncriments = true;
-                        isDel = true;
-                        result = 1;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel, isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, isActive, true, 1, true);
-                        isAutoIncriments = true;
-                        isDel = true;
-                        result = 1;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel,  isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        get_data();
-                        return;
-                    }
-                }
-                else if (!isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                        //setLog(id, 1543);
-                        //task = Config.hCntMain.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, false);
-                        //isAutoIncriments = true;
-                        result = 1;
-                        isDel = false;
-                        task = Config.hCntMain.setGrp3(id, cName, id_otdel,  !isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        //task = Config.hCntSecond.setProizvoditel(id, cName, code, id_type_org, !isActive, false, 0, true);
-                        isAutoIncriments = true;
-                        result = 1;
-                        isDel = false;
-                        task = Config.hCntSecond.setGrp3(id, cName, id_otdel, !isActive, isDel, result, isAutoIncriments);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        get_data();
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void btClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        
 
         private void chbNotActive_CheckedChanged(object sender, EventArgs e)
         {

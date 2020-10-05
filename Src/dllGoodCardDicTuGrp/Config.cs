@@ -67,49 +67,4 @@ namespace dllGoodCardDicTuGrp
             if (_this.InvokeRequired) { _this.Invoke(d); } else { d(); }
         }
     }
-
-    public class Deps
-    {
-        //private List<int> listDeps = new List<int>();
-        private int id_deps;
-        private bool isPost;
-        private int id_Post;
-
-        public void setIdDeps(int id_deps) { this.id_deps = id_deps; }
-
-        public int getIdDeps() { return this.id_deps; }
-
-        public void setIsPost(bool isPost) { this.isPost = isPost; }
-
-        public bool getIsPost() { return this.isPost; }
-
-        public void setIdPost(int id_Post) { this.id_Post = id_Post; }
-
-        public int getIdPost() { return this.id_Post; }
-    }
-
-    public class Document
-    {
-        /// <summary>
-        /// Код документа
-        /// </summary>
-        public int id_document { get; set; }
-        /// <summary>
-        /// Код связки документа и должности
-        /// </summary>
-        public int id_documentVsPost { get; set; }
-        /// <summary>
-        /// Код статуса документа
-        /// </summary>
-        public int id_Status { get; set; }
-        /// <summary>
-        /// Признак просмотра пользователем
-        /// </summary>
-        public bool isBrowse { get; set; }
-
-        /// <summary>
-        /// Признак отдела пользователя
-        /// </summary>
-        public bool isWorkDep { get; set; }
-    }
 }

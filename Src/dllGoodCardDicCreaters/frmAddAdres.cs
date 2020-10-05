@@ -46,8 +46,6 @@ namespace dllGoodCardDicCreaters
             isEditData = false;
         }
 
-
-
         private void init_combobox()
         {
             Task<DataTable> task = Config.hCntMain.getSubjects();
@@ -62,8 +60,6 @@ namespace dllGoodCardDicCreaters
         {
             e.Cancel = isEditData && DialogResult.No == MessageBox.Show("На форме есть не сохранённые данные.\nЗакрыть форму без сохранения данных?\n", "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
         }
-
-
 
         private void btClose_Click(object sender, EventArgs e)
         {

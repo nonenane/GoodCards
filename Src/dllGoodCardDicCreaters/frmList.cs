@@ -340,10 +340,6 @@ namespace dllGoodCardDicCreaters
             tbNumber.Location = new Point(dgvData.Location.X + inn.Width + 1, tbNumber.Location.Y);
             tbNumber.Size = new Size(cName.Width, tbNumber.Height);
         }
-
-        private void cmbObject_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            setFilter();
-        }
+     
     }
 }

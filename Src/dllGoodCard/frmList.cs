@@ -315,10 +315,6 @@ namespace dllGoodCardDicTypeOwnership
             tbNumber.Location = new Point(dgvData.Location.X + 1, tbNumber.Location.Y);
             tbNumber.Size = new Size(cName.Width, tbNumber.Height);
         }
-
-        private void cmbObject_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            setFilter();
-        }
+        
     }
 }

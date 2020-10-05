@@ -117,9 +117,6 @@ namespace dllGoodCardDicTypeOwnership
             isEditData = true;
         }
 
-        private void tbArea_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
-        }
+        
     }
 }
