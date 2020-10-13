@@ -143,7 +143,10 @@ namespace FormationOfRevaluation
             dtReq = new DataTable();
             bsReq = new BindingSource();
 
-            dtReq = Config.hCntMain.GetReq(dtpDateStart.Value.Date, dtpDateFinish.Value.Date, dep, typeRequest); // add typeRequest and checkBox
+            if((int)cmbShopTab1.SelectedValue==1)
+                dtReq = Config.hCntMain.GetReq(dtpDateStart.Value.Date, dtpDateFinish.Value.Date, dep, typeRequest); // add typeRequest and checkBox
+            else
+                dtReq = Config.hCntSecond.GetReq(dtpDateStart.Value.Date, dtpDateFinish.Value.Date, dep, typeRequest); // add typeRequest and checkBox
 
             if ((dtReq != null) && (dtReq.Rows.Count > 0))
             {
@@ -1258,7 +1261,7 @@ namespace FormationOfRevaluation
             int maxColumns = 0;
 
             foreach (DataGridViewColumn col in dgvData.Columns)
-                if (col.Visible)
+                if (col.Visible && !col.Name.Equals(cV.Name))
                 {
                     maxColumns++;
                     if (col.Name.Equals(cDeps.Name)) setWidthColumn(indexRow, maxColumns, 13, report);
@@ -1278,9 +1281,17 @@ namespace FormationOfRevaluation
             indexRow++;
 
 
-            //report.Merge(indexRow, 1, indexRow, maxColumns);
-            //report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
-            //indexRow++;
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Дата: {dtpDateTab2.Value.ToShortDateString()}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Магазин: {cmbShop.Text}", indexRow, 1);
+            indexRow++;
+
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Отдел: {cmbDeps.Text}", indexRow, 1);
+            indexRow++;
 
             //report.Merge(indexRow, 1, indexRow, maxColumns);
             //report.AddSingleValue($"Должность: {cmbPost.Text}", indexRow, 1);
@@ -1294,12 +1305,12 @@ namespace FormationOfRevaluation
             //report.AddSingleValue($"Статус сотрудника: {(rbWork.Checked ? rbWork.Text : rbUnemploy.Text)}", indexRow, 1);
             //indexRow++;
 
-            //if (tbPostName.Text.Trim().Length != 0 || tbKadrName.Text.Trim().Length != 0)
-            //{
-            //    report.Merge(indexRow, 1, indexRow, maxColumns);
-            //    report.AddSingleValue($"Фильтр: {(tbPostName.Text.Trim().Length != 0 ? $"Должность:{tbPostName.Text.Trim()} | " : "")} {(tbKadrName.Text.Trim().Length != 0 ? $"ФИО:{tbKadrName.Text.Trim()}" : "")}", indexRow, 1);
-            //    indexRow++;
-            //}
+            if (tbEan.Text.Trim().Length != 0 || tbName.Text.Trim().Length != 0)
+            {
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue($"Фильтр: {(tbEan.Text.Trim().Length != 0 ? $"EAN:{tbEan.Text.Trim()} | " : "")} {(tbName.Text.Trim().Length != 0 ? $"Наименование:{tbName.Text.Trim()}" : "")}", indexRow, 1);
+                indexRow++;
+            }
 
             report.Merge(indexRow, 1, indexRow, maxColumns);
             report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
@@ -1313,7 +1324,7 @@ namespace FormationOfRevaluation
 
             int indexCol = 0;
             foreach (DataGridViewColumn col in dgvData.Columns)
-                if (col.Visible)
+                if (col.Visible && !col.Name.Equals(cV.Name))
                 {
                     indexCol++;
                     report.AddSingleValue(col.HeaderText, indexRow, indexCol);
@@ -1331,7 +1342,7 @@ namespace FormationOfRevaluation
                 report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
                 foreach (DataGridViewColumn col in dgvData.Columns)
                 {
-                    if (col.Visible)
+                    if (col.Visible && !col.Name.Equals(cV.Name))
                     {
                         if (row[col.DataPropertyName] is DateTime)
                             report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
@@ -1409,6 +1420,11 @@ namespace FormationOfRevaluation
 
                 getRcenaFuture();
             }
+        }
+
+        private void cmbShopTab1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GetReq();
         }
     }
 }

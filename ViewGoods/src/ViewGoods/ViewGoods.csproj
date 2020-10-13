@@ -102,5 +102,29 @@
   <ItemGroup>
     <None Include="Resources\EXCEL1.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photo_2020-10-12_16-28-27 %282%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photo_2020-10-12_16-28-27.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photo_2020-10-12_16-44-43.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photo_2020-10-12_16-52-42.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\photo_2020-10-12_16-50-51.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\funnel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit-door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

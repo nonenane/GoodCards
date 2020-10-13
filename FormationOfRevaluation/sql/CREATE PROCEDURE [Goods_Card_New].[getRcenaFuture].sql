@@ -49,7 +49,7 @@ where --g.id_otdel = @id_dep and
 smo.nTypeOrg is not null
 
 --select @ntypeorg= t.nTypeOrg, @Abbriviation = t.Abbriviation, f.id_departments 
-select t.nTypeOrg, t.Abbriviation, f.id_departments into #tmpLast
+select distinct t.nTypeOrg, t.Abbriviation, f.id_departments into #tmpLast
 from dbo.firms_vs_departments f inner join #TMP_2 t on t.nTypeOrg = f.ntypeorg
 where --f.id_departments = @id_dep and 
 f.[default] = 1 and f.DateStart<=@date and @date<=f.DateEnd
@@ -57,10 +57,10 @@ f.[default] = 1 and f.DateStart<=@date and @date<=f.DateEnd
 
 
 
-select 
+select distinct
 	cast(case when t.ntypetovar in (1,3) or  p.id is not null then 0 else 1 end as bit) as isSelect,
 	 r.id_tovar,
-	 r.rcena,
+	 case when t.ntypetovar in (1,3) then 0.00 else r.rcena end as rcena,
 	 t.id_otdel,
 	 ltrim(rtrim(t.ean)) as ean,
 	 ltrim(rtrim(isnull(ltrim(rtrim(tt.cName))+' ','')+ltrim(rtrim(t.cname)))) as cname,

@@ -137,7 +137,7 @@ namespace ViewGoods
 
         private void chbNewGoods_Click(object sender, EventArgs e)
         {
-            btClear.Visible = !chbNewGoods.Checked;
+            //btClear.Visible = !chbNewGoods.Checked;
             getData();
         }
 
@@ -155,6 +155,11 @@ namespace ViewGoods
         {
             tbEan.Text = "";
             tbName.Text = "";
+            if (chbNewGoods.Checked)
+            {
+                setFilter();
+                return;
+            }
             getData();
         }
 

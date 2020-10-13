@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btPrint = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbShop = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbDeps = new System.Windows.Forms.ComboBox();
@@ -55,23 +54,13 @@
             this.cGrp3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chbReserv = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btPrint = new System.Windows.Forms.Button();
             this.btViewCartGoods = new System.Windows.Forms.Button();
             this.btClear = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = global::ViewGoods.Properties.Resources.EXCEL1;
-            this.btPrint.Location = new System.Drawing.Point(748, 617);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 0;
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // cmbShop
             // 
@@ -217,14 +206,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDeps,
@@ -296,10 +285,10 @@
             // 
             this.cPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.cPrice.DataPropertyName = "rcena";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.cPrice.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.cPrice.DefaultCellStyle = dataGridViewCellStyle2;
             this.cPrice.HeaderText = "Цена продажи";
             this.cPrice.MinimumWidth = 80;
             this.cPrice.Name = "cPrice";
@@ -337,6 +326,27 @@
             this.panel1.Size = new System.Drawing.Size(17, 17);
             this.panel1.TabIndex = 6;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(692, 16);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(172, 24);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 7;
+            this.progressBar1.Visible = false;
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = global::ViewGoods.Properties.Resources.excel;
+            this.btPrint.Location = new System.Drawing.Point(748, 617);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 0;
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
             // btViewCartGoods
             // 
             this.btViewCartGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -350,7 +360,7 @@
             // 
             // btClear
             // 
-            this.btClear.Image = global::ViewGoods.Properties.Resources.remove_ticket1_;
+            this.btClear.Image = global::ViewGoods.Properties.Resources.funnel;
             this.btClear.Location = new System.Drawing.Point(560, 99);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(32, 32);
@@ -361,23 +371,13 @@
             // btClose
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Image = global::ViewGoods.Properties.Resources.door_out;
+            this.btClose.Image = global::ViewGoods.Properties.Resources.exit_door;
             this.btClose.Location = new System.Drawing.Point(824, 617);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 0;
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(692, 16);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(172, 24);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 7;
-            this.progressBar1.Visible = false;
             // 
             // frmViewGoods
             // 

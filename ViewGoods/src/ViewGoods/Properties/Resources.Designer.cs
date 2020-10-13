@@ -73,9 +73,29 @@ namespace ViewGoods.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap excel {
+            get {
+                object obj = ResourceManager.GetObject("excel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EXCEL1 {
             get {
                 object obj = ResourceManager.GetObject("EXCEL1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap exit_door {
+            get {
+                object obj = ResourceManager.GetObject("exit-door", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +113,69 @@ namespace ViewGoods.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap funnel {
+            get {
+                object obj = ResourceManager.GetObject("funnel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap old_edit_find {
             get {
                 object obj = ResourceManager.GetObject("old-edit-find", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_2020_10_12_16_28_27 {
+            get {
+                object obj = ResourceManager.GetObject("photo_2020-10-12_16-28-27", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_2020_10_12_16_28_27__2_ {
+            get {
+                object obj = ResourceManager.GetObject("photo_2020-10-12_16-28-27 (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_2020_10_12_16_44_43 {
+            get {
+                object obj = ResourceManager.GetObject("photo_2020-10-12_16-44-43", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_2020_10_12_16_50_51 {
+            get {
+                object obj = ResourceManager.GetObject("photo_2020-10-12_16-50-51", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo_2020_10_12_16_52_42 {
+            get {
+                object obj = ResourceManager.GetObject("photo_2020-10-12_16-52-42", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
