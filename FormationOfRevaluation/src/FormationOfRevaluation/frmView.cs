@@ -1378,6 +1378,8 @@ namespace FormationOfRevaluation
 
             if (rowCollect.Count() > 0)
             {
+                if (DialogResult.No == MessageBox.Show("Отправить переоценки на кассу?", "Создание актов", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
                 DateTime date = dtpDateTab2.Value.Date;
 
                 foreach (DataRow row in rowCollect)
@@ -1411,6 +1413,8 @@ namespace FormationOfRevaluation
 
             if (rowCollect.Count() > 0)
             {
+                if (DialogResult.No == MessageBox.Show("Удалить неактивные записи?", "Создание актов", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
                 DateTime date = dtpDateTab2.Value.Date;
 
                 foreach (DataRow row in rowCollect)
