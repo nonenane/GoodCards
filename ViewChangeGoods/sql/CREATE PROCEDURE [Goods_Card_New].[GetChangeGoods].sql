@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Получение списка изменёных товаров
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[GetChangeGoods]		 	
+ALTER PROCEDURE [Goods_Card_New].[GetChangeGoods]		 	
 	@date date
 AS
 BEGIN
@@ -34,7 +34,8 @@ select
 	g.tax,
 	g.s_time,
 	g.id_departments,
-	g.ActualRow
+	g.ActualRow,
+	g.sender
 INTO 
 	#tmpGoods
 from 
@@ -45,11 +46,14 @@ where
 
 select 
 	g.id_departments,
+	'' as nameDep,
 	g.ean,
 	g.nameAtfer,
 	g.nameBefore,
 	g.grpAtfer,
 	g.grpBefore,
+	'' as nameGrpAtfer,
+	'' as nameGrpBefore,
 	g.timeAfter,
 	g.timeBefore,
 	g.dptAtfer,
@@ -57,7 +61,9 @@ select
 	g.taxAtfer,
 	g.taxBefore,
 	isnull(m.Abbriviation,'') as ulAfter,
-	isnull(m2.Abbriviation,'') as ulBefore
+	isnull(m2.Abbriviation,'') as ulBefore,
+	g.sender,
+	isnull(l.FIO,'') as FIO
 from (
 select 
 	g.id_departments,
@@ -71,7 +77,8 @@ select
 	g.dpt as dptAtfer,
 	g2.dpt as dptBefore,
 	g.tax as taxAtfer,
-	g2.tax as taxBefore	
+	g2.tax as taxBefore,
+	g.sender
 from 
 	#tmpGoods g
 		left join #tmpGoods g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from #tmpGoods gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
@@ -94,7 +101,8 @@ select
 	g.dpt as dptAtfer,
 	g2.dpt as dptBefore,
 	g.tax as taxAtfer,
-	g2.tax as taxBefore
+	g2.tax as taxBefore,
+	g.sender
 from 
 	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
 		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time
@@ -105,6 +113,7 @@ where
 ) as g 
 	left join #tmpMainOrg m on m.nTypeOrg = g.dptAtfer
 	left join #tmpMainOrg m2 on m2.nTypeOrg = g.dptBefore
+	left join dbo.ListUsers l on l.id = g.sender
 order by 
 	g.ean asc,g.taxAtfer desc
 

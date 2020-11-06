@@ -103,6 +103,8 @@ namespace ViewChangeGoods
 
 
             tbDate.Text = ((DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["timeAfter"]).ToString();
+            tbFIO.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["FIO"].ToString();
+            
         }
 
         private async void getData()
@@ -121,6 +123,29 @@ namespace ViewChangeGoods
                     task = Config.hCntSecondKassRealizz.GetChangeGoods(date);
                 task.Wait();
                 dtData = task.Result;
+
+                if (dtData != null && dtData.Rows.Count > 0)
+                {
+                    task = Config.hCntMain.getGrp1(false, false);
+                    task.Wait();
+                    DataTable _dtGrp1 = task.Result;
+
+                    foreach (DataRow row in dtData.Rows)
+                    {
+                        EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
+                            .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
+                        if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
+
+                        rowCollect = _dtGrp1.AsEnumerable()
+                                .Where(r => r.Field<int>("id") == (Int16)row["grpAtfer"]);
+                        if (rowCollect.Count() > 0) row["nameGrpAtfer"] = rowCollect.First()["cName"];
+
+                        rowCollect = _dtGrp1.AsEnumerable()
+                            .Where(r => r.Field<int>("id") == (Int16)row["grpBefore"]);
+                        if (rowCollect.Count() > 0) row["nameGrpBefore"] = rowCollect.First()["cName"];
+                    }
+                }
+
                 Config.DoOnUIThread(() =>
                 {
                     blockers.RestoreControlEnabledState(this);
@@ -187,7 +212,7 @@ namespace ViewChangeGoods
             tp.SetToolTip(btClose, "Выход");
             tp.SetToolTip(btPrint, "Печать");
             tp.SetToolTip(btViewCartGoods, "Просмотр карточки товара");
-
+            dgvData_ColumnWidthChanged(null, null);
         }
 
         private void frmViewChangeGoods_Load(object sender, EventArgs e)

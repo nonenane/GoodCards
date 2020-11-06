@@ -109,7 +109,7 @@ namespace ViewChangeGoods
             return dtResult;
         }
 
-        public async Task<DataTable> getGrp1(bool withAllDeps = false)
+        public async Task<DataTable> getGrp1(bool withAllDeps = false, bool isActive = true)
         {
             ap.Clear();
 
@@ -147,13 +147,15 @@ namespace ViewChangeGoods
                 row["isMain"] = 0;
                 dtResult.Rows.Add(row);
                 dtResult.AcceptChanges();
-                dtResult.DefaultView.RowFilter = "isActive = 1";
+                if (isActive)
+                    dtResult.DefaultView.RowFilter = "isActive = 1";
                 dtResult.DefaultView.Sort = "isMain asc, cName asc";
                 dtResult = dtResult.DefaultView.ToTable().Copy();
             }
             else
             {
-                dtResult.DefaultView.RowFilter = "isActive = 1";
+                if (isActive)
+                    dtResult.DefaultView.RowFilter = "isActive = 1";
                 dtResult.DefaultView.Sort = "cName asc";
                 dtResult = dtResult.DefaultView.ToTable().Copy();
             }
