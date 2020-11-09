@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Получение списка новых товаров
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[GetNewGoods]		 	
+ALTER PROCEDURE [Goods_Card_New].[GetNewGoods]		 	
 	@date date
 AS
 BEGIN
@@ -56,6 +56,7 @@ select
 	g.taxAtfer,
 	isnull(m.Abbriviation,'') as ulAfter,
 	g.sender,
+	g.priceAfter,
 	isnull(l.FIO,'') as FIO,
 	cast(0 as bit) as isReserv	
 from (
@@ -68,7 +69,8 @@ select
 	g.s_time as timeAfter,
 	g.dpt as dptAtfer,
 	g.tax as taxAtfer,
-	g.sender
+	g.sender,
+	g.price/100.0 as priceAfter
 from 
 	(select ean,max(s_time) as s_time from #tmpGoods group by ean) as f
 		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time

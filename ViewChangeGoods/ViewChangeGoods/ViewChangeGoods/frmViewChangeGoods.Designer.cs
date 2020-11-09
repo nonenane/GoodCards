@@ -36,9 +36,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvData = new System.Windows.Forms.DataGridView();
@@ -57,7 +54,22 @@
             this.tbNamePrice = new System.Windows.Forms.TextBox();
             this.tbEanPrice = new System.Windows.Forms.TextBox();
             this.dgvDataPrice = new System.Windows.Forms.DataGridView();
+            this.cNameDepPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cEanPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNamePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSell = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cOstMorning = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tbNameNewGoods = new System.Windows.Forms.TextBox();
+            this.tbEanNewGoods = new System.Windows.Forms.TextBox();
+            this.dgvDataNewGoods = new System.Windows.Forms.DataGridView();
+            this.cNameDepNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cEanNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUlNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -77,23 +89,6 @@
             this.btPrint = new System.Windows.Forms.Button();
             this.btViewCartGoods = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
-            this.cNameDepPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cEanPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNamePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPriceBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPriceAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSell = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cOstMorning = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.dgvDataNewGoods = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -115,6 +110,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1012, 517);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -347,12 +343,81 @@
             this.dgvDataPrice.Size = new System.Drawing.Size(988, 444);
             this.dgvDataPrice.TabIndex = 10;
             this.dgvDataPrice.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvDataPrice_ColumnWidthChanged);
+            this.dgvDataPrice.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
+            this.dgvDataPrice.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvDataPrice.SelectionChanged += new System.EventHandler(this.dgvDataPrice_SelectionChanged);
+            // 
+            // cNameDepPrice
+            // 
+            this.cNameDepPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameDepPrice.DataPropertyName = "nameDep";
+            this.cNameDepPrice.HeaderText = "Отдел";
+            this.cNameDepPrice.MinimumWidth = 90;
+            this.cNameDepPrice.Name = "cNameDepPrice";
+            this.cNameDepPrice.ReadOnly = true;
+            this.cNameDepPrice.Width = 90;
+            // 
+            // cEanPrice
+            // 
+            this.cEanPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEanPrice.DataPropertyName = "ean";
+            this.cEanPrice.HeaderText = "EAN";
+            this.cEanPrice.MinimumWidth = 100;
+            this.cEanPrice.Name = "cEanPrice";
+            this.cEanPrice.ReadOnly = true;
+            // 
+            // cNamePrice
+            // 
+            this.cNamePrice.DataPropertyName = "nameAtfer";
+            this.cNamePrice.HeaderText = "Наименование товара";
+            this.cNamePrice.MinimumWidth = 250;
+            this.cNamePrice.Name = "cNamePrice";
+            this.cNamePrice.ReadOnly = true;
+            // 
+            // cPriceBefore
+            // 
+            this.cPriceBefore.DataPropertyName = "priceBefore";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            this.cPriceBefore.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cPriceBefore.HeaderText = "Цена до";
+            this.cPriceBefore.Name = "cPriceBefore";
+            this.cPriceBefore.ReadOnly = true;
+            // 
+            // cPriceAfter
+            // 
+            this.cPriceAfter.DataPropertyName = "priceAfter";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            this.cPriceAfter.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cPriceAfter.HeaderText = "Цена после";
+            this.cPriceAfter.Name = "cPriceAfter";
+            this.cPriceAfter.ReadOnly = true;
+            // 
+            // cSell
+            // 
+            this.cSell.DataPropertyName = "countForSell";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N3";
+            this.cSell.DefaultCellStyle = dataGridViewCellStyle5;
+            this.cSell.HeaderText = "Продано до переоценки";
+            this.cSell.Name = "cSell";
+            this.cSell.ReadOnly = true;
+            // 
+            // cOstMorning
+            // 
+            this.cOstMorning.DataPropertyName = "ostForMorning";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N3";
+            this.cOstMorning.DefaultCellStyle = dataGridViewCellStyle6;
+            this.cOstMorning.HeaderText = "Остаток на утро";
+            this.cOstMorning.Name = "cOstMorning";
+            this.cOstMorning.ReadOnly = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.textBox1);
-            this.tabPage3.Controls.Add(this.textBox2);
+            this.tabPage3.Controls.Add(this.tbNameNewGoods);
+            this.tabPage3.Controls.Add(this.tbEanNewGoods);
             this.tabPage3.Controls.Add(this.dgvDataNewGoods);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -360,6 +425,105 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Новые товары";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tbNameNewGoods
+            // 
+            this.tbNameNewGoods.Location = new System.Drawing.Point(123, 10);
+            this.tbNameNewGoods.MaxLength = 150;
+            this.tbNameNewGoods.Name = "tbNameNewGoods";
+            this.tbNameNewGoods.Size = new System.Drawing.Size(100, 20);
+            this.tbNameNewGoods.TabIndex = 14;
+            this.tbNameNewGoods.TextChanged += new System.EventHandler(this.tbEanNewGoods_TextChanged);
+            // 
+            // tbEanNewGoods
+            // 
+            this.tbEanNewGoods.Location = new System.Drawing.Point(9, 10);
+            this.tbEanNewGoods.MaxLength = 13;
+            this.tbEanNewGoods.Name = "tbEanNewGoods";
+            this.tbEanNewGoods.Size = new System.Drawing.Size(100, 20);
+            this.tbEanNewGoods.TabIndex = 13;
+            this.tbEanNewGoods.TextChanged += new System.EventHandler(this.tbEanNewGoods_TextChanged);
+            // 
+            // dgvDataNewGoods
+            // 
+            this.dgvDataNewGoods.AllowUserToAddRows = false;
+            this.dgvDataNewGoods.AllowUserToDeleteRows = false;
+            this.dgvDataNewGoods.AllowUserToResizeRows = false;
+            this.dgvDataNewGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDataNewGoods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDataNewGoods.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvDataNewGoods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDataNewGoods.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cNameDepNewGoods,
+            this.cEanNewGoods,
+            this.cNameNewGoods,
+            this.cPriceNewGoods,
+            this.cUlNewGoods});
+            this.dgvDataNewGoods.Location = new System.Drawing.Point(8, 36);
+            this.dgvDataNewGoods.MultiSelect = false;
+            this.dgvDataNewGoods.Name = "dgvDataNewGoods";
+            this.dgvDataNewGoods.ReadOnly = true;
+            this.dgvDataNewGoods.RowHeadersVisible = false;
+            this.dgvDataNewGoods.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDataNewGoods.Size = new System.Drawing.Size(988, 444);
+            this.dgvDataNewGoods.TabIndex = 12;
+            this.dgvDataNewGoods.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvDataNewGoods_ColumnWidthChanged);
+            this.dgvDataNewGoods.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
+            this.dgvDataNewGoods.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
+            this.dgvDataNewGoods.SelectionChanged += new System.EventHandler(this.dgvDataNewGoods_SelectionChanged);
+            // 
+            // cNameDepNewGoods
+            // 
+            this.cNameDepNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameDepNewGoods.DataPropertyName = "nameDep";
+            this.cNameDepNewGoods.HeaderText = "Отдел";
+            this.cNameDepNewGoods.MinimumWidth = 90;
+            this.cNameDepNewGoods.Name = "cNameDepNewGoods";
+            this.cNameDepNewGoods.ReadOnly = true;
+            this.cNameDepNewGoods.Width = 90;
+            // 
+            // cEanNewGoods
+            // 
+            this.cEanNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEanNewGoods.DataPropertyName = "ean";
+            this.cEanNewGoods.HeaderText = "EAN";
+            this.cEanNewGoods.MinimumWidth = 100;
+            this.cEanNewGoods.Name = "cEanNewGoods";
+            this.cEanNewGoods.ReadOnly = true;
+            // 
+            // cNameNewGoods
+            // 
+            this.cNameNewGoods.DataPropertyName = "nameAtfer";
+            this.cNameNewGoods.HeaderText = "Наименование товара";
+            this.cNameNewGoods.MinimumWidth = 250;
+            this.cNameNewGoods.Name = "cNameNewGoods";
+            this.cNameNewGoods.ReadOnly = true;
+            // 
+            // cPriceNewGoods
+            // 
+            this.cPriceNewGoods.DataPropertyName = "priceAfter";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            this.cPriceNewGoods.DefaultCellStyle = dataGridViewCellStyle8;
+            this.cPriceNewGoods.HeaderText = "Цена";
+            this.cPriceNewGoods.Name = "cPriceNewGoods";
+            this.cPriceNewGoods.ReadOnly = true;
+            // 
+            // cUlNewGoods
+            // 
+            this.cUlNewGoods.DataPropertyName = "ulAfter";
+            this.cUlNewGoods.HeaderText = "ЮЛ";
+            this.cUlNewGoods.Name = "cUlNewGoods";
+            this.cUlNewGoods.ReadOnly = true;
             // 
             // progressBar1
             // 
@@ -436,6 +600,7 @@
             this.chbReserv.TabIndex = 10;
             this.chbReserv.Text = "Резервые товары";
             this.chbReserv.UseVisualStyleBackColor = true;
+            this.chbReserv.CheckedChanged += new System.EventHandler(this.chbReserv_CheckedChanged);
             // 
             // tbFIO
             // 
@@ -524,6 +689,7 @@
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 13;
             this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // btViewCartGoods
             // 
@@ -534,6 +700,7 @@
             this.btViewCartGoods.Size = new System.Drawing.Size(32, 32);
             this.btViewCartGoods.TabIndex = 14;
             this.btViewCartGoods.UseVisualStyleBackColor = true;
+            this.btViewCartGoods.Click += new System.EventHandler(this.btViewCartGoods_Click);
             // 
             // btClose
             // 
@@ -545,191 +712,6 @@
             this.btClose.TabIndex = 15;
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // cNameDepPrice
-            // 
-            this.cNameDepPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNameDepPrice.DataPropertyName = "nameDep";
-            this.cNameDepPrice.HeaderText = "Отдел";
-            this.cNameDepPrice.MinimumWidth = 90;
-            this.cNameDepPrice.Name = "cNameDepPrice";
-            this.cNameDepPrice.ReadOnly = true;
-            this.cNameDepPrice.Width = 90;
-            // 
-            // cEanPrice
-            // 
-            this.cEanPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cEanPrice.DataPropertyName = "ean";
-            this.cEanPrice.HeaderText = "EAN";
-            this.cEanPrice.MinimumWidth = 100;
-            this.cEanPrice.Name = "cEanPrice";
-            this.cEanPrice.ReadOnly = true;
-            // 
-            // cNamePrice
-            // 
-            this.cNamePrice.DataPropertyName = "nameAtfer";
-            this.cNamePrice.HeaderText = "Наименование товара";
-            this.cNamePrice.MinimumWidth = 250;
-            this.cNamePrice.Name = "cNamePrice";
-            this.cNamePrice.ReadOnly = true;
-            // 
-            // cPriceBefore
-            // 
-            this.cPriceBefore.DataPropertyName = "priceBefore";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            this.cPriceBefore.DefaultCellStyle = dataGridViewCellStyle3;
-            this.cPriceBefore.HeaderText = "Цена до";
-            this.cPriceBefore.Name = "cPriceBefore";
-            this.cPriceBefore.ReadOnly = true;
-            // 
-            // cPriceAfter
-            // 
-            this.cPriceAfter.DataPropertyName = "priceAfter";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            this.cPriceAfter.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cPriceAfter.HeaderText = "Цена после";
-            this.cPriceAfter.Name = "cPriceAfter";
-            this.cPriceAfter.ReadOnly = true;
-            // 
-            // cSell
-            // 
-            this.cSell.DataPropertyName = "countForSell";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N3";
-            this.cSell.DefaultCellStyle = dataGridViewCellStyle5;
-            this.cSell.HeaderText = "Продано до переоценки";
-            this.cSell.Name = "cSell";
-            this.cSell.ReadOnly = true;
-            // 
-            // cOstMorning
-            // 
-            this.cOstMorning.DataPropertyName = "ostForMorning";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N3";
-            this.cOstMorning.DefaultCellStyle = dataGridViewCellStyle6;
-            this.cOstMorning.HeaderText = "Остаток на утро";
-            this.cOstMorning.Name = "cOstMorning";
-            this.cOstMorning.ReadOnly = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(123, 10);
-            this.textBox1.MaxLength = 150;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 14;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(9, 10);
-            this.textBox2.MaxLength = 13;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 13;
-            // 
-            // dgvDataNewGoods
-            // 
-            this.dgvDataNewGoods.AllowUserToAddRows = false;
-            this.dgvDataNewGoods.AllowUserToDeleteRows = false;
-            this.dgvDataNewGoods.AllowUserToResizeRows = false;
-            this.dgvDataNewGoods.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvDataNewGoods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDataNewGoods.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvDataNewGoods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDataNewGoods.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7});
-            this.dgvDataNewGoods.Location = new System.Drawing.Point(8, 36);
-            this.dgvDataNewGoods.MultiSelect = false;
-            this.dgvDataNewGoods.Name = "dgvDataNewGoods";
-            this.dgvDataNewGoods.ReadOnly = true;
-            this.dgvDataNewGoods.RowHeadersVisible = false;
-            this.dgvDataNewGoods.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDataNewGoods.Size = new System.Drawing.Size(988, 444);
-            this.dgvDataNewGoods.TabIndex = 12;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "nameDep";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Отдел";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 90;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "ean";
-            this.dataGridViewTextBoxColumn2.HeaderText = "EAN";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "nameAtfer";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Наименование товара";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 250;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "priceBefore";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Цена до";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "priceAfter";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Цена после";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "countForSell";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N3";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Продано до переоценки";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "ostForMorning";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N3";
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Остаток на утро";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
             // frmViewChangeGoods
             // 
@@ -825,16 +807,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cPriceAfter;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSell;
         private System.Windows.Forms.DataGridViewTextBoxColumn cOstMorning;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbNameNewGoods;
+        private System.Windows.Forms.TextBox tbEanNewGoods;
         private System.Windows.Forms.DataGridView dgvDataNewGoods;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cNameDepNewGoods;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cEanNewGoods;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cNameNewGoods;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cPriceNewGoods;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cUlNewGoods;
     }
 }
 
