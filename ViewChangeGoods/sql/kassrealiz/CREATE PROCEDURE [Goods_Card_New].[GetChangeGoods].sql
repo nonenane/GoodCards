@@ -63,7 +63,8 @@ select
 	isnull(m.Abbriviation,'') as ulAfter,
 	isnull(m2.Abbriviation,'') as ulBefore,
 	g.sender,
-	isnull(l.FIO,'') as FIO
+	isnull(l.FIO,'') as FIO,
+	cast(0 as bit) as isReserv
 from (
 select 
 	g.id_departments,
@@ -82,7 +83,7 @@ select
 from 
 	#tmpGoods g
 		left join #tmpGoods g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from #tmpGoods gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
-			and (g2.name <> g.name or g2.dpt <> g.dpt or g2.grp <> g.grp  or g2.tax <> g.tax )
+			and (g2.name <> g.name or g2.dpt <> g.dpt or g2.grp <> g.grp  or g2.tax <> g.tax)
 where 
 	g2.ean is not null
 
@@ -106,8 +107,9 @@ select
 from 
 	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
 		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time
-		left join dbo.goods_updates g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from dbo.goods_updates gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
+		left join dbo.goods_updates g2 on trim(g2.ean) = g.ean and g2.s_time =(select TOP(1) gg.s_time from dbo.goods_updates gg where trim(gg.ean) = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
 			and (g2.name <> g.name or g2.dpt <> g.dpt or g2.grp <> g.grp  or g2.tax <> g.tax )
+
 where 
 	g2.ean is not null
 ) as g 

@@ -175,5 +175,41 @@ namespace ViewChangeGoods
             return dtResult;
         }
 
+        public async Task<DataTable> GetChangeGoodsPrice(DateTime date)
+        {
+            ap.Clear();
+            ap.Add(date);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[GetChangeGoodsPrice]",
+                 new string[1] { "@date" },
+                 new DbType[1] { DbType.Date }, ap);
+
+            return dtResult;
+        }
+
+        public async Task<DataTable> GetOstForMorning(DateTime date)
+        {
+            ap.Clear();
+            ap.Add(date);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[GetOstForMorning]",
+                 new string[1] { "@date" },
+                 new DbType[1] { DbType.Date }, ap);
+
+            return dtResult;
+        }
+
+        public async Task<DataTable> GetNewGoods(DateTime date)
+        {
+            ap.Clear();
+            ap.Add(date);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[GetNewGoods]",
+                 new string[1] { "@date" },
+                 new DbType[1] { DbType.Date }, ap);
+
+            return dtResult;
+        }
+
     }
 }
