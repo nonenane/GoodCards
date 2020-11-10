@@ -211,5 +211,18 @@ namespace ViewChangeGoods
             return dtResult;
         }
 
+
+        public async Task<DataTable> GetListTovarForValidateReport(int id_deps)
+        {
+            ap.Clear();
+            ap.Add(id_deps);
+
+            DataTable dtResult = executeProcedure("[Goods_Card_New].[GetListTovarForValidateReport]",
+                 new string[1] { "@id_deps" },
+                 new DbType[1] { DbType.Int32 }, ap);
+
+            return dtResult;
+        }
+
     }
 }
