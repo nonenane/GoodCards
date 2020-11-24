@@ -50,7 +50,7 @@ from
 	dbo.j_allprihod a
 		inner join dbo.j_prihod p on p.id_allprihod = a.id 
 where 
-	@dttost<=a.dprihod and a.dprihod<=@date and a.id_operand in (1,3)
+	@dttost<=a.dprihod and a.dprihod<@date and a.id_operand in (1,3)
 group by p.id_tovar
 
 UNION ALL
@@ -62,7 +62,7 @@ from
 	dbo.j_allprihod a
 		inner join dbo.j_otgruz p on p.id_allprihod = a.id 
 where 
-	@dttost<=a.dprihod and a.dprihod<=@date and a.id_operand in (8)
+	@dttost<=a.dprihod and a.dprihod<@date and a.id_operand in (8)
 group by p.id_tovar
 
 UNION ALL
@@ -74,7 +74,7 @@ from
 	dbo.j_allprihod a
 		inner join dbo.j_vozvr p on p.id_allprihod = a.id 
 where 
-	@dttost<=a.dprihod and a.dprihod<=@date and a.id_operand in (2)
+	@dttost<=a.dprihod and a.dprihod<@date and a.id_operand in (2)
 group by p.id_tovar
 
 UNION ALL
@@ -86,7 +86,7 @@ from
 	dbo.j_allprihod a
 		inner join dbo.j_vozvkass p on p.id_allprihod = a.id 
 where 
-	@dttost<=a.dprihod and a.dprihod<=@date and a.id_operand in (7)
+	@dttost<=a.dprihod and a.dprihod<@date and a.id_operand in (7)
 group by p.id_tovar
 
 UNION ALL
@@ -98,7 +98,7 @@ from
 	dbo.j_allprihod a
 		inner join dbo.j_spis p on p.id_allprihod = a.id 
 where 
-	@dttost<=a.dprihod and a.dprihod<=@date and a.id_operand in (5)
+	@dttost<=a.dprihod and a.dprihod<@date and a.id_operand in (5)
 group by p.id_tovar
 
 UNION ALL
@@ -109,7 +109,7 @@ select
 from 
 	dbo.j_realiz p 
 where 
-	@dttost<=p.drealiz and p.drealiz<=@date
+	@dttost<=p.drealiz and p.drealiz<@date
 group by p.id_tovar
 )as a
 	left join dbo.s_tovar t on t.id = a.id_tovar

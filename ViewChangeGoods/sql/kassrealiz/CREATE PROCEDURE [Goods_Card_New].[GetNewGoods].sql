@@ -72,7 +72,7 @@ select
 	g.sender,
 	g.price/100.0 as priceAfter
 from 
-	(select ean,max(s_time) as s_time from #tmpGoods group by ean) as f
+	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
 		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time
 		left join dbo.goods_updates g2 on trim(g2.ean) = g.ean and g2.s_time =(select TOP(1) gg.s_time from dbo.goods_updates gg where trim(gg.ean) = g.ean and gg.s_time< g.s_time order by gg.s_time desc)			
 where 

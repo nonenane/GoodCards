@@ -205,11 +205,11 @@ namespace ViewChangeGoods
 
                 Config.DoOnUIThread(() =>
                 {
-                    blockers.RestoreControlEnabledState(this);
-                    filterTab();                    
+                    blockers.RestoreControlEnabledState(this);                    
                     dgvData.DataSource = dtData;
                     dgvDataPrice.DataSource = dtDataPrice;
                     dgvDataNewGoods.DataSource = dtDataNewGoods;
+                    filterTab();
                     progressBar1.Visible = false;
                 }, this);
 
@@ -500,7 +500,8 @@ namespace ViewChangeGoods
             {
                 //btEdit.Enabled = btDelete.Enabled = false;
                 //btPrint.Enabled = 
-                    btViewCartGoods.Enabled = false;
+                tbFIO.Text = tbDate.Text = "";
+                btViewCartGoods.Enabled = false;
                 return;
             }
 
@@ -522,6 +523,7 @@ namespace ViewChangeGoods
 
 
                 dtData.DefaultView.RowFilter = filter;
+                dtData.DefaultView.Sort = "ean asc, timeBefore asc";
             }
             catch
             {
@@ -595,6 +597,7 @@ namespace ViewChangeGoods
             if (dtDataPrice == null || dtDataPrice.Rows.Count == 0)
             {
                 //btEdit.Enabled = btDelete.Enabled = false;
+                tbFIO.Text = tbDate.Text = "";
                 btPrint.Enabled = btViewCartGoods.Enabled = false;
                 return;
             }
@@ -619,6 +622,7 @@ namespace ViewChangeGoods
                     filter += (filter.Length == 0 ? "" : " and ") + $"isReserv  = 0";
 
                 dtDataPrice.DefaultView.RowFilter = filter;
+                dtDataPrice.DefaultView.Sort = "ean asc, timeBefore asc";
             }
             catch
             {
@@ -676,6 +680,7 @@ namespace ViewChangeGoods
             if (dtDataNewGoods == null || dtDataNewGoods.Rows.Count == 0)
             {
                 //btEdit.Enabled = btDelete.Enabled = false;
+                tbFIO.Text = tbDate.Text = "";
                 btPrint.Enabled = btViewCartGoods.Enabled = false;
                 return;
             }

@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-11-04
 -- Description:	Получение списка изменёных товаров по цене
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[GetChangeGoodsPrice]		 	
+ALTER PROCEDURE [Goods_Card_New].[GetChangeGoodsPrice]		 	
 	@date date
 AS
 BEGIN
@@ -142,32 +142,32 @@ where
 	g2.ean is not null
 
 
---UNION ALL
+UNION ALL
 
---select 
---	g.id_departments,
---	g.ean,
---	g.name as nameAtfer,
---	g2.name as nameBefore,
---	g.grp as grpAtfer,
---	g2.grp as grpBefore,
---	g.s_time as timeAfter,
---	g2.s_time as timeBefore,
---	g.dpt as dptAtfer,
---	g2.dpt as dptBefore,
---	g.tax as taxAtfer,
---	g2.tax as taxBefore,
---	g.sender,
---	g.price as priceAfter,
---	g2.price as priceBefore
---from 
---	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
---		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time
---		left join dbo.goods_updates g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from dbo.goods_updates gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
---			and (g2.price <> g.price)
+select 
+	g.id_departments,
+	g.ean,
+	g.name as nameAtfer,
+	g2.name as nameBefore,
+	g.grp as grpAtfer,
+	g2.grp as grpBefore,
+	g.s_time as timeAfter,
+	g2.s_time as timeBefore,
+	g.dpt as dptAtfer,
+	g2.dpt as dptBefore,
+	g.tax as taxAtfer,
+	g2.tax as taxBefore,
+	g.sender,
+	g.price as priceAfter,
+	g2.price as priceBefore
+from 
+	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
+		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time
+		left join dbo.goods_updates g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from dbo.goods_updates gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
+			and (g2.price <> g.price)
 
---where 
---	g2.ean is not null
+where 
+	g2.ean is not null
 ) as g 
 	left join #tmpMainOrg m on m.nTypeOrg = g.dptAtfer
 	left join #tmpMainOrg m2 on m2.nTypeOrg = g.dptBefore
