@@ -46,6 +46,6 @@ from
 where 
 	--cast(r.tdate_n as date) = @date 
 	@date_start<= r.tdate_n and r.tdate_n<=@date_end
-	and (@id_deps = 0 or t.id_otdel = @id_deps)
+	and (@id_deps = 0 or t.id_otdel = @id_deps)	
 
 END

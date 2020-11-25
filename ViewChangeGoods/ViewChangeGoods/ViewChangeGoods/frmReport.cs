@@ -207,7 +207,7 @@ namespace ViewChangeGoods
                     npp++;
                 }
 
-                report.SetPageSetup(1, 9999, false);
+                report.SetPageSetup(1, 9999, true);
                 report.Show();
 
 

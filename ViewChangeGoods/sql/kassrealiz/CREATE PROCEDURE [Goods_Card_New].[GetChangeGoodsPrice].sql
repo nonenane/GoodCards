@@ -132,8 +132,8 @@ select
 	g.tax as taxAtfer,
 	g2.tax as taxBefore,
 	g.sender,
-	g.price as priceAfter,
-	g2.price as priceBefore	
+	g.price/100.0 as priceAfter,
+	g2.price/100.0 as priceBefore	
 from 
 	#tmpGoods g
 		left join #tmpGoods g2 on g2.ean = g.ean and g2.s_time =(select TOP(1) gg.s_time from #tmpGoods gg where gg.ean = g.ean and gg.s_time< g.s_time order by gg.s_time desc) 
@@ -158,8 +158,8 @@ select
 	g.tax as taxAtfer,
 	g2.tax as taxBefore,
 	g.sender,
-	g.price as priceAfter,
-	g2.price as priceBefore
+	g.price/100.0 as priceAfter,
+	g2.price/100.0 as priceBefore
 from 
 	(select ean,min(s_time) as s_time from #tmpGoods group by ean) as f
 		inner join #tmpGoods g on g.ean = f.ean and g.s_time = f.s_time

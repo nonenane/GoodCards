@@ -28,48 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cEan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNameBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNameAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cGrp1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameGrp1Atfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNdsBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNdsAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUlBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUlAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbEan = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tbNamePrice = new System.Windows.Forms.TextBox();
             this.tbEanPrice = new System.Windows.Forms.TextBox();
             this.dgvDataPrice = new System.Windows.Forms.DataGridView();
-            this.cNameDepPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cEanPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNamePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPriceBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPriceAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSell = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cOstMorning = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tbNameNewGoods = new System.Windows.Forms.TextBox();
             this.tbEanNewGoods = new System.Windows.Forms.TextBox();
             this.dgvDataNewGoods = new System.Windows.Forms.DataGridView();
-            this.cNameDepNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cEanNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cNameNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPriceNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUlNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -89,6 +72,28 @@
             this.btPrint = new System.Windows.Forms.Button();
             this.btViewCartGoods = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
+            this.cDeps = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cEan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cGrp1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameGrp1Atfer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNdsBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNdsAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUlBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUlAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameDepPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cEanPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNamePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceBefore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceAfter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSell = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cOstMorning = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameDepNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cEanNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPriceNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUlNewGoods = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -132,14 +137,14 @@
             this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle36;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDeps,
@@ -165,107 +170,6 @@
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
             // 
-            // cDeps
-            // 
-            this.cDeps.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cDeps.DataPropertyName = "nameDep";
-            this.cDeps.Frozen = true;
-            this.cDeps.HeaderText = "Отдел";
-            this.cDeps.MinimumWidth = 90;
-            this.cDeps.Name = "cDeps";
-            this.cDeps.ReadOnly = true;
-            this.cDeps.Width = 90;
-            // 
-            // cEan
-            // 
-            this.cEan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cEan.DataPropertyName = "ean";
-            this.cEan.Frozen = true;
-            this.cEan.HeaderText = "EAN";
-            this.cEan.MinimumWidth = 100;
-            this.cEan.Name = "cEan";
-            this.cEan.ReadOnly = true;
-            // 
-            // cNameBefore
-            // 
-            this.cNameBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNameBefore.DataPropertyName = "nameBefore";
-            this.cNameBefore.HeaderText = "Наименование товара до";
-            this.cNameBefore.MinimumWidth = 250;
-            this.cNameBefore.Name = "cNameBefore";
-            this.cNameBefore.ReadOnly = true;
-            this.cNameBefore.Width = 250;
-            // 
-            // cNameAfter
-            // 
-            this.cNameAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNameAfter.DataPropertyName = "nameAtfer";
-            this.cNameAfter.HeaderText = "Наименование товара после";
-            this.cNameAfter.MinimumWidth = 250;
-            this.cNameAfter.Name = "cNameAfter";
-            this.cNameAfter.ReadOnly = true;
-            this.cNameAfter.Width = 250;
-            // 
-            // cGrp1
-            // 
-            this.cGrp1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cGrp1.DataPropertyName = "nameGrpBefore";
-            this.cGrp1.HeaderText = "Т/У группа до";
-            this.cGrp1.MinimumWidth = 110;
-            this.cGrp1.Name = "cGrp1";
-            this.cGrp1.ReadOnly = true;
-            this.cGrp1.Width = 110;
-            // 
-            // nameGrp1Atfer
-            // 
-            this.nameGrp1Atfer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.nameGrp1Atfer.DataPropertyName = "nameGrpAtfer";
-            this.nameGrp1Atfer.HeaderText = "Т/У группа после";
-            this.nameGrp1Atfer.MinimumWidth = 110;
-            this.nameGrp1Atfer.Name = "nameGrp1Atfer";
-            this.nameGrp1Atfer.ReadOnly = true;
-            this.nameGrp1Atfer.Width = 110;
-            // 
-            // cNdsBefore
-            // 
-            this.cNdsBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNdsBefore.DataPropertyName = "taxBefore";
-            this.cNdsBefore.HeaderText = "НДС до";
-            this.cNdsBefore.MinimumWidth = 80;
-            this.cNdsBefore.Name = "cNdsBefore";
-            this.cNdsBefore.ReadOnly = true;
-            this.cNdsBefore.Width = 80;
-            // 
-            // cNdsAfter
-            // 
-            this.cNdsAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNdsAfter.DataPropertyName = "taxAtfer";
-            this.cNdsAfter.HeaderText = "НДС после";
-            this.cNdsAfter.MinimumWidth = 80;
-            this.cNdsAfter.Name = "cNdsAfter";
-            this.cNdsAfter.ReadOnly = true;
-            this.cNdsAfter.Width = 80;
-            // 
-            // cUlBefore
-            // 
-            this.cUlBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cUlBefore.DataPropertyName = "ulBefore";
-            this.cUlBefore.HeaderText = "ЮЛ до";
-            this.cUlBefore.MinimumWidth = 70;
-            this.cUlBefore.Name = "cUlBefore";
-            this.cUlBefore.ReadOnly = true;
-            this.cUlBefore.Width = 70;
-            // 
-            // cUlAfter
-            // 
-            this.cUlAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cUlAfter.DataPropertyName = "ulAfter";
-            this.cUlAfter.HeaderText = "ЮЛ после";
-            this.cUlAfter.MinimumWidth = 70;
-            this.cUlAfter.Name = "cUlAfter";
-            this.cUlAfter.ReadOnly = true;
-            this.cUlAfter.Width = 70;
-            // 
             // tbEan
             // 
             this.tbEan.Location = new System.Drawing.Point(8, 15);
@@ -274,6 +178,7 @@
             this.tbEan.Size = new System.Drawing.Size(100, 20);
             this.tbEan.TabIndex = 8;
             this.tbEan.TextChanged += new System.EventHandler(this.tbEan_TextChanged);
+            this.tbEan.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEan_KeyDown);
             this.tbEan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbEan_KeyPress);
             // 
             // tabPage2
@@ -306,6 +211,7 @@
             this.tbEanPrice.Size = new System.Drawing.Size(100, 20);
             this.tbEanPrice.TabIndex = 11;
             this.tbEanPrice.TextChanged += new System.EventHandler(this.tbEanPrice_TextChanged);
+            this.tbEanPrice.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEan_KeyDown);
             this.tbEanPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbEan_KeyPress);
             // 
             // dgvDataPrice
@@ -317,14 +223,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDataPrice.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDataPrice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDataPrice.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.dgvDataPrice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDataPrice.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cNameDepPrice,
@@ -346,73 +252,6 @@
             this.dgvDataPrice.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvDataPrice.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvDataPrice.SelectionChanged += new System.EventHandler(this.dgvDataPrice_SelectionChanged);
-            // 
-            // cNameDepPrice
-            // 
-            this.cNameDepPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNameDepPrice.DataPropertyName = "nameDep";
-            this.cNameDepPrice.HeaderText = "Отдел";
-            this.cNameDepPrice.MinimumWidth = 90;
-            this.cNameDepPrice.Name = "cNameDepPrice";
-            this.cNameDepPrice.ReadOnly = true;
-            this.cNameDepPrice.Width = 90;
-            // 
-            // cEanPrice
-            // 
-            this.cEanPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cEanPrice.DataPropertyName = "ean";
-            this.cEanPrice.HeaderText = "EAN";
-            this.cEanPrice.MinimumWidth = 100;
-            this.cEanPrice.Name = "cEanPrice";
-            this.cEanPrice.ReadOnly = true;
-            // 
-            // cNamePrice
-            // 
-            this.cNamePrice.DataPropertyName = "nameAtfer";
-            this.cNamePrice.HeaderText = "Наименование товара";
-            this.cNamePrice.MinimumWidth = 250;
-            this.cNamePrice.Name = "cNamePrice";
-            this.cNamePrice.ReadOnly = true;
-            // 
-            // cPriceBefore
-            // 
-            this.cPriceBefore.DataPropertyName = "priceBefore";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            this.cPriceBefore.DefaultCellStyle = dataGridViewCellStyle3;
-            this.cPriceBefore.HeaderText = "Цена до";
-            this.cPriceBefore.Name = "cPriceBefore";
-            this.cPriceBefore.ReadOnly = true;
-            // 
-            // cPriceAfter
-            // 
-            this.cPriceAfter.DataPropertyName = "priceAfter";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            this.cPriceAfter.DefaultCellStyle = dataGridViewCellStyle4;
-            this.cPriceAfter.HeaderText = "Цена после";
-            this.cPriceAfter.Name = "cPriceAfter";
-            this.cPriceAfter.ReadOnly = true;
-            // 
-            // cSell
-            // 
-            this.cSell.DataPropertyName = "countForSell";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N3";
-            this.cSell.DefaultCellStyle = dataGridViewCellStyle5;
-            this.cSell.HeaderText = "Продано до переоценки";
-            this.cSell.Name = "cSell";
-            this.cSell.ReadOnly = true;
-            // 
-            // cOstMorning
-            // 
-            this.cOstMorning.DataPropertyName = "ostForMorning";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N3";
-            this.cOstMorning.DefaultCellStyle = dataGridViewCellStyle6;
-            this.cOstMorning.HeaderText = "Остаток на утро";
-            this.cOstMorning.Name = "cOstMorning";
-            this.cOstMorning.ReadOnly = true;
             // 
             // tabPage3
             // 
@@ -443,6 +282,8 @@
             this.tbEanNewGoods.Size = new System.Drawing.Size(100, 20);
             this.tbEanNewGoods.TabIndex = 13;
             this.tbEanNewGoods.TextChanged += new System.EventHandler(this.tbEanNewGoods_TextChanged);
+            this.tbEanNewGoods.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEan_KeyDown);
+            this.tbEanNewGoods.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbEan_KeyPress);
             // 
             // dgvDataNewGoods
             // 
@@ -453,14 +294,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvDataNewGoods.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDataNewGoods.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDataNewGoods.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
             this.dgvDataNewGoods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDataNewGoods.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cNameDepNewGoods,
@@ -480,50 +321,6 @@
             this.dgvDataNewGoods.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvDataNewGoods.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvDataNewGoods.SelectionChanged += new System.EventHandler(this.dgvDataNewGoods_SelectionChanged);
-            // 
-            // cNameDepNewGoods
-            // 
-            this.cNameDepNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cNameDepNewGoods.DataPropertyName = "nameDep";
-            this.cNameDepNewGoods.HeaderText = "Отдел";
-            this.cNameDepNewGoods.MinimumWidth = 90;
-            this.cNameDepNewGoods.Name = "cNameDepNewGoods";
-            this.cNameDepNewGoods.ReadOnly = true;
-            this.cNameDepNewGoods.Width = 90;
-            // 
-            // cEanNewGoods
-            // 
-            this.cEanNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cEanNewGoods.DataPropertyName = "ean";
-            this.cEanNewGoods.HeaderText = "EAN";
-            this.cEanNewGoods.MinimumWidth = 100;
-            this.cEanNewGoods.Name = "cEanNewGoods";
-            this.cEanNewGoods.ReadOnly = true;
-            // 
-            // cNameNewGoods
-            // 
-            this.cNameNewGoods.DataPropertyName = "nameAtfer";
-            this.cNameNewGoods.HeaderText = "Наименование товара";
-            this.cNameNewGoods.MinimumWidth = 250;
-            this.cNameNewGoods.Name = "cNameNewGoods";
-            this.cNameNewGoods.ReadOnly = true;
-            // 
-            // cPriceNewGoods
-            // 
-            this.cPriceNewGoods.DataPropertyName = "priceAfter";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            this.cPriceNewGoods.DefaultCellStyle = dataGridViewCellStyle8;
-            this.cPriceNewGoods.HeaderText = "Цена";
-            this.cPriceNewGoods.Name = "cPriceNewGoods";
-            this.cPriceNewGoods.ReadOnly = true;
-            // 
-            // cUlNewGoods
-            // 
-            this.cUlNewGoods.DataPropertyName = "ulAfter";
-            this.cUlNewGoods.HeaderText = "ЮЛ";
-            this.cUlNewGoods.Name = "cUlNewGoods";
-            this.cUlNewGoods.ReadOnly = true;
             // 
             // progressBar1
             // 
@@ -713,6 +510,228 @@
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
+            // cDeps
+            // 
+            this.cDeps.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cDeps.DataPropertyName = "nameDep";
+            this.cDeps.Frozen = true;
+            this.cDeps.HeaderText = "Отдел";
+            this.cDeps.MinimumWidth = 90;
+            this.cDeps.Name = "cDeps";
+            this.cDeps.ReadOnly = true;
+            this.cDeps.Width = 90;
+            // 
+            // cEan
+            // 
+            this.cEan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEan.DataPropertyName = "ean";
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cEan.DefaultCellStyle = dataGridViewCellStyle37;
+            this.cEan.Frozen = true;
+            this.cEan.HeaderText = "EAN";
+            this.cEan.MinimumWidth = 100;
+            this.cEan.Name = "cEan";
+            this.cEan.ReadOnly = true;
+            // 
+            // cNameBefore
+            // 
+            this.cNameBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameBefore.DataPropertyName = "nameBefore";
+            this.cNameBefore.HeaderText = "Наименование товара до";
+            this.cNameBefore.MinimumWidth = 250;
+            this.cNameBefore.Name = "cNameBefore";
+            this.cNameBefore.ReadOnly = true;
+            this.cNameBefore.Width = 250;
+            // 
+            // cNameAfter
+            // 
+            this.cNameAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameAfter.DataPropertyName = "nameAtfer";
+            this.cNameAfter.HeaderText = "Наименование товара после";
+            this.cNameAfter.MinimumWidth = 250;
+            this.cNameAfter.Name = "cNameAfter";
+            this.cNameAfter.ReadOnly = true;
+            this.cNameAfter.Width = 250;
+            // 
+            // cGrp1
+            // 
+            this.cGrp1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cGrp1.DataPropertyName = "nameGrpBefore";
+            this.cGrp1.HeaderText = "Т/У группа до";
+            this.cGrp1.MinimumWidth = 110;
+            this.cGrp1.Name = "cGrp1";
+            this.cGrp1.ReadOnly = true;
+            this.cGrp1.Width = 110;
+            // 
+            // nameGrp1Atfer
+            // 
+            this.nameGrp1Atfer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.nameGrp1Atfer.DataPropertyName = "nameGrpAtfer";
+            this.nameGrp1Atfer.HeaderText = "Т/У группа после";
+            this.nameGrp1Atfer.MinimumWidth = 110;
+            this.nameGrp1Atfer.Name = "nameGrp1Atfer";
+            this.nameGrp1Atfer.ReadOnly = true;
+            this.nameGrp1Atfer.Width = 110;
+            // 
+            // cNdsBefore
+            // 
+            this.cNdsBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNdsBefore.DataPropertyName = "taxBefore";
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cNdsBefore.DefaultCellStyle = dataGridViewCellStyle38;
+            this.cNdsBefore.HeaderText = "НДС до";
+            this.cNdsBefore.MinimumWidth = 80;
+            this.cNdsBefore.Name = "cNdsBefore";
+            this.cNdsBefore.ReadOnly = true;
+            this.cNdsBefore.Width = 80;
+            // 
+            // cNdsAfter
+            // 
+            this.cNdsAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNdsAfter.DataPropertyName = "taxAtfer";
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cNdsAfter.DefaultCellStyle = dataGridViewCellStyle39;
+            this.cNdsAfter.HeaderText = "НДС после";
+            this.cNdsAfter.MinimumWidth = 80;
+            this.cNdsAfter.Name = "cNdsAfter";
+            this.cNdsAfter.ReadOnly = true;
+            this.cNdsAfter.Width = 80;
+            // 
+            // cUlBefore
+            // 
+            this.cUlBefore.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cUlBefore.DataPropertyName = "ulBefore";
+            this.cUlBefore.HeaderText = "ЮЛ до";
+            this.cUlBefore.MinimumWidth = 70;
+            this.cUlBefore.Name = "cUlBefore";
+            this.cUlBefore.ReadOnly = true;
+            this.cUlBefore.Width = 70;
+            // 
+            // cUlAfter
+            // 
+            this.cUlAfter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cUlAfter.DataPropertyName = "ulAfter";
+            this.cUlAfter.HeaderText = "ЮЛ после";
+            this.cUlAfter.MinimumWidth = 70;
+            this.cUlAfter.Name = "cUlAfter";
+            this.cUlAfter.ReadOnly = true;
+            this.cUlAfter.Width = 70;
+            // 
+            // cNameDepPrice
+            // 
+            this.cNameDepPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameDepPrice.DataPropertyName = "nameDep";
+            this.cNameDepPrice.HeaderText = "Отдел";
+            this.cNameDepPrice.MinimumWidth = 90;
+            this.cNameDepPrice.Name = "cNameDepPrice";
+            this.cNameDepPrice.ReadOnly = true;
+            this.cNameDepPrice.Width = 90;
+            // 
+            // cEanPrice
+            // 
+            this.cEanPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEanPrice.DataPropertyName = "ean";
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cEanPrice.DefaultCellStyle = dataGridViewCellStyle28;
+            this.cEanPrice.HeaderText = "EAN";
+            this.cEanPrice.MinimumWidth = 100;
+            this.cEanPrice.Name = "cEanPrice";
+            this.cEanPrice.ReadOnly = true;
+            // 
+            // cNamePrice
+            // 
+            this.cNamePrice.DataPropertyName = "nameAtfer";
+            this.cNamePrice.HeaderText = "Наименование товара";
+            this.cNamePrice.MinimumWidth = 250;
+            this.cNamePrice.Name = "cNamePrice";
+            this.cNamePrice.ReadOnly = true;
+            // 
+            // cPriceBefore
+            // 
+            this.cPriceBefore.DataPropertyName = "priceBefore";
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle29.Format = "N2";
+            this.cPriceBefore.DefaultCellStyle = dataGridViewCellStyle29;
+            this.cPriceBefore.HeaderText = "Цена до";
+            this.cPriceBefore.Name = "cPriceBefore";
+            this.cPriceBefore.ReadOnly = true;
+            // 
+            // cPriceAfter
+            // 
+            this.cPriceAfter.DataPropertyName = "priceAfter";
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle30.Format = "N2";
+            this.cPriceAfter.DefaultCellStyle = dataGridViewCellStyle30;
+            this.cPriceAfter.HeaderText = "Цена после";
+            this.cPriceAfter.Name = "cPriceAfter";
+            this.cPriceAfter.ReadOnly = true;
+            // 
+            // cSell
+            // 
+            this.cSell.DataPropertyName = "countForSell";
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle31.Format = "N3";
+            this.cSell.DefaultCellStyle = dataGridViewCellStyle31;
+            this.cSell.HeaderText = "Продано до переоценки";
+            this.cSell.Name = "cSell";
+            this.cSell.ReadOnly = true;
+            // 
+            // cOstMorning
+            // 
+            this.cOstMorning.DataPropertyName = "ostForMorning";
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle32.Format = "N3";
+            this.cOstMorning.DefaultCellStyle = dataGridViewCellStyle32;
+            this.cOstMorning.HeaderText = "Остаток на утро";
+            this.cOstMorning.Name = "cOstMorning";
+            this.cOstMorning.ReadOnly = true;
+            // 
+            // cNameDepNewGoods
+            // 
+            this.cNameDepNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cNameDepNewGoods.DataPropertyName = "nameDep";
+            this.cNameDepNewGoods.HeaderText = "Отдел";
+            this.cNameDepNewGoods.MinimumWidth = 90;
+            this.cNameDepNewGoods.Name = "cNameDepNewGoods";
+            this.cNameDepNewGoods.ReadOnly = true;
+            this.cNameDepNewGoods.Width = 90;
+            // 
+            // cEanNewGoods
+            // 
+            this.cEanNewGoods.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cEanNewGoods.DataPropertyName = "ean";
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.cEanNewGoods.DefaultCellStyle = dataGridViewCellStyle34;
+            this.cEanNewGoods.HeaderText = "EAN";
+            this.cEanNewGoods.MinimumWidth = 100;
+            this.cEanNewGoods.Name = "cEanNewGoods";
+            this.cEanNewGoods.ReadOnly = true;
+            // 
+            // cNameNewGoods
+            // 
+            this.cNameNewGoods.DataPropertyName = "nameAtfer";
+            this.cNameNewGoods.HeaderText = "Наименование товара";
+            this.cNameNewGoods.MinimumWidth = 250;
+            this.cNameNewGoods.Name = "cNameNewGoods";
+            this.cNameNewGoods.ReadOnly = true;
+            // 
+            // cPriceNewGoods
+            // 
+            this.cPriceNewGoods.DataPropertyName = "priceAfter";
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle35.Format = "N2";
+            this.cPriceNewGoods.DefaultCellStyle = dataGridViewCellStyle35;
+            this.cPriceNewGoods.HeaderText = "Цена";
+            this.cPriceNewGoods.Name = "cPriceNewGoods";
+            this.cPriceNewGoods.ReadOnly = true;
+            // 
+            // cUlNewGoods
+            // 
+            this.cUlNewGoods.DataPropertyName = "ulAfter";
+            this.cUlNewGoods.HeaderText = "ЮЛ";
+            this.cUlNewGoods.Name = "cUlNewGoods";
+            this.cUlNewGoods.ReadOnly = true;
+            // 
             // frmViewChangeGoods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -787,6 +806,12 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView dgvDataPrice;
+        private System.Windows.Forms.TextBox tbEanPrice;
+        private System.Windows.Forms.TextBox tbNamePrice;
+        private System.Windows.Forms.TextBox tbNameNewGoods;
+        private System.Windows.Forms.TextBox tbEanNewGoods;
+        private System.Windows.Forms.DataGridView dgvDataNewGoods;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDeps;
         private System.Windows.Forms.DataGridViewTextBoxColumn cEan;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameBefore;
@@ -797,9 +822,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cNdsAfter;
         private System.Windows.Forms.DataGridViewTextBoxColumn cUlBefore;
         private System.Windows.Forms.DataGridViewTextBoxColumn cUlAfter;
-        private System.Windows.Forms.DataGridView dgvDataPrice;
-        private System.Windows.Forms.TextBox tbEanPrice;
-        private System.Windows.Forms.TextBox tbNamePrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameDepPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn cEanPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNamePrice;
@@ -807,9 +829,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cPriceAfter;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSell;
         private System.Windows.Forms.DataGridViewTextBoxColumn cOstMorning;
-        private System.Windows.Forms.TextBox tbNameNewGoods;
-        private System.Windows.Forms.TextBox tbEanNewGoods;
-        private System.Windows.Forms.DataGridView dgvDataNewGoods;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameDepNewGoods;
         private System.Windows.Forms.DataGridViewTextBoxColumn cEanNewGoods;
         private System.Windows.Forms.DataGridViewTextBoxColumn cNameNewGoods;

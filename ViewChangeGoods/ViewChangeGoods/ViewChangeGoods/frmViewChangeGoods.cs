@@ -398,6 +398,7 @@ namespace ViewChangeGoods
                     progressBar1.Visible = false;
                 }, this);
 
+                report.SetPageSetup(1, 9999, true);
                 report.Show();
                 return true;
             });
@@ -420,8 +421,8 @@ namespace ViewChangeGoods
 
             ToolTip tp = new ToolTip();
             tp.SetToolTip(btClose, "Выход");
-            tp.SetToolTip(btPrint, "Печать");
-            tp.SetToolTip(btViewCartGoods, "Просмотр карточки товара");
+            tp.SetToolTip(btPrint, "Сравнение цены товара на кассе и в ПО \"ТК\"");
+            tp.SetToolTip(btViewCartGoods, "Печать");
             dgvData_ColumnWidthChanged(null, null);
             dgvDataPrice_ColumnWidthChanged(null, null);
             dgvDataNewGoods_ColumnWidthChanged(null, null);
@@ -488,9 +489,15 @@ namespace ViewChangeGoods
                 return;
             }
 
-
-            tbDate.Text = ((DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["timeAfter"]).ToString();
-            tbFIO.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["FIO"].ToString();
+            try
+            {
+                tbDate.Text = ((DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["timeAfter"]).ToString();
+                tbFIO.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["FIO"].ToString();
+            }
+            catch {
+                tbDate.Text = tbFIO.Text = "";
+                return;
+            }
 
         }
 
@@ -555,8 +562,15 @@ namespace ViewChangeGoods
                 return;
             }
 
+            try { 
             tbDate.Text = ((DateTime)dtDataPrice.DefaultView[dgvDataPrice.CurrentRow.Index]["timeAfter"]).ToString();
             tbFIO.Text = dtDataPrice.DefaultView[dgvDataPrice.CurrentRow.Index]["FIO"].ToString();
+            }
+            catch
+            {
+                tbDate.Text = tbFIO.Text = "";
+                return;
+            }
         }
        
         private void dgvDataPrice_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -589,7 +603,21 @@ namespace ViewChangeGoods
 
         private void btPrint_Click(object sender, EventArgs e)
         {
-            new frmReport().ShowDialog();
+            new frmReport() { Text = "Сравнение цены товара на кассе и в ПО \"ТК\"" }.ShowDialog();
+        }
+
+        private void tbEan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
+            {
+                string text = Clipboard.GetText();
+                decimal otDec;
+                if (decimal.TryParse(text, out otDec))
+                {
+                    TextBox tb = sender as TextBox;
+                    tb.Text = text;
+                }
+            }
         }
 
         private void setFilterPrice()
@@ -648,8 +676,15 @@ namespace ViewChangeGoods
                 return;
             }
 
+            try { 
             tbDate.Text = ((DateTime)dtDataNewGoods.DefaultView[dgvDataNewGoods.CurrentRow.Index]["timeAfter"]).ToString();
             tbFIO.Text = dtDataNewGoods.DefaultView[dgvDataNewGoods.CurrentRow.Index]["FIO"].ToString();
+            }
+            catch
+            {
+                tbDate.Text = tbFIO.Text = "";
+                return;
+            }
         }
 
         private void dgvDataNewGoods_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
