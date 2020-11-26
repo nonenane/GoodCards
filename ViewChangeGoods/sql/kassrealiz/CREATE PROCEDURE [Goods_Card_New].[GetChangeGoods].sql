@@ -14,6 +14,9 @@ BEGIN
 	SET NOCOUNT ON;
 
 
+DECLARE 
+	@date_start datetime = dateadd(hour,6,cast(@date as datetime)),
+	@date_end datetime = dateadd(hour,27,cast(@date as datetime))
 
 select 
 	m.nTypeOrg,
@@ -41,7 +44,8 @@ INTO
 from 
 	dbo.goods_updates g
 where
-	cast(g.s_time as date) = @date
+	--cast(g.s_time as date) = @date
+	@date_start<=g.s_time and g.s_time<=@date_end
 
 
 select 

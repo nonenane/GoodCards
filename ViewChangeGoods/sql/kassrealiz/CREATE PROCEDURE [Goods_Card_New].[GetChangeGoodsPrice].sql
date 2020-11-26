@@ -89,7 +89,9 @@ INTO
 from 
 	dbo.goods_updates g
 where
-	cast(g.s_time as date) = @date
+	--cast(g.s_time as date) = @date
+	@date_start<=g.s_time and g.s_time<=@date_end
+
 
 
 select 

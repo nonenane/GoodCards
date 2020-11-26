@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	Получение списка товаров для сравнения цен по ТК и на кассах
 -- =============================================
-CREATE PROCEDURE [Goods_Card_New].[GetListTovarForValidateReport]		 	
+ALTER PROCEDURE [Goods_Card_New].[GetListTovarForValidateReport]		 	
 		@id_deps int = 0
 AS
 BEGIN
@@ -31,7 +31,8 @@ from
 		left join dbo.ListUsers l on l.id = g.sender
 where 
 	--cast(g.s_time as date) = @date
-	@date_start<= g.s_time and g.s_time<=@date_end
-	and (@id_deps = 0 or g.id_departments = @id_deps)
+	--@date_start<= g.s_time and g.s_time<=@date_end and
+	 g.ActualRow = 1 and
+	(@id_deps = 0 or g.id_departments = @id_deps)
 
 END

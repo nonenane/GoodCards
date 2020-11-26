@@ -86,20 +86,50 @@ namespace ViewChangeGoods
 
                 if (dtKassRealiz != null && dtKassRealiz.Rows.Count > 0)
                 {
-                    foreach (DataRow row in dtDbase1.Rows)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtKassRealiz.AsEnumerable()
-                        .Where(r => r.Field<string>("ean") == (string)row["ean"] && Math.Abs(((DateTime)row["DateCreate"] - r.Field<DateTime>("s_time")).TotalSeconds) < 4);
+                    DataTable dtTmp = dtDbase1.Clone();
 
-                        if (rowCollect.Count() > 0)
-                        {
-                            row["priceKass"] = rowCollect.First()["price"];
-                            row["FIOKass"] = rowCollect.First()["FIO"];
-                            row["dateKass"] = rowCollect.First()["s_time"];
+                    var query = (from g in dtDbase1.AsEnumerable()
+                                 join k in dtKassRealiz.AsEnumerable() on new { Q = g.Field<string>("ean") } equals new { Q = k.Field<string>("ean") } into t1
+                                 from leftjoin1 in t1.DefaultIfEmpty()
+                                 select dtTmp.LoadDataRow(new object[]
+                                                  {
+                                                  g.Field<int>("id_tovar"),
+                                                  g.Field<string>("ean"),
+                                                  g.Field<string>("cname"),
+                                                  g.Field<decimal>("rcena"),
+                                                  g.Field<DateTime>("DateCreate"),
+                                                  g.Field<string>("FIO"),
+                                                  g.Field<int>("id_otdel"),
+                                                  g.Field<string>("nameDep"),
+                                                  g.Field<int?>("idPromo"),
+                                                  leftjoin1 == null ? null : leftjoin1.Field<decimal?>("price"),
+                                                  leftjoin1 == null ? null : leftjoin1.Field<string>("FIO"),
+                                                  leftjoin1 == null ? null : leftjoin1.Field<DateTime?>("s_time"),
 
-                            rowCollect.First().Delete();
-                        }
-                    }                
+                                                  }, false));
+
+
+                    dtDbase1 = query
+                    .Where(r=>r.Field<decimal?>("rcena")!= r.Field<decimal?>("priceKass"))
+                    .OrderBy(r=>r.Field<int>("id_otdel")).ThenBy(r=>r.Field<string>("ean"))
+                    .CopyToDataTable();
+
+
+
+                    //foreach (DataRow row in dtDbase1.Rows)
+                    //{
+                    //    EnumerableRowCollection<DataRow> rowCollect = dtKassRealiz.AsEnumerable()
+                    //    .Where(r => r.Field<string>("ean") == (string)row["ean"]);//&& Math.Abs(((DateTime)row["DateCreate"] - r.Field<DateTime>("s_time")).TotalSeconds) < 4);
+
+                    //    if (rowCollect.Count() > 0)
+                    //    {
+                    //        row["priceKass"] = rowCollect.First()["price"];
+                    //        row["FIOKass"] = rowCollect.First()["FIO"];
+                    //        row["dateKass"] = rowCollect.First()["s_time"];
+
+                    //        //rowCollect.First().Delete();
+                    //    }
+                    //}                
                 }
 
 
@@ -116,17 +146,19 @@ namespace ViewChangeGoods
 
 
                 int indexRow = 1;
-                int maxColumns = 9;
+                int maxColumns = 10;
 
                 setWidthColumn(indexRow, 1, 8, report);
                 setWidthColumn(indexRow, 2, 12, report);
-                setWidthColumn(indexRow, 3, 30, report);
-                setWidthColumn(indexRow, 4, 10, report);
-                setWidthColumn(indexRow, 5, 17, report);
-                setWidthColumn(indexRow, 6, 18, report);
-                setWidthColumn(indexRow, 7, 10, report);
-                setWidthColumn(indexRow, 8, 17, report);
-                setWidthColumn(indexRow, 9, 18, report);
+                setWidthColumn(indexRow, 3, 12, report);
+
+                setWidthColumn(indexRow, 4, 50, report);
+                setWidthColumn(indexRow, 5, 10, report);
+                setWidthColumn(indexRow, 6, 19, report);
+                setWidthColumn(indexRow, 7, 18, report);
+                setWidthColumn(indexRow, 8, 10, report);
+                setWidthColumn(indexRow, 9, 19, report);
+                setWidthColumn(indexRow, 10, 18, report);
 
 
 
@@ -157,21 +189,24 @@ namespace ViewChangeGoods
                 report.AddSingleValue("Отдел", indexRow, 2);
 
                 report.Merge(indexRow, 3, indexRow + 1, 3);
-                report.AddSingleValue("Наименование", indexRow, 3);
+                report.AddSingleValue("EAN", indexRow, 3);
+
+                report.Merge(indexRow, 4, indexRow + 1, 4);
+                report.AddSingleValue("Наименование", indexRow, 4);
 
 
-                report.Merge(indexRow, 4, indexRow , 6);
-                report.AddSingleValue("На кассе", indexRow, 4);
-                report.AddSingleValue("Цена", indexRow+1, 4);
-                report.AddSingleValue("Дата установки", indexRow + 1, 5);
-                report.AddSingleValue("Выгрузил на кассу", indexRow + 1, 6);
+                report.Merge(indexRow, 5, indexRow , 7);
+                report.AddSingleValue("На кассе", indexRow, 5);
+                report.AddSingleValue("Цена", indexRow+1, 5);
+                report.AddSingleValue("Дата установки", indexRow + 1, 6);
+                report.AddSingleValue("Выгрузил на кассу", indexRow + 1, 7);
 
 
-                report.Merge(indexRow, 7, indexRow, 9);
-                report.AddSingleValue("В программе ТК", indexRow, 7);
-                report.AddSingleValue("Цена", indexRow + 1, 7);
-                report.AddSingleValue("Дата установки", indexRow + 1, 8);
-                report.AddSingleValue("Сохранил в программе", indexRow + 1, 9);
+                report.Merge(indexRow, 8, indexRow, 10);
+                report.AddSingleValue("В программе ТК", indexRow, 8);
+                report.AddSingleValue("Цена", indexRow + 1, 8);
+                report.AddSingleValue("Дата установки", indexRow + 1, 9);
+                report.AddSingleValue("Сохранил в программе", indexRow + 1, 10);
                 report.SetFontBold(indexRow, 1, indexRow+1, maxColumns);
                 report.SetBorders(indexRow, 1, indexRow+1, maxColumns);
                 report.SetWrapText(indexRow, 1, indexRow+1, maxColumns);
@@ -187,23 +222,27 @@ namespace ViewChangeGoods
 
                     addDataToCell(npp, indexRow, 1, report);
                     addDataToCell(row["nameDep"], indexRow, 2, report);
-                    addDataToCell(row["cname"], indexRow, 3, report);
+
+                    addDataToCell(row["ean"], indexRow, 3, report);
+                    addDataToCell(row["cname"], indexRow, 4, report);
                     
-                    addDataToCell(row["priceKass"], indexRow, 4, report);
-                    addDataToCell(row["dateKass"], indexRow, 5, report);
-                    addDataToCell(row["FIOKass"], indexRow, 6, report);
+                    addDataToCell(row["priceKass"], indexRow, 5, report);
+                    addDataToCell(row["dateKass"], indexRow, 6, report,true);
+                    addDataToCell(row["FIOKass"], indexRow, 7, report);
                     
 
-                    addDataToCell(row["rcena"], indexRow, 7, report);
-                    addDataToCell(row["DateCreate"], indexRow, 8, report);
-                    addDataToCell(row["FIO"], indexRow, 9, report);
+                    addDataToCell(row["rcena"], indexRow, 8, report);
+                    addDataToCell(row["DateCreate"], indexRow, 9, report,true);
+                    addDataToCell(row["FIO"], indexRow, 10, report);
 
 
                     report.SetBorders(indexRow, 1, indexRow, maxColumns);
                     report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                     report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
-                    report.SetCellAlignmentToRight(indexRow, 4, indexRow, 4);
+                    report.SetCellAlignmentToRight(indexRow, 5, indexRow, 5);
+                    report.SetCellAlignmentToRight(indexRow, 8, indexRow, 8);
                     indexRow++;
+
                     npp++;
                 }
 
