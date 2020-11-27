@@ -79,6 +79,7 @@ namespace ViewChangeGoods
        
         private void btUpdate_Click(object sender, EventArgs e)
         {
+            getCombi();
             getData();
         }
 
@@ -108,7 +109,7 @@ namespace ViewChangeGoods
                 task.Wait();
                 DataTable _dtGrp1 = task.Result;
 
-
+                #region "Изменение товара"
                 if (id_Shop == 1)
                     task = Config.hCntMainKassRealizz.GetChangeGoods(date);
                 else
@@ -118,25 +119,65 @@ namespace ViewChangeGoods
 
                 if (dtData != null && dtData.Rows.Count > 0)
                 {
-                    foreach (DataRow row in dtData.Rows)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
-                            .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
-                        if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
-                        if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";
+                    DataTable dtTmp = dtData.Clone();
 
-                        rowCollect = _dtGrp1.AsEnumerable()
-                                .Where(r => r.Field<int>("id") == (Int16)row["grpAtfer"]);
-                        if (rowCollect.Count() > 0) row["nameGrpAtfer"] = rowCollect.First()["cName"];
+                    var query = from g in dtData.AsEnumerable()
+                                join k in dtDeps.AsEnumerable() on g.Field<int>("id_departments") equals k.Field<int>("id")
+                                join g1 in _dtGrp1.AsEnumerable() on g.Field<Int16>("grpAtfer") equals g1.Field<int>("id")
+                                join g2 in _dtGrp1.AsEnumerable() on g.Field<Int16>("grpBefore") equals g2.Field<int>("id")
+                                select dtTmp.LoadDataRow(new object[]
+                                                               {
+                                                                    g.Field<int>("id_departments"),
+                                                                    k.Field<string>("cName"),
+                                                                    g.Field<string>("ean"),
+                                                                    g.Field<string>("nameAtfer"),
+                                                                    g.Field<string>("nameBefore"),
+                                                                    g.Field<Int16>("grpAtfer"),
+                                                                    g.Field<Int16>("grpBefore"),
+                                                                    g1.Field<string>("cName"),
+                                                                    g2.Field<string>("cName"),
+                                                                    g.Field<DateTime>("timeAfter"),
+                                                                    g.Field<DateTime>("timeBefore"),
+                                                                    g.Field<Int16>("dptAtfer"),
+                                                                    g.Field<Int16>("dptBefore"),
+                                                                    g.Field<Int16>("taxAtfer"),
+                                                                    g.Field<Int16>("taxBefore"),
+                                                                    g.Field<string>("ulAfter"),
+                                                                    g.Field<string>("ulBefore"),
+                                                                    g.Field<string>("sender"),
+                                                                    g.Field<string>("FIO"),
+                                                                    g.Field<string>("nameAtfer").ToLower().Contains("резерв")
 
-                        rowCollect = _dtGrp1.AsEnumerable()
-                            .Where(r => r.Field<int>("id") == (Int16)row["grpBefore"]);
-                        if (rowCollect.Count() > 0) row["nameGrpBefore"] = rowCollect.First()["cName"];
+                                                               }, false);
 
-                        row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
-                    }
+
+                    dtData = query
+                    .CopyToDataTable();
+
+
+
+                    ////foreach (DataRow row in dtData.Rows)
+                    ////{
+                    ////    EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
+                    ////        .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
+                    ////    if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
+                    ////    if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";
+
+                    ////    rowCollect = _dtGrp1.AsEnumerable()
+                    ////            .Where(r => r.Field<int>("id") == (Int16)row["grpAtfer"]);
+                    ////    if (rowCollect.Count() > 0) row["nameGrpAtfer"] = rowCollect.First()["cName"];
+
+                    ////    rowCollect = _dtGrp1.AsEnumerable()
+                    ////        .Where(r => r.Field<int>("id") == (Int16)row["grpBefore"]);
+                    ////    if (rowCollect.Count() > 0) row["nameGrpBefore"] = rowCollect.First()["cName"];
+
+                    ////    row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
+                    ////}
                 }
 
+                #endregion
+
+                #region "Изменение цены"
                 if (id_Shop == 1)
                     task = Config.hCntMainKassRealizz.GetChangeGoodsPrice(date);
                 else
@@ -146,42 +187,98 @@ namespace ViewChangeGoods
 
                 if (dtDataPrice != null && dtDataPrice.Rows.Count > 0)
                 {
+                    var groupTovar = dtDataPrice.AsEnumerable().GroupBy(g => new { ean = g.Field<string>("ean").Trim() }).Select(s => new { s.Key.ean });
+
+                    string listEan = "";
+
+                    foreach (var gEan in groupTovar)
+                    {
+                        listEan += (listEan.Trim().Length == 0 ? "" : ",") + gEan.ean;
+                    }
+
 
                     if (id_Shop == 1)
-                        task = Config.hCntMain.GetOstForMorning(date);
+                        task = Config.hCntMain.GetOstForMorning(date, listEan);
                     else
-                        task = Config.hCntSecond.GetOstForMorning(date);
+                        task = Config.hCntSecond.GetOstForMorning(date, listEan);
                     task.Wait();
                     DataTable dtOst = task.Result;
 
 
-                    foreach (DataRow row in dtDataPrice.Rows)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
-                            .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
-                        if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
-                        if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";
 
-                        rowCollect = _dtGrp1.AsEnumerable()
-                                .Where(r => r.Field<int>("id") == (Int16)row["grpAtfer"]);
-                        if (rowCollect.Count() > 0) row["nameGrpAtfer"] = rowCollect.First()["cName"];
+                    DataTable dtTmp = dtDataPrice.Clone();
 
-                        rowCollect = _dtGrp1.AsEnumerable()
-                            .Where(r => r.Field<int>("id") == (Int16)row["grpBefore"]);
-                        if (rowCollect.Count() > 0) row["nameGrpBefore"] = rowCollect.First()["cName"];
+                    var query = from g in dtDataPrice.AsEnumerable()
+                                join dep in dtDeps.AsEnumerable() on g.Field<int>("id_departments") equals dep.Field<int>("id")
+                                join g1 in _dtGrp1.AsEnumerable() on g.Field<Int16>("grpAtfer") equals g1.Field<int>("id")
+                                join g2 in _dtGrp1.AsEnumerable() on g.Field<Int16>("grpBefore") equals g2.Field<int>("id")
+                                join k in dtOst.AsEnumerable() on new { Q = g.Field<string>("ean").Trim() } equals new { Q = k.Field<string>("ean").Trim() } into t1
+                                from leftjoin1 in t1.DefaultIfEmpty()
+                                select dtTmp.LoadDataRow(new object[]
+                                                               {
+                                                                    g.Field<int>("id_departments"),
+                                                                    dep.Field<string>("cName"),
+                                                                    g.Field<string>("ean"),
+                                                                    g.Field<string>("nameAtfer"),
+                                                                    g.Field<string>("nameBefore"),
+                                                                    g.Field<Int16>("grpAtfer"),
+                                                                    g.Field<Int16>("grpBefore"),
+                                                                    g1.Field<string>("cName"),
+                                                                    g2.Field<string>("cName"),
+                                                                    g.Field<DateTime>("timeAfter"),
+                                                                    g.Field<DateTime>("timeBefore"),
+                                                                    g.Field<Int16>("dptAtfer"),
+                                                                    g.Field<Int16>("dptBefore"),
+                                                                    g.Field<Int16>("taxAtfer"),
+                                                                    g.Field<Int16>("taxBefore"),
+                                                                    g.Field<string>("ulAfter"),
+                                                                    g.Field<string>("ulBefore"),
+                                                                    g.Field<string>("sender"),
+                                                                    g.Field<string>("FIO"),
+                                                                    g.Field<string>("nameAtfer").ToLower().Contains("резерв"),
+                                                                    g.Field<decimal>("priceAfter"),
+                                                                    g.Field<decimal>("priceBefore"),
+                                                                    g.Field<decimal>("countForSell"),
+                                                                    //g.Field<decimal>("ostForMorning"),
+                                                                    leftjoin1 == null ? null : leftjoin1.Field<decimal?>("netto"),
+                                                               }, false);
 
-                        row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
 
-                        if (dtOst != null && dtOst.Rows.Count > 0)
-                        {
-                            rowCollect = dtOst.AsEnumerable()
-                                    .Where(r => r.Field<string>("ean") == (string)row["ean"]);
-                            if (rowCollect.Count() > 0) row["ostForMorning"] = rowCollect.First()["netto"];
-                        }
-                    }
+                    dtDataPrice = query
+                    .CopyToDataTable();
+
+
+
+
+                    //foreach (DataRow row in dtDataPrice.Rows)
+                    //{
+                    //    EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
+                    //        .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
+                    //    if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
+                    //    if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";
+
+                    //    rowCollect = _dtGrp1.AsEnumerable()
+                    //            .Where(r => r.Field<int>("id") == (Int16)row["grpAtfer"]);
+                    //    if (rowCollect.Count() > 0) row["nameGrpAtfer"] = rowCollect.First()["cName"];
+
+                    //    rowCollect = _dtGrp1.AsEnumerable()
+                    //        .Where(r => r.Field<int>("id") == (Int16)row["grpBefore"]);
+                    //    if (rowCollect.Count() > 0) row["nameGrpBefore"] = rowCollect.First()["cName"];
+
+                    //    row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
+
+                    //    if (dtOst != null && dtOst.Rows.Count > 0)
+                    //    {
+                    //        rowCollect = dtOst.AsEnumerable()
+                    //                .Where(r => r.Field<string>("ean") == (string)row["ean"]);
+                    //        if (rowCollect.Count() > 0) row["ostForMorning"] = rowCollect.First()["netto"];
+                    //    }
+                    //}
                 }
 
+                #endregion
 
+                #region "Новые товары"
                 if (id_Shop == 1)
                     task = Config.hCntMainKassRealizz.GetNewGoods(date);
                 else
@@ -191,17 +288,51 @@ namespace ViewChangeGoods
 
                 if (dtDataNewGoods != null && dtDataNewGoods.Rows.Count > 0)
                 {
-                    foreach (DataRow row in dtDataNewGoods.Rows)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
-                            .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
-                        if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
-                        if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";                                         
 
-                        row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
-                    }
+                    DataTable dtTmp = dtDataNewGoods.Clone();
+
+                    var query = from g in dtDataNewGoods.AsEnumerable()
+                                join k in dtDeps.AsEnumerable() on g.Field<int>("id_departments") equals k.Field<int>("id")
+                                join g1 in _dtGrp1.AsEnumerable() on g.Field<Int16>("grpAtfer") equals g1.Field<int>("id")                                
+                                select dtTmp.LoadDataRow(new object[]
+                                                               {
+                                                                    g.Field<int>("id_departments"),
+                                                                    k.Field<string>("cName"),
+                                                                    g.Field<string>("ean"),
+                                                                    g.Field<string>("nameAtfer"),                                                                    
+                                                                    g.Field<Int16>("grpAtfer"),                                                                    
+                                                                    g1.Field<string>("cName"),                                                                    
+                                                                    g.Field<DateTime>("timeAfter"),                                                                    
+                                                                    g.Field<Int16>("dptAtfer"),                                                                    
+                                                                    g.Field<Int16>("taxAtfer"),                                                                    
+                                                                    g.Field<string>("ulAfter"),                                                                    
+                                                                    g.Field<string>("sender"),
+                                                                    g.Field<decimal>("priceAfter"),
+                                                                    g.Field<string>("FIO"),
+                                                                    g.Field<string>("nameAtfer").ToLower().Contains("резерв")
+
+                                                               }, false);
+
+
+                    dtDataNewGoods = query
+                    .CopyToDataTable();
+
+
+
+
+
+                    //foreach (DataRow row in dtDataNewGoods.Rows)
+                    //{
+                    //    EnumerableRowCollection<DataRow> rowCollect = dtDeps.AsEnumerable()
+                    //        .Where(r => r.Field<int>("id") == (int)row["id_departments"]);
+                    //    if (rowCollect.Count() > 0) row["nameDep"] = rowCollect.First()["cName"];
+                    //    if ((int)row["id_departments"] == 6) row["nameDep"] = "ВВО";                                         
+
+                    //    row["isReserv"] = ((string)row["nameAtfer"]).ToLower().Contains("резерв");
+                    //}
                 }
 
+                #endregion
 
                 Config.DoOnUIThread(() =>
                 {
@@ -430,6 +561,21 @@ namespace ViewChangeGoods
 
         private void frmViewChangeGoods_Load(object sender, EventArgs e)
         {
+            Task<DataTable> task = Config.hCntMain.getShop(false);
+            task.Wait();
+
+            dtShop = task.Result;
+
+            cmbShop.DataSource = dtShop;
+            cmbShop.DisplayMember = "cName";
+            cmbShop.ValueMember = "id";
+
+            getCombi();
+            getData();
+        }
+
+        private void getCombi()
+        {
             Task<DataTable> task = Config.hCntMain.getDepartments(true);
             task.Wait();
 
@@ -439,21 +585,11 @@ namespace ViewChangeGoods
             cmbDeps.DisplayMember = "cName";
             cmbDeps.ValueMember = "id";
 
-            task = Config.hCntMain.getShop(false);
-            task.Wait();
-
-            dtShop = task.Result;
-
-            cmbShop.DataSource = dtShop;
-            cmbShop.DisplayMember = "cName";
-            cmbShop.ValueMember = "id";
-
             task = Config.hCntMain.getGrp1(true);
             task.Wait();
             dtGrp1 = task.Result;
 
             cmbDeps_SelectionChangeCommitted(null, null);
-            getData();
         }
 
         #region "Изменение товара"

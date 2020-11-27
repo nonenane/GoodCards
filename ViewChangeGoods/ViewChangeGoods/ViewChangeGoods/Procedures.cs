@@ -187,14 +187,15 @@ namespace ViewChangeGoods
             return dtResult;
         }
 
-        public async Task<DataTable> GetOstForMorning(DateTime date)
+        public async Task<DataTable> GetOstForMorning(DateTime date,string listEan)
         {
             ap.Clear();
             ap.Add(date);
+            ap.Add(listEan);
 
             DataTable dtResult = executeProcedure("[Goods_Card_New].[GetOstForMorning]",
-                 new string[1] { "@date" },
-                 new DbType[1] { DbType.Date }, ap);
+                 new string[2] { "@date", "@listEan" },
+                 new DbType[2] { DbType.Date, DbType.String }, ap);
 
             return dtResult;
         }

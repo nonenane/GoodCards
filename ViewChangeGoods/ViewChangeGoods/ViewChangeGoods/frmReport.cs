@@ -150,7 +150,7 @@ namespace ViewChangeGoods
 
                 setWidthColumn(indexRow, 1, 8, report);
                 setWidthColumn(indexRow, 2, 12, report);
-                setWidthColumn(indexRow, 3, 12, report);
+                setWidthColumn(indexRow, 3, 14, report);
 
                 setWidthColumn(indexRow, 4, 50, report);
                 setWidthColumn(indexRow, 5, 10, report);
